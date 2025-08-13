@@ -1,0 +1,81 @@
+import { useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { useIsMobile } from "@/hooks/use-mobile";
+import CustomCursor from "@/components/CustomCursor";
+import ExitIntentPopup from "@/components/ExitIntentPopup";
+import Index from "./pages/Index";
+import About from "./pages/About";
+import Blog from "./pages/Blog";
+import Help from "./pages/Help";
+import Dashboard from "./pages/Dashboard";
+import NotFound from "./pages/NotFound";
+import PrivacyPolicy from "@/components/legal/PrivacyPolicy";
+import TermsOfUse from "@/components/legal/TermsOfUse";
+import LGPDCompliance from "@/components/legal/LGPDCompliance";
+import CookiePolicy from "@/components/legal/CookiePolicy";
+import BlogPost1 from "@/components/blog/BlogPost1";
+import BlogPost2 from "@/components/blog/BlogPost2";
+import BlogPost3 from "@/components/blog/BlogPost3";
+import BlogPost4 from "@/components/blog/BlogPost4";
+import BlogPost5 from "@/components/blog/BlogPost5";
+import BlogPost6 from "@/components/blog/BlogPost6";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+const queryClient = new QueryClient();
+
+const App = () => {
+  const isMobile = useIsMobile();
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+      offset: 100,
+      easing: 'ease-out-cubic',
+    });
+
+    // Hide default cursor only on desktop
+    if (!isMobile) {
+      document.body.style.cursor = 'none';
+    }
+    
+    return () => {
+      document.body.style.cursor = 'auto';
+    };
+  }, [isMobile]);
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        {!isMobile && <CustomCursor />}
+        <ExitIntentPopup />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/sobre" element={<About />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/dna-criativo-performance-marketing-2024" element={<BlogPost1 />} />
+            <Route path="/blog/5-padroes-dna-infoprodutor-brasileiro" element={<BlogPost2 />} />
+            <Route path="/blog/machine-learning-vs-intuicao-criacao-publicitaria" element={<BlogPost3 />} />
+            <Route path="/blog/case-study-startup-500-vendas-dna-criativo" element={<BlogPost4 />} />
+            <Route path="/blog/psicologia-cores-dna-criativo-dados" element={<BlogPost5 />} />
+            <Route path="/blog/futuro-ecommerce-ia-gerativa-criacao-anuncios" element={<BlogPost6 />} />
+            <Route path="/ajuda" element={<Help />} />
+            <Route path="/contato" element={<Help />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/privacidade" element={<PrivacyPolicy />} />
+            <Route path="/termos" element={<TermsOfUse />} />
+            <Route path="/lgpd" element={<LGPDCompliance />} />
+            <Route path="/cookies" element={<CookiePolicy />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
+
+export default App;

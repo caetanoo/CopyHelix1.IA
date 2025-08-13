@@ -1,0 +1,398 @@
+import { useState, useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { ArrowRight, Calendar, CheckCircle, Mail, Phone, User, Loader2 } from "lucide-react";
+import { useViewportSize, useIsTouchDevice } from "@/hooks/use-mobile";
+
+const DemoSection = () => {
+  const { category } = useViewportSize();
+  const isTouch = useIsTouchDevice();
+  const formRef = useRef<HTMLFormElement>(null);
+  
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    phone: ""
+  });
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<{[key: string]: string}>({});
+  const [focusedField, setFocusedField] = useState<string | null>(null);
+
+  const validateField = (name: string, value: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    switch (name) {
+      case 'name':
+        return value.length < 2 ? 'Nome deve ter pelo menos 2 caracteres' : '';
+      case 'email':
+        return !emailRegex.test(value) ? 'Email inválido' : '';
+      case 'company':
+        return value.length < 2 ? 'Nome da empresa é obrigatório' : '';
+      default:
+        return '';
+    }
+  };
+
+  // Debounced validation for better mobile UX
+  const [validationTimeout, setValidationTimeout] = useState<{[key: string]: NodeJS.Timeout}>({});
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    
+    // Clear previous error immediately if user is typing
+    if (fieldErrors[name]) {
+      setFieldErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
+    
+    // Clear previous timeout
+    if (validationTimeout[name]) {
+      clearTimeout(validationTimeout[name]);
+    }
+    
+    // Delayed validation - longer delay on mobile for better UX
+    const delay = category?.includes('mobile') ? 600 : 400;
+    const timeoutId = setTimeout(() => {
+      const error = validateField(name, value);
+      setFieldErrors(prev => ({
+        ...prev,
+        [name]: error
+      }));
+    }, delay);
+    
+    setValidationTimeout(prev => ({
+      ...prev,
+      [name]: timeoutId
+    }));
+  };
+
+  const handleFocus = (fieldName: string) => {
+    setFocusedField(fieldName);
+  };
+
+  const handleBlur = () => {
+    setFocusedField(null);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setErrorMessage("");
+
+    try {
+      // Salvar no banco de dados via API
+      const response = await fetch('/api/contacts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: `Solicitação de Decodificação DNA - ${formData.company}`,
+          message: `Empresa: ${formData.company}\nTelefone: ${formData.phone || 'Não informado'}`,
+          priority: 'high',
+          source: 'dna_form'
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao enviar solicitação');
+      }
+
+      // Track conversion
+      if (typeof window !== 'undefined' && (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag) {
+        (window as unknown as { gtag: (...args: unknown[]) => void }).gtag('event', 'conversion', {
+          'send_to': 'AW-CONVERSION_ID/CONVERSION_LABEL',
+          'event_category': 'engagement',
+          'event_label': 'dna_request',
+          'value': 1
+        });
+      }
+
+      // Facebook Pixel
+      if (typeof window !== 'undefined' && (window as unknown as { fbq?: (...args: unknown[]) => void }).fbq) {
+        (window as unknown as { fbq: (...args: unknown[]) => void }).fbq('track', 'Lead', {
+          content_name: 'DNA Decoding Request',
+          content_category: 'form_submission'
+        });
+      }
+
+      setIsSuccess(true);
+      
+      // Reset form after success
+      setTimeout(() => {
+        setFormData({ name: "", email: "", company: "", phone: "" });
+        setIsSuccess(false);
+      }, 3000);
+
+    } catch (error) {
+      setErrorMessage("Erro ao enviar solicitação. Tente novamente ou entre em contato diretamente.");
+      console.error('Form submission error:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const benefits = [
+    "Sequenciamento genético do seu criativo vencedor",
+    "Análise genética completa do seu criativo em tempo real",
+    "Mapeamento completo do DNA de sucesso", 
+    "Desconto especial vitalício para os primeiros usuários"
+  ];
+
+  return (
+    <section id="contact" className="py-20 relative">
+      <div className="container-wide">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+          {/* Left Content */}
+          <div className={`space-y-8 ${category?.includes('mobile') ? 'text-center' : ''}`}>
+            <div className="space-y-6">
+              <div className={`inline-flex items-center justify-center p-3 rounded-full bg-accent/10 border border-accent/20 ${
+                category?.includes('mobile') ? 'mx-auto' : ''
+              }`}>
+                <Calendar className="w-8 h-8 text-accent" />
+              </div>
+              
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight">
+                Decodifique o DNA dos seus Criativos
+              </h2>
+              
+              <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed">
+                Transforme seus melhores criativos em fórmulas replicáveis de sucesso
+              </p>
+            </div>
+
+            {/* Benefits */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold text-foreground">
+                O que acontece no seu laboratório genético exclusivo:
+              </h3>
+              <div className="space-y-3">
+                {benefits.map((benefit, index) => (
+                  <div key={index} className={`flex items-start space-x-3 ${
+                    category?.includes('mobile') ? 'justify-center text-center max-w-md mx-auto' : ''
+                  }`}>
+                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span className="text-muted-foreground">{benefit}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Pre-sale Focus */}
+            <div className={`p-6 rounded-xl bg-gradient-to-r from-primary/10 to-secondary/10 border-2 border-primary/30 ${
+              category?.includes('mobile') ? 'text-center' : ''
+            }`}>
+              <div className={`flex items-center mb-3 ${
+                category?.includes('mobile') ? 'justify-center space-x-2' : 'space-x-4'
+              }`}>
+                <div className="flex -space-x-2">
+                  {[...Array(4)].map((_, i) => (
+                    <div key={i} className="w-8 h-8 rounded-full bg-gradient-to-br from-primary/40 to-secondary/40 border-2 border-background flex items-center justify-center">
+                      <span className="text-xs font-semibold text-foreground">
+                        {String.fromCharCode(65 + i)}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                <span className="text-sm text-primary font-bold">ACESSO ESPECIAL</span>
+              </div>
+              <p className="text-sm text-foreground font-medium">
+                <span className="text-primary font-bold">🎆 ACESSO LIMITADO:</span> Apenas 50 vagas para os primeiros usuários! 
+                Acesso exclusivo ao laboratório genético + <span className="text-primary font-bold">desconto especial vitalício</span>.
+              </p>
+              <p className="text-xs text-muted-foreground mt-2">
+                Condições exclusivas reveladas na análise personalizada.
+              </p>
+            </div>
+          </div>
+
+          {/* Right Form */}
+          <div className={`glass-card ${category?.includes('mobile') ? 'text-center' : ''}`}>
+            <div className="mb-8">
+              <h3 className={`font-bold text-foreground mb-2 ${
+                category === 'mobile-small' ? 'text-xl' : 'text-2xl'
+              }`}>
+                🧬 Laboratório Genético Personalizado
+              </h3>
+              <p className={`text-muted-foreground ${
+                category === 'mobile-small' ? 'text-sm' : 'text-base'
+              }`}>
+                Decodificação genética ao vivo em até 2 horas
+              </p>
+            </div>
+
+            {/* Success Message */}
+            {isSuccess && (
+              <div className="mb-6 p-4 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800">
+                <div className="flex items-center">
+                  <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400 mr-2" />
+                  <p className="text-green-800 dark:text-green-200 font-medium">
+                    Solicitação enviada com sucesso! A nossa equipe entrará em contato em até 2 horas.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Error Message */}
+            {errorMessage && (
+              <div className="mb-6 p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800">
+                <p className="text-red-800 dark:text-red-200">{errorMessage}</p>
+              </div>
+            )}
+
+            <form 
+              ref={formRef}
+              onSubmit={handleSubmit} 
+              className={`mobile-form ${category === 'mobile-small' ? 'space-y-4' : 'space-y-6'} ${
+                category?.includes('mobile') ? 'text-left' : ''
+              }`}
+            >
+              <div className="grid grid-cols-1 gap-4">
+                <div className="relative">
+                  <User className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground
+                    ${focusedField === 'name' ? 'text-primary' : ''}`} />
+                  <Input
+                    type="text"
+                    name="name"
+                    placeholder="Nome completo"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    onFocus={() => handleFocus('name')}
+                    onBlur={handleBlur}
+                    className={`pl-10 bg-background border-border focus:border-primary transition-all duration-200
+                      ${category === 'mobile-small' ? 'h-12 text-base' : 'h-12 text-base'}
+                      ${fieldErrors.name ? 'border-red-500' : ''}
+                      ${focusedField === 'name' ? 'ring-2 ring-primary/20' : ''}`}
+                    required
+                    autoComplete="name"
+                    aria-describedby={fieldErrors.name ? 'name-error' : undefined}
+                  />
+                  {fieldErrors.name && (
+                    <p id="name-error" className="text-red-500 text-sm mt-1" role="alert">
+                      {fieldErrors.name}
+                    </p>
+                  )}
+                </div>
+
+                <div className="relative">
+                  <Mail className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground
+                    ${focusedField === 'email' ? 'text-primary' : ''}`} />
+                  <Input
+                    type="email"
+                    name="email"
+                    placeholder="Email corporativo"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    onFocus={() => handleFocus('email')}
+                    onBlur={handleBlur}
+                    className={`pl-10 bg-background border-border focus:border-primary transition-all duration-200
+                      ${category === 'mobile-small' ? 'h-12 text-base' : 'h-12 text-base'}
+                      ${fieldErrors.email ? 'border-red-500' : ''}
+                      ${focusedField === 'email' ? 'ring-2 ring-primary/20' : ''}`}
+                    required
+                    autoComplete="email"
+                    inputMode="email"
+                    aria-describedby={fieldErrors.email ? 'email-error' : undefined}
+                  />
+                  {fieldErrors.email && (
+                    <p id="email-error" className="text-red-500 text-sm mt-1" role="alert">
+                      {fieldErrors.email}
+                    </p>
+                  )}
+                </div>
+
+                <div className="relative">
+                  <Input
+                    type="text"
+                    name="company"
+                    placeholder="Empresa"
+                    value={formData.company}
+                    onChange={handleInputChange}
+                    className={`h-12 bg-background border-border focus:border-primary ${fieldErrors.company ? 'border-red-500' : ''}`}
+                    required
+                    autoComplete="organization"
+                  />
+                  {fieldErrors.company && (
+                    <p className="text-red-500 text-sm mt-1">{fieldErrors.company}</p>
+                  )}
+                </div>
+
+                <div className="relative">
+                  <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                  <Input
+                    type="tel"
+                    name="phone"
+                    placeholder="Telefone (opcional)"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className="pl-10 h-12 bg-background border-border focus:border-primary"
+                    autoComplete="tel"
+                    inputMode="tel"
+                  />
+                </div>
+              </div>
+
+              <Button 
+                type="submit" 
+                className={`btn-primary w-full group touch-target transition-all duration-300
+                  ${category === 'mobile-small' ? 'h-12 text-base' : 'h-12 text-base'}
+                  ${isTouch ? 'active:scale-95' : ''}
+                  ${isLoading ? 'opacity-80' : ''}`}
+                disabled={isLoading || isSuccess}
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                    {category === 'mobile-small' ? 'Enviando...' : 'Enviando solicitação...'}
+                  </>
+                ) : isSuccess ? (
+                  <>
+                    <CheckCircle className="w-5 h-5 mr-2" />
+                    {category === 'mobile-small' ? 'Enviado!' : 'Enviado com Sucesso!'}
+                  </>
+                ) : (
+                  <>
+                    {category === 'mobile-small' ? 'QUERO DECODIFICAR AGORA' : 'QUERO DECODIFICAR MEU DNA CRIATIVO'}
+                    <ArrowRight className={`w-5 h-5 ml-2 transition-transform duration-200
+                      ${isTouch ? '' : 'group-hover:translate-x-1'}`} />
+                  </>
+                )}
+              </Button>
+
+              <p className="text-xs text-muted-foreground text-center">
+                Ao enviar seus dados, você concorda com a nossa{" "}
+                <a href="/privacidade" className="text-primary hover:underline">Política de Privacidade</a>{" "}
+                e os <a href="/termos" className="text-primary hover:underline">Termos de Uso</a>.
+              </p>
+            </form>
+
+            <div className="mt-8 pt-6 border-t border-border/30">
+              <div className="text-center">
+                <p className="text-sm text-muted-foreground mb-2">
+                  Resposta garantida em
+                </p>
+                <p className="text-2xl font-bold text-primary">
+                  &lt; 2 horas
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default DemoSection;
