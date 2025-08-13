@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, Globe } from "lucide-react";
 import { useViewportSize, useIsTouchDevice } from "@/hooks/use-mobile";
 import { useLocation, useNavigate } from "react-router-dom";
-import logo from "@/assets/logo.png";
+import Logo from "@/components/Logo";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -82,22 +82,10 @@ const Header = () => {
       <div className="container-wide">
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
-          <motion.div 
+          <Logo 
             className="flex items-center"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.2 }}
-          >
-            <button 
-              onClick={() => handleNavigation('/')}
-              className="cursor-hover flex items-center"
-            >
-              <img 
-                src={logo} 
-                alt="CopyHelix.ai" 
-                className="h-8 sm:h-9 md:h-10 w-auto object-contain max-w-[200px] sm:max-w-[220px] md:max-w-[240px]"
-              />
-            </button>
-          </motion.div>
+            onClick={() => handleNavigation('/')}
+          />
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">

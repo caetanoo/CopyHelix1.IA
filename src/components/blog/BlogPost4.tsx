@@ -175,7 +175,7 @@ const BlogPost4 = () => {
             </p>
 
             <ol>
-              <li><strong>Autenticidade supera produção:</strong> Depoimentos reais > vídeos produzidos</li>
+              <li><strong>Autenticidade supera produção:</strong> Depoimentos reais &gt; vídeos produzidos</li>
               <li><strong>Teste sistemático:</strong> Pequenas melhorias compostas geram grandes resultados</li>
               <li><strong>DNA replicável:</strong> Elementos vencedores podem ser adaptados para diferentes campanhas</li>
             </ol>

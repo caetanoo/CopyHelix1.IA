@@ -52,3 +52,6 @@ ehthumbs.db
 # Backup files
 *.backup
 *.bak
+
+# Embedded repositories
+claude-code-subagents/

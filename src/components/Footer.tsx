@@ -1,6 +1,6 @@
 import { Mail, Phone, MapPin, X } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
-import logo from "@/assets/logo.png";
+import Logo from "@/components/Logo";
 
 const Footer = () => {
   const location = useLocation();
@@ -51,16 +51,10 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
           {/* Brand */}
           <div className="lg:col-span-2 space-y-6">
-            <button 
+            <Logo 
               onClick={() => handleNavigation('/')}
               className="inline-block"
-            >
-              <img 
-                src={logo} 
-                alt="CopyHelix.ai" 
-                className="h-8 w-auto object-contain max-w-[160px]"
-              />
-            </button>
+            />
             <p className="text-muted-foreground max-w-sm">
               A primeira IA que decodifica o DNA dos criativos vencedores e replica esse sucesso infinitamente.
             </p>
