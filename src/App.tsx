@@ -5,6 +5,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { useIsMobile } from "@/hooks/use-mobile";
 import CustomCursor from "@/components/CustomCursor";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
+import MobileBottomNav from "@/components/MobileBottomNav";
+import StickyMobileCTA from "@/components/StickyMobileCTA";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Blog from "./pages/Blog";
@@ -55,6 +57,8 @@ const App = () => {
 {/* Custom Cursor disabled for mobile performance */}
         {/* {!isMobile && <CustomCursor />} */}
         <ExitIntentPopup />
+        <MobileBottomNav />
+        <StickyMobileCTA />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />

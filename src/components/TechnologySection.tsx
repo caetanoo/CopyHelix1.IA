@@ -1,6 +1,51 @@
 import { Brain, Database, Cpu, Shield, Zap, BarChart3 } from "lucide-react";
+import { useViewportSize } from "@/hooks/use-mobile";
 
 const TechnologySection = () => {
+  const { category } = useViewportSize();
+  
+  // Hide complex technology section on mobile
+  if (category?.includes('mobile')) {
+    return (
+      <section id="technology" className="py-10 relative">
+        <div className="container-wide">
+          <div className="text-center">
+            <div className="inline-flex items-center justify-center p-3 rounded-full bg-secondary/10 border border-secondary/20 mb-4">
+              <Cpu className="w-6 h-6 text-secondary" />
+            </div>
+            <h2 className="text-xl font-bold text-foreground leading-tight max-w-sm mx-auto mb-3">
+              Tecnologia Diferencial
+            </h2>
+            <p className="text-sm text-muted-foreground max-w-xs mx-auto mb-6">
+              Primeira plataforma com Voice Clone + Lip Sync para marketing
+            </p>
+            
+            <div className="glass-card max-w-md mx-auto p-6">
+              <div className="flex items-center justify-center space-x-4 mb-4">
+                <Brain className="w-8 h-8 text-primary" />
+                <div className="text-left">
+                  <div className="text-sm font-semibold text-primary">DNA Engine™</div>
+                  <div className="text-xs text-muted-foreground">IA Proprietária</div>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4 text-xs">
+                <div className="text-center p-2 bg-background/50 rounded-lg">
+                  <div className="font-bold text-primary">5M+</div>
+                  <div className="text-muted-foreground">Criativos</div>
+                </div>
+                <div className="text-center p-2 bg-background/50 rounded-lg">
+                  <div className="font-bold text-primary">90%</div>
+                  <div className="text-muted-foreground">Precisão</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+  
   const technologies = [
     {
       icon: Brain,

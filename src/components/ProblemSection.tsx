@@ -1,6 +1,11 @@
-import { AlertTriangle, TrendingDown, DollarSign, Clock } from "lucide-react";
+import { AlertTriangle, TrendingDown, DollarSign, Clock, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from "react";
+import { useViewportSize } from "@/hooks/use-mobile";
 
 const ProblemSection = () => {
+  const { category } = useViewportSize();
+  const [currentProblem, setCurrentProblem] = useState(0);
+  
   const problems = [
     {
       icon: TrendingDown,

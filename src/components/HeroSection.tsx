@@ -104,82 +104,88 @@ const HeroSection = () => {
               </motion.div>
             </motion.div>
 
-            {/* Main Headline - Mobile-optimized typography */}
-            <motion.div 
-              className="space-y-4"
-              variants={itemVariants}
-            >
-              <h1 className={`font-bold tracking-tight
-                ${category === 'mobile-small' ? 'text-3xl leading-[1.2]' : 
-                  category === 'mobile-medium' ? 'text-4xl leading-[1.15]' :
-                  category === 'mobile-large' ? 'text-5xl leading-[1.1]' :
-                  'text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-[1.1]'}`}>
-                <motion.span 
-                  className="text-white block"
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.5, duration: 0.8 }}
-                >
-                  Pare de Criar Criativos
-                </motion.span>
-                <motion.span 
-                  className="text-white block"
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.7, duration: 0.8 }}
-                >
-                  do{" "}
+            {/* Mobile: Simplified Single Message */}
+            {category?.includes('mobile') ? (
+              <motion.div 
+                className="space-y-4 text-center"
+                variants={itemVariants}
+              >
+                <h1 className="text-3xl font-bold text-white leading-tight">
+                  Clone Criativos
+                  <span className="block text-primary">que Já Converteram</span>
+                </h1>
+                <p className="text-base text-muted-foreground leading-relaxed max-w-sm mx-auto">
+                  Pare de criar do zero. Clone cientificamente o que já funcionou.
+                </p>
+              </motion.div>
+            ) : (
+              /* Desktop: Full Animated Headlines */
+              <motion.div 
+                className="space-y-4"
+                variants={itemVariants}
+              >
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.1]">
                   <motion.span 
-                    className="bg-gradient-to-r from-primary via-primary-glow to-secondary bg-clip-text text-transparent drop-shadow-sm"
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.9, duration: 0.8, type: "spring" }}
-                    whileHover={{ scale: 1.05 }}
+                    className="text-white block"
+                    initial={{ opacity: 0, x: -50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.5, duration: 0.8 }}
                   >
-                    Zero
+                    Pare de Criar Criativos
                   </motion.span>
-                </motion.span>
-                <motion.span 
-                  className="text-white block"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.1, duration: 0.8 }}
-                >
-                  Clone os Que{" "}
                   <motion.span 
-                    className="bg-gradient-to-r from-secondary via-primary to-primary-glow bg-clip-text text-transparent drop-shadow-sm"
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 1.3, duration: 0.8, type: "spring" }}
-                    whileHover={{ scale: 1.05 }}
+                    className="text-white block"
+                    initial={{ opacity: 0, x: -50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.7, duration: 0.8 }}
                   >
-                    Converteram
+                    do{" "}
+                    <motion.span 
+                      className="bg-gradient-to-r from-primary via-primary-glow to-secondary bg-clip-text text-transparent drop-shadow-sm"
+                      initial={{ opacity: 0, scale: 0.5 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.9, duration: 0.8, type: "spring" }}
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      Zero
+                    </motion.span>
                   </motion.span>
-                </motion.span>
-              </h1>
-            </motion.div>
+                  <motion.span 
+                    className="text-white block"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1.1, duration: 0.8 }}
+                  >
+                    Clone os Que{" "}
+                    <motion.span 
+                      className="bg-gradient-to-r from-secondary via-primary to-primary-glow bg-clip-text text-transparent drop-shadow-sm"
+                      initial={{ opacity: 0, scale: 0.5 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 1.3, duration: 0.8, type: "spring" }}
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      Converteram
+                    </motion.span>
+                  </motion.span>
+                </h1>
 
-            {/* Main Value Proposition - Mobile-optimized */}
-            <motion.div 
-              className={category === 'mobile-small' ? 'max-w-full' : 'max-w-lg'}
-              variants={itemVariants}
-            >
-              <h2 className={`font-bold text-primary leading-tight mb-4
-                ${category === 'mobile-small' ? 'text-lg' : 
-                  category === 'mobile-medium' ? 'text-xl' :
-                  category === 'mobile-large' ? 'text-xl' :
-                  'text-xl md:text-2xl'}`}>
-                Primeira Plataforma que Aprende com Criativos Validados
-              </h2>
-              <p className={`text-muted-foreground/80 leading-relaxed
-                ${category === 'mobile-small' ? 'text-sm' : 'text-base'}`}>
-                A única plataforma que transforma seus criativos vencedores em máquina infinita de variações.
-              </p>
-            </motion.div>
+                <motion.div 
+                  className="max-w-lg"
+                  variants={itemVariants}
+                >
+                  <h2 className="text-xl md:text-2xl font-bold text-primary leading-tight mb-4">
+                    Primeira Plataforma que Aprende com Criativos Validados
+                  </h2>
+                  <p className="text-base text-muted-foreground/80 leading-relaxed">
+                    A única plataforma que transforma seus criativos vencedores em máquina infinita de variações.
+                  </p>
+                </motion.div>
+              </motion.div>
+            )}
 
-            {/* CTA Button - Mobile-optimized */}
+            {/* CTA Button - Simplified mobile */}
             <motion.div 
-              className={category === 'mobile-small' ? 'pt-4' : 'pt-6'}
+              className="pt-6"
               variants={itemVariants}
             >
               <motion.div 
@@ -189,12 +195,10 @@ const HeroSection = () => {
                 <Button 
                   className={`bg-primary hover:bg-primary/90 text-black font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 touch-target
                     ${isTouch ? 'active:scale-95' : 'cursor-hover'}
-                    ${category === 'mobile-small' ? 'px-6 py-3 text-base w-full' : 
-                      category === 'mobile-medium' || category === 'mobile-large' ? 'px-7 py-3.5 text-base w-full sm:w-auto' :
-                      'px-8 py-4 text-lg'}`}
+                    ${category?.includes('mobile') ? 'px-8 py-4 text-base w-full max-w-xs mx-auto' : 'px-8 py-4 text-lg'}`}
                   onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                 >
-                  {category === 'mobile-small' ? 'Criar Criativos com IA' : 'Decodificar DNA dos Meus Criativos'}
+                  {category?.includes('mobile') ? 'Ver Como Funciona' : 'Decodificar DNA dos Meus Criativos'}
                 </Button>
               </motion.div>
             </motion.div>
