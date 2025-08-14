@@ -21,6 +21,8 @@ const DemoSection = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [fieldErrors, setFieldErrors] = useState<{[key: string]: string}>({});
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [formProgress, setFormProgress] = useState(0);
+  const [nextFieldToFocus, setNextFieldToFocus] = useState<string | null>(null);
 
   const validateField = (name: string, value: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -37,6 +39,12 @@ const DemoSection = () => {
     }
   };
 
+  const calculateProgress = () => {
+    const requiredFields = ['name', 'email', 'company'];
+    const filledFields = requiredFields.filter(field => formData[field as keyof typeof formData].trim().length > 0);
+    return (filledFields.length / requiredFields.length) * 100;
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -44,12 +52,29 @@ const DemoSection = () => {
       [name]: value
     }));
     
+    // Update progress
+    const newProgress = calculateProgress();
+    setFormProgress(newProgress);
+    
     // Clear errors immediately when user starts typing
     if (fieldErrors[name]) {
       setFieldErrors(prev => ({
         ...prev,
         [name]: ''
       }));
+    }
+
+    // Auto-focus next field on mobile for better flow
+    if (category?.includes('mobile') && value.trim().length > 0) {
+      const fieldOrder = ['name', 'email', 'company', 'phone'];
+      const currentIndex = fieldOrder.indexOf(name);
+      if (currentIndex >= 0 && currentIndex < fieldOrder.length - 1) {
+        // Validate current field before auto-advancing
+        const error = validateField(name, value);
+        if (!error) {
+          setNextFieldToFocus(fieldOrder[currentIndex + 1]);
+        }
+      }
     }
   };
 
@@ -67,6 +92,21 @@ const DemoSection = () => {
       ...prev,
       [name]: error
     }));
+
+    // Auto-focus next field after slight delay
+    if (nextFieldToFocus && category?.includes('mobile')) {
+      setTimeout(() => {
+        const nextField = document.getElementById(nextFieldToFocus);
+        if (nextField) {
+          nextField.focus();
+          // Add haptic feedback for smooth progression
+          if (navigator.vibrate) {
+            navigator.vibrate(30);
+          }
+        }
+        setNextFieldToFocus(null);
+      }, 100);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -242,6 +282,22 @@ const DemoSection = () => {
               </div>
             )}
 
+            {/* Progress Bar - Mobile Only */}
+            {category?.includes('mobile') && formProgress > 0 && (
+              <div className="mb-4">
+                <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
+                  <span>Progresso do formulário</span>
+                  <span>{Math.round(formProgress)}%</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div 
+                    className="bg-primary h-2 rounded-full transition-all duration-300 ease-out"
+                    style={{ width: `${formProgress}%` }}
+                  />
+                </div>
+              </div>
+            )}
+
             <form 
               ref={formRef}
               onSubmit={handleSubmit} 
@@ -254,6 +310,7 @@ const DemoSection = () => {
                   <User className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground
                     ${focusedField === 'name' ? 'text-primary' : ''}`} />
                   <Input
+                    id="name"
                     type="text"
                     name="name"
                     placeholder="Nome completo"
@@ -267,6 +324,7 @@ const DemoSection = () => {
                       ${focusedField === 'name' ? 'ring-2 ring-primary/20' : ''}`}
                     required
                     autoComplete="name"
+                    autoCapitalize="words"
                     aria-describedby={fieldErrors.name ? 'name-error' : undefined}
                   />
                   {fieldErrors.name && (
@@ -280,6 +338,7 @@ const DemoSection = () => {
                   <Mail className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground
                     ${focusedField === 'email' ? 'text-primary' : ''}`} />
                   <Input
+                    id="email"
                     type="email"
                     name="email"
                     placeholder="Email corporativo"
@@ -293,7 +352,9 @@ const DemoSection = () => {
                       ${focusedField === 'email' ? 'ring-2 ring-primary/20' : ''}`}
                     required
                     autoComplete="email"
+                    autoCapitalize="none"
                     inputMode="email"
+                    spellCheck="false"
                     aria-describedby={fieldErrors.email ? 'email-error' : undefined}
                   />
                   {fieldErrors.email && (
@@ -305,33 +366,45 @@ const DemoSection = () => {
 
                 <div className="relative">
                   <Input
+                    id="company"
                     type="text"
                     name="company"
                     placeholder="Empresa"
                     value={formData.company}
                     onChange={handleInputChange}
+                    onFocus={() => handleFocus('company')}
                     onBlur={handleBlur}
-                    className={`h-12 bg-background border-border focus:border-primary ${fieldErrors.company ? 'border-red-500' : ''}`}
+                    className={`h-12 bg-background border-border focus:border-primary transition-all duration-200
+                      ${fieldErrors.company ? 'border-red-500' : ''}
+                      ${focusedField === 'company' ? 'ring-2 ring-primary/20' : ''}`}
                     required
                     autoComplete="organization"
+                    autoCapitalize="words"
+                    aria-describedby={fieldErrors.company ? 'company-error' : undefined}
                   />
                   {fieldErrors.company && (
-                    <p className="text-red-500 text-sm mt-1">{fieldErrors.company}</p>
+                    <p id="company-error" className="text-red-500 text-sm mt-1" role="alert">
+                      {fieldErrors.company}
+                    </p>
                   )}
                 </div>
 
                 <div className="relative">
                   <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                   <Input
+                    id="phone"
                     type="tel"
                     name="phone"
-                    placeholder="Telefone (opcional)"
+                    placeholder="(11) 99999-9999 (opcional)"
                     value={formData.phone}
                     onChange={handleInputChange}
+                    onFocus={() => handleFocus('phone')}
                     onBlur={handleBlur}
-                    className="pl-10 h-12 bg-background border-border focus:border-primary"
-                    autoComplete="tel"
+                    className={`pl-10 h-12 bg-background border-border focus:border-primary transition-all duration-200
+                      ${focusedField === 'phone' ? 'ring-2 ring-primary/20' : ''}`}
+                    autoComplete="tel-national"
                     inputMode="tel"
+                    pattern="[0-9\s\(\)\-\+]*"
                   />
                 </div>
               </div>

@@ -565,6 +565,12 @@
 
 /* General mobile improvements */
 @media (max-width: 767px) {
+  /* Add bottom padding for mobile navigation */
+  body {
+    padding-bottom: 80px; /* Space for bottom navigation */
+    padding-top: 0; /* Remove top padding since header is not fixed */
+  }
+  
   /* Improve form spacing on mobile */
   .mobile-form {
     @apply space-y-4;
@@ -614,17 +620,20 @@
     @apply grid grid-cols-1 gap-4;
   }
   
-  /* Mobile-optimized typography scale */
+  /* Mobile-optimized typography scale with fluid sizing */
   .mobile-h1 {
     @apply text-2xl font-bold leading-tight;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
   }
   
   .mobile-h2 {
     @apply text-xl font-bold leading-tight;
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
   }
   
   .mobile-h3 {
     @apply text-lg font-semibold leading-tight;
+    font-size: clamp(1.125rem, 3vw, 1.5rem);
   }
   
   /* Mobile-specific CTA styles */

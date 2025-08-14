@@ -44,7 +44,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-background">
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-background pt-12">
       {/* Enhanced Dark Background Effects - matching reference */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background/95 to-background" />
       
@@ -81,42 +81,56 @@ const HeroSection = () => {
           {/* Left Content - matching reference layout */}
           <div className="space-y-8 lg:pr-8">
             
-            {/* Beta Badge - positioned above headline, icon hidden on mobile */}
+            {/* Beta Badge - now shows on mobile too */}
             <motion.div 
-              className="inline-flex"
+              className={`${category?.includes('mobile') ? 'flex justify-center' : 'inline-flex'}`}
               variants={itemVariants}
             >
               <motion.div 
-                className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-sm"
+                className="inline-flex items-center px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-sm"
                 whileHover={!isTouch ? { scale: 1.05, boxShadow: "0 0 20px hsl(var(--primary) / 0.3)" } : {}}
                 whileTap={{ scale: 0.95 }}
               >
-                {/* Hide icon on mobile, show on desktop */}
-                {!category?.includes('mobile') && (
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                  >
-                    <Sparkles className="w-4 h-4 mr-2 text-primary" />
-                  </motion.div>
-                )}
-                <span className="text-sm font-semibold text-primary uppercase tracking-wider">BETA</span>
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                >
+                  <Sparkles className="w-3 h-3 mr-1.5 text-primary" />
+                </motion.div>
+                <span className="text-xs font-semibold text-primary uppercase tracking-wider">BETA</span>
               </motion.div>
             </motion.div>
 
-            {/* Mobile: Simplified Single Message */}
+            {/* Mobile: Beautiful Desktop-like Message */}
             {category?.includes('mobile') ? (
               <motion.div 
                 className="space-y-4 text-center"
                 variants={itemVariants}
               >
-                <h1 className="text-3xl font-bold text-white leading-tight">
-                  Clone Criativos
-                  <span className="block text-primary">que Já Converteram</span>
+                <h1 className="text-3xl sm:text-4xl font-bold leading-normal px-4">
+                  <span className="text-white">
+                    Pare de Criar do{" "}
+                    <span className="bg-gradient-to-r from-primary via-primary-glow to-secondary bg-clip-text text-transparent font-black">
+                      Zero
+                    </span>
+                    ,{" "}
+                  </span>
+                  <span className="text-white">
+                    Clone os Que{" "}
+                    <span className="bg-gradient-to-r from-secondary via-primary to-primary-glow bg-clip-text text-transparent font-black">
+                      Converteram
+                    </span>
+                  </span>
                 </h1>
-                <p className="text-base text-muted-foreground leading-relaxed max-w-sm mx-auto">
-                  Pare de criar do zero. Clone cientificamente o que já funcionou.
-                </p>
+                
+                <div className="space-y-5 max-w-md mx-auto">
+                  <h2 className="text-lg font-bold text-primary leading-relaxed">
+                    Primeira Plataforma que Aprende com Criativos Validados
+                  </h2>
+                  <p className="text-base text-muted-foreground/90 leading-relaxed">
+                    A única plataforma que transforma seus criativos vencedores em máquina infinita de variações.
+                  </p>
+                </div>
               </motion.div>
             ) : (
               /* Desktop: Full Animated Headlines */
@@ -198,13 +212,87 @@ const HeroSection = () => {
                     ${category?.includes('mobile') ? 'px-8 py-4 text-base w-full max-w-xs mx-auto' : 'px-8 py-4 text-lg'}`}
                   onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                 >
-                  {category?.includes('mobile') ? 'Ver Como Funciona' : 'Decodificar DNA dos Meus Criativos'}
+                  {category?.includes('mobile') ? 'Decodificar DNA dos Meus Criativos' : 'Decodificar DNA dos Meus Criativos'}
                 </Button>
               </motion.div>
             </motion.div>
+            
+            {/* Mobile Creative Analysis - After CTA */}
+            {category?.includes('mobile') && (
+              <motion.div 
+                className="pt-8"
+                variants={itemVariants}
+              >
+                <div className="flex items-center justify-center relative">
+                  {/* Background glow effect */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl" />
+                  
+                  {/* Main creative analysis container */}
+                  <div className="relative w-64 h-64 rounded-2xl bg-gradient-to-br from-card/30 to-card/10 border border-primary/30 flex flex-col items-center justify-center backdrop-blur-sm p-6">
+                    {/* Creative Analysis Header */}
+                    <div className="text-center mb-4">
+                      <div className="text-3xl mb-2">🎨</div>
+                      <div className="text-primary font-bold text-sm">Análise Criativa</div>
+                      <div className="text-secondary text-xs opacity-80">DNA Engine</div>
+                    </div>
+                    
+                    {/* Mock Creative Elements */}
+                    <div className="w-full space-y-2">
+                      {/* Creative Element 1 */}
+                      <div className="flex items-center justify-between p-2 rounded-lg bg-primary/10">
+                        <span className="text-xs text-muted-foreground">Hook Principal</span>
+                        <div className="flex space-x-1">
+                          <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+                          <div className="w-2 h-2 bg-primary rounded-full animate-pulse" style={{animationDelay: '0.2s'}} />
+                          <div className="w-2 h-2 bg-primary rounded-full animate-pulse" style={{animationDelay: '0.4s'}} />
+                        </div>
+                      </div>
+                      
+                      {/* Creative Element 2 */}
+                      <div className="flex items-center justify-between p-2 rounded-lg bg-secondary/10">
+                        <span className="text-xs text-muted-foreground">CTA Conversão</span>
+                        <div className="flex space-x-1">
+                          <div className="w-2 h-2 bg-secondary rounded-full animate-pulse" style={{animationDelay: '0.1s'}} />
+                          <div className="w-2 h-2 bg-secondary rounded-full animate-pulse" style={{animationDelay: '0.3s'}} />
+                          <div className="w-2 h-2 bg-secondary rounded-full animate-pulse" style={{animationDelay: '0.5s'}} />
+                        </div>
+                      </div>
+                      
+                      {/* Creative Element 3 */}
+                      <div className="flex items-center justify-between p-2 rounded-lg bg-accent/10">
+                        <span className="text-xs text-muted-foreground">Visual Impact</span>
+                        <div className="flex space-x-1">
+                          <div className="w-2 h-2 bg-accent rounded-full animate-pulse" style={{animationDelay: '0.2s'}} />
+                          <div className="w-2 h-2 bg-accent rounded-full animate-pulse" style={{animationDelay: '0.4s'}} />
+                          <div className="w-2 h-2 bg-accent rounded-full animate-pulse" style={{animationDelay: '0.6s'}} />
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* DNA Analysis Status */}
+                    <div className="mt-4 text-center">
+                      <div className="text-xs text-primary font-medium">Analisando DNA...</div>
+                      <div className="w-16 h-1 bg-background/30 rounded-full mt-2 overflow-hidden">
+                        <motion.div 
+                          className="h-full bg-gradient-to-r from-primary to-secondary rounded-full"
+                          animate={{ x: ['-100%', '100%'] }}
+                          transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                        />
+                      </div>
+                    </div>
+                    
+                    {/* Corner tech indicators */}
+                    <div className="absolute top-2 left-2 w-4 h-4 border-l-2 border-t-2 border-primary/50" />
+                    <div className="absolute top-2 right-2 w-4 h-4 border-r-2 border-t-2 border-secondary/50" />
+                    <div className="absolute bottom-2 left-2 w-4 h-4 border-l-2 border-b-2 border-accent/50" />
+                    <div className="absolute bottom-2 right-2 w-4 h-4 border-r-2 border-b-2 border-primary/50" />
+                  </div>
+                </div>
+              </motion.div>
+            )}
           </div>
 
-          {/* Right Visual - Futuristic DNA Animation */}
+          {/* Right Visual - Creative Analysis Animation */}
           <motion.div 
             className="relative flex items-center justify-center lg:justify-end"
             variants={itemVariants}
@@ -219,40 +307,8 @@ const HeroSection = () => {
               {/* Futuristic DNA Component - Desktop only for performance */}
               {!category?.includes('mobile') && <FuturisticDNA />}
               
-              {/* Mobile: Enhanced visual with light animations */}
-              {category?.includes('mobile') && (
-                <div className="flex items-center justify-center h-full relative">
-                  {/* Background glow effect */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl" />
-                  
-                  {/* Main visual container */}
-                  <div className="relative w-64 h-64 rounded-full bg-gradient-to-br from-primary/20 via-secondary/15 to-accent/20 border border-primary/40 flex items-center justify-center backdrop-blur-sm">
-                    {/* Inner circle with animated border */}
-                    <div className="w-48 h-48 rounded-full border-2 border-primary/30 bg-gradient-to-br from-background/20 to-background/10 flex items-center justify-center relative">
-                      {/* DNA Helix visual */}
-                      <div className="text-center relative z-10">
-                        <div className="text-5xl mb-3 animate-pulse">🧬</div>
-                        <div className="text-primary font-bold text-lg">DNA Engine</div>
-                        <div className="text-secondary text-sm opacity-80">Powered by AI</div>
-                      </div>
-                      
-                      {/* Rotating elements */}
-                      <div className="absolute inset-0 animate-spin" style={{ animationDuration: '20s' }}>
-                        <div className="absolute top-2 left-1/2 w-2 h-2 bg-primary rounded-full transform -translate-x-1/2" />
-                        <div className="absolute bottom-2 left-1/2 w-2 h-2 bg-secondary rounded-full transform -translate-x-1/2" />
-                        <div className="absolute left-2 top-1/2 w-2 h-2 bg-accent rounded-full transform -translate-y-1/2" />
-                        <div className="absolute right-2 top-1/2 w-2 h-2 bg-primary rounded-full transform -translate-y-1/2" />
-                      </div>
-                    </div>
-                    
-                    {/* Corner indicators */}
-                    <div className="absolute top-4 left-4 w-6 h-6 border-l-2 border-t-2 border-primary/50 rounded-tl-lg" />
-                    <div className="absolute top-4 right-4 w-6 h-6 border-r-2 border-t-2 border-secondary/50 rounded-tr-lg" />
-                    <div className="absolute bottom-4 left-4 w-6 h-6 border-l-2 border-b-2 border-accent/50 rounded-bl-lg" />
-                    <div className="absolute bottom-4 right-4 w-6 h-6 border-r-2 border-b-2 border-primary/50 rounded-br-lg" />
-                  </div>
-                </div>
-              )}
+              {/* Desktop: Keep original FuturisticDNA */}
+              {!category?.includes('mobile') && <FuturisticDNA />}
               
               {/* Desktop: Additional tech overlay effects */}
               {!category?.includes('mobile') && (
