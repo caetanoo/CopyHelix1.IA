@@ -215,14 +215,37 @@ const HeroSection = () => {
               {/* Futuristic DNA Component - Desktop only for performance */}
               {!category?.includes('mobile') && <FuturisticDNA />}
               
-              {/* Mobile: Simple static visual */}
+              {/* Mobile: Enhanced visual with light animations */}
               {category?.includes('mobile') && (
-                <div className="flex items-center justify-center h-full">
-                  <div className="w-48 h-48 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 border border-primary/30 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="text-4xl mb-2">🧬</div>
-                      <div className="text-primary font-semibold text-sm">DNA Engine</div>
+                <div className="flex items-center justify-center h-full relative">
+                  {/* Background glow effect */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl" />
+                  
+                  {/* Main visual container */}
+                  <div className="relative w-64 h-64 rounded-full bg-gradient-to-br from-primary/20 via-secondary/15 to-accent/20 border border-primary/40 flex items-center justify-center backdrop-blur-sm">
+                    {/* Inner circle with animated border */}
+                    <div className="w-48 h-48 rounded-full border-2 border-primary/30 bg-gradient-to-br from-background/20 to-background/10 flex items-center justify-center relative">
+                      {/* DNA Helix visual */}
+                      <div className="text-center relative z-10">
+                        <div className="text-5xl mb-3 animate-pulse">🧬</div>
+                        <div className="text-primary font-bold text-lg">DNA Engine</div>
+                        <div className="text-secondary text-sm opacity-80">Powered by AI</div>
+                      </div>
+                      
+                      {/* Rotating elements */}
+                      <div className="absolute inset-0 animate-spin" style={{ animationDuration: '20s' }}>
+                        <div className="absolute top-2 left-1/2 w-2 h-2 bg-primary rounded-full transform -translate-x-1/2" />
+                        <div className="absolute bottom-2 left-1/2 w-2 h-2 bg-secondary rounded-full transform -translate-x-1/2" />
+                        <div className="absolute left-2 top-1/2 w-2 h-2 bg-accent rounded-full transform -translate-y-1/2" />
+                        <div className="absolute right-2 top-1/2 w-2 h-2 bg-primary rounded-full transform -translate-y-1/2" />
+                      </div>
                     </div>
+                    
+                    {/* Corner indicators */}
+                    <div className="absolute top-4 left-4 w-6 h-6 border-l-2 border-t-2 border-primary/50 rounded-tl-lg" />
+                    <div className="absolute top-4 right-4 w-6 h-6 border-r-2 border-t-2 border-secondary/50 rounded-tr-lg" />
+                    <div className="absolute bottom-4 left-4 w-6 h-6 border-l-2 border-b-2 border-accent/50 rounded-bl-lg" />
+                    <div className="absolute bottom-4 right-4 w-6 h-6 border-r-2 border-b-2 border-primary/50 rounded-br-lg" />
                   </div>
                 </div>
               )}

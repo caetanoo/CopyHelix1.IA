@@ -37,9 +37,6 @@ const DemoSection = () => {
     }
   };
 
-  // Debounced validation for better mobile UX
-  const [validationTimeout, setValidationTimeout] = useState<{[key: string]: NodeJS.Timeout}>({});
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -47,41 +44,29 @@ const DemoSection = () => {
       [name]: value
     }));
     
-    // Clear previous error immediately if user is typing
+    // Clear errors immediately when user starts typing
     if (fieldErrors[name]) {
       setFieldErrors(prev => ({
         ...prev,
         [name]: ''
       }));
     }
-    
-    // Clear previous timeout
-    if (validationTimeout[name]) {
-      clearTimeout(validationTimeout[name]);
-    }
-    
-    // Delayed validation - longer delay on mobile for better UX
-    const delay = category?.includes('mobile') ? 600 : 400;
-    const timeoutId = setTimeout(() => {
-      const error = validateField(name, value);
-      setFieldErrors(prev => ({
-        ...prev,
-        [name]: error
-      }));
-    }, delay);
-    
-    setValidationTimeout(prev => ({
-      ...prev,
-      [name]: timeoutId
-    }));
   };
 
   const handleFocus = (fieldName: string) => {
     setFocusedField(fieldName);
   };
 
-  const handleBlur = () => {
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     setFocusedField(null);
+    
+    // Validate on blur for better mobile performance
+    const { name, value } = e.target;
+    const error = validateField(name, value);
+    setFieldErrors(prev => ({
+      ...prev,
+      [name]: error
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -320,6 +305,7 @@ const DemoSection = () => {
                     placeholder="Empresa"
                     value={formData.company}
                     onChange={handleInputChange}
+                    onBlur={handleBlur}
                     className={`h-12 bg-background border-border focus:border-primary ${fieldErrors.company ? 'border-red-500' : ''}`}
                     required
                     autoComplete="organization"
@@ -337,6 +323,7 @@ const DemoSection = () => {
                     placeholder="Telefone (opcional)"
                     value={formData.phone}
                     onChange={handleInputChange}
+                    onBlur={handleBlur}
                     className="pl-10 h-12 bg-background border-border focus:border-primary"
                     autoComplete="tel"
                     inputMode="tel"
