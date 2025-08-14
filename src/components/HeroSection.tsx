@@ -120,7 +120,7 @@ const HeroSection = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.5, duration: 0.8 }}
                 >
-                  Ferramenta IA para
+                  Pare de Criar Criativos
                 </motion.span>
                 <motion.span 
                   className="text-white block"
@@ -128,7 +128,7 @@ const HeroSection = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.7, duration: 0.8 }}
                 >
-                  Criar{" "}
+                  do{" "}
                   <motion.span 
                     className="bg-gradient-to-r from-primary via-primary-glow to-secondary bg-clip-text text-transparent drop-shadow-sm"
                     initial={{ opacity: 0, scale: 0.5 }}
@@ -136,7 +136,7 @@ const HeroSection = () => {
                     transition={{ delay: 0.9, duration: 0.8, type: "spring" }}
                     whileHover={{ scale: 1.05 }}
                   >
-                    Criativos
+                    Zero
                   </motion.span>
                 </motion.span>
                 <motion.span 
@@ -145,7 +145,7 @@ const HeroSection = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1.1, duration: 0.8 }}
                 >
-                  que{" "}
+                  Clone os Que{" "}
                   <motion.span 
                     className="bg-gradient-to-r from-secondary via-primary to-primary-glow bg-clip-text text-transparent drop-shadow-sm"
                     initial={{ opacity: 0, scale: 0.5 }}
@@ -153,7 +153,7 @@ const HeroSection = () => {
                     transition={{ delay: 1.3, duration: 0.8, type: "spring" }}
                     whileHover={{ scale: 1.05 }}
                   >
-                    Convertem
+                    Converteram
                   </motion.span>
                 </motion.span>
               </h1>
@@ -170,12 +170,12 @@ const HeroSection = () => {
                 ${category === 'mobile-small' ? 'text-lg' : 
                   category === 'mobile-medium' ? 'text-xl' :
                   category === 'mobile-large' ? 'text-xl' :
-                  'text-2xl md:text-3xl'}`}>
-                Decodifique o DNA dos Criativos Vencedores com IA
+                  'text-xl md:text-2xl'}`}>
+                Primeira Plataforma que Aprende com Criativos Validados
               </h2>
               <p className={`text-muted-foreground/80 leading-relaxed
                 ${category === 'mobile-small' ? 'text-sm' : 'text-base'}`}>
-                Crie templates para infoprodutos e replique automaticamente os elementos que mais convertem. Ideal para infoprodutores brasileiros.
+                A única plataforma que transforma seus criativos vencedores em máquina infinita de variações.
               </p>
             </motion.div>
 

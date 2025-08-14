@@ -1,4 +1,4 @@
-import { Brain, Dna, Zap, ArrowRight } from "lucide-react";
+import { Brain, Dna, Zap, ArrowRight, Mic } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const SolutionSection = () => {
@@ -23,6 +23,13 @@ const SolutionSection = () => {
       title: "Replicação Infinita", 
       description: "Clone os seus sucessos infinitamente, mantendo a herança genética. Variações que preservam 100% do DNA original.",
       features: ["Clonagem ilimitada", "Herança genética", "DNA preservado 100%", "Mutações controladas"]
+    },
+    {
+      step: "04",
+      icon: Mic,
+      title: "Voice Clone + Infinite Scripts",
+      description: "Sua voz, infinitas mensagens. Grave 1 vídeo e gere 50 variações com scripts diferentes, mantendo sua personalidade e DNA de conversão.",
+      features: ["Voice cloning avançado", "Lip sync realista", "Scripts personalizados", "Personalidade preservada"]
     }
   ];
 

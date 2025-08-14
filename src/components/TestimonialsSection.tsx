@@ -16,14 +16,14 @@ const TestimonialsSection = () => {
     },
     {
       name: "Carla Mendes", 
-      role: "E-commerce Owner",
-      company: "Fashion Store",
+      role: "Infoprodutora",
+      company: "Digital Academy",
       image: "/placeholder.svg",
-      quote: "Clonei geneticamente o meu post que gerou R$ 100K. Agora tenho um laboratório infinito do mesmo DNA. O ROI subiu 280% sem criar nada do zero.",
+      quote: "Gravei 1 vídeo falando sobre meu curso e a IA gerou 50 variações com scripts diferentes, mantendo minha voz e personalidade. Primeiro do mercado com essa tecnologia!",
       metrics: {
         icon: Zap,
-        value: "+280%",
-        label: "ROI"
+        value: "1→50x",
+        label: "variações"
       }
     },
     {

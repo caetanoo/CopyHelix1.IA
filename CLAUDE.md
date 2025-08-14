@@ -4,281 +4,222 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-This repository contains the **Claude Code Agent Team** - a comprehensive ecosystem of 76+ specialized AI agent personas designed to work seamlessly with Claude Code's Task tool. The project provides expert-level assistance across the complete spectrum of business and technical challenges, from software development to strategic planning, marketing campaigns to financial analysis.
+This repository contains **CopyHelix.ai** - an AI-powered Creative DNA Analysis Platform built with React, TypeScript, and a modern tech stack. The project includes:
 
-The repository also includes a React-based demo/landing page showcasing the agent capabilities with a modern, scientific-themed design featuring DNA/genetics metaphors and neon colors.
+1. **React Landing Page** - A marketing website showcasing DNA-themed AI creative analysis
+2. **Agent Ecosystem** - 76+ specialized AI agent personas for business and technical tasks
+3. **Express Backend** - API server supporting both Supabase and SQLite databases
+4. **Demo Forms** - Contact forms and meeting schedulers with database integration
 
 ## Architecture
 
-### Core Structure
-**Main Repository Components:**
-- **agents/**: 76+ specialized agent personas across 13+ categories
-- **claude-code-subagents/**: Duplicate agent structure (for compatibility)
-- **src/**: React demo application showcasing agent capabilities
-- **server/**: Express.js backend for demo forms and database
+### Frontend Stack
+- **React 18** with TypeScript for type safety
+- **Vite** for fast development and optimized builds
+- **Tailwind CSS** with custom DNA-themed animations and neon colors
+- **Shadcn/ui** component library for consistent UI
+- **React Router** for SPA navigation
+- **Framer Motion** for advanced animations
 
-### Agent Ecosystem
-**13 Specialized Categories:**
-- **core/**: Core technical development (14 agents)
-- **ai-automation-specialists/**: AI and automation experts (6 agents)
-- **account-team-agents/**: Client relationship management (5 agents)
-- **finance-strategy/**: Financial analysis and strategy (7 agents)
-- **growth-revenue-operations/**: Revenue and growth (7 agents)
-- **market-research-agents/**: Market intelligence (5 agents)
-- **design/**: Design and UX specialists (5 agents)
-- **marketing/**: Marketing and content experts (7 agents)
-- **operations/**: Operations excellence (5 agents)
-- **product/**: Product innovation (3 agents)
-- **project-management/**: Project coordination (3 agents)
-- **testing/**: Quality assurance and testing (5 agents)
-- **specialized-agents/**: Cross-functional specialists (4 agents)
+### Backend Stack
+- **Express.js** server with CORS enabled
+- **Dual Database Support**: Supabase (production) or SQLite (development)
+- **Database Tables**: `meetings`, `contacts`, `demos`
+- **API Proxy**: `/api/*` routes proxy to localhost:3001
 
-### Demo Application Stack
-- **React 18** with TypeScript for agent showcase
-- **Vite** for build tooling and development server
-- **Tailwind CSS** for styling with DNA-themed design
-- **Shadcn/ui** for UI components
-- **Express.js** backend with Supabase/SQLite database
-- **API proxy** from `/api/*` to localhost:3001
+### Project Structure
+```
+src/
+├── components/          # Reusable UI components
+│   ├── ui/             # Shadcn/ui components
+│   ├── blog/           # Blog post components
+│   └── legal/          # Legal compliance components
+├── pages/              # Route components
+├── hooks/              # Custom React hooks
+├── lib/                # Utility functions
+└── assets/             # Images and static files
 
-### Agent Integration
-- **Automatic agent selection** based on context and keywords
-- **Task tool integration** with Claude Code for seamless workflow
-- **Multi-agent coordination** for complex business initiatives
-- **Domain-specific expertise** across technical and business functions
-- **Evidence-based approaches** with industry best practices
+server/
+├── server.cjs          # SQLite backend
+├── server-supabase.cjs # Supabase backend
+└── database/           # SQLite database files
+
+agents/                 # 76+ AI agent personas
+claude-code-subagents/  # Duplicate agent structure
+```
 
 ## Development Commands
 
-### Core Commands
+### Primary Commands
 ```bash
 # Install dependencies
 npm install
 
-# Start demo application (localhost:8080)
+# Start development server (frontend only, port 8080)
 npm run dev
 
-# Start backend server with Supabase (localhost:3001)
+# Start backend server with Supabase (port 3001)
 npm run server
 
-# Start backend server with SQLite (localhost:3001)
+# Start backend server with SQLite (port 3001)
 npm run server:sqlite
 
-# Start full stack demo (both frontend and backend)
+# Start full stack (both frontend and backend)
 npm run dev:full
 
-# Build demo application
+# Build for production
 npm run build
 
-# Run linter
+# Lint code
 npm run lint
 
 # Preview production build
 npm run preview
-
-# Setup agents (bash script)
-./setup-agents.sh
 ```
 
-### Agent Usage Workflow
-1. **Describe your challenge** to Claude Code in natural language
-2. **Agent selection** happens automatically based on context keywords
-3. **Specialized assistance** delivered with domain-specific expertise
-4. **Multi-agent coordination** for complex cross-functional initiatives
-5. **Evidence-based solutions** with industry best practices
+### Database Setup
+The project supports two database configurations:
+- **Development**: SQLite database at `server/database/copyhelix.db`
+- **Production**: Supabase with environment variables in `.env`
 
-### Task Tool Integration
-```python
-# Explicit agent selection
-Task(
-  description="Analyze market opportunity",
-  prompt="Conduct TAM analysis for our AI accounting software",
-  subagent_type="tam-market-sizing-mx"
-)
+## Key Configuration Files
 
-# Multi-agent coordination
-Task(
-  description="Complete product launch",
-  prompt="Launch new SaaS product from concept to market",
-  subagent_type="product-manager-orchestrator"
-)
+### Development Configuration
+- `vite.config.ts` - Vite configuration with proxy to backend
+- `tailwind.config.ts` - Custom Tailwind theme with DNA animations
+- `tsconfig.json` - TypeScript configuration with path aliases
+- `eslint.config.js` - ESLint rules with React hooks
+
+### Environment Variables
+Required environment variables (see `.env.example`):
+```
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_KEY=your_supabase_service_role_key
+PORT=3001
+DB_TYPE=supabase
 ```
 
-## Key Agent Categories
+## Design System
 
-### Technical Excellence (14 agents)
-- **systems-architect**: Enterprise architecture, scalability planning
-- **senior-software-engineer**: Complex feature implementation
-- **frontend-ux-specialist**: User experience and accessibility
-- **backend-reliability-engineer**: APIs, databases, infrastructure
-- **security-threat-analyst**: Cybersecurity and compliance
-- **performance-optimizer**: Speed optimization and efficiency
-- **code-analyzer-debugger**: Bug investigation and troubleshooting
+### Color Scheme
+The project uses a DNA/genetics-themed design with neon colors:
+- **Primary**: Neon green (`hsl(142 100% 50%)`)
+- **Secondary**: Electric blue (`hsl(217 100% 65%)`)
+- **Accent**: Bright orange (`hsl(38 92% 50%)`)
+- **Background**: Dark theme with gradients
 
-### Business Strategy & Finance (14 agents)
-- **business-strategist-fs**: Strategic planning and development
-- **financial-analyst-fs**: Financial modeling and ROI analysis
-- **pricing-strategist-fs**: Revenue optimization and pricing
-- **competitive-intelligence-mx**: Market research and analysis
-- **investment-analyst-fs**: Investment strategy and evaluation
-- **risk-assessor-fs**: Risk management and mitigation
-- **tam-market-sizing-mx**: Market opportunity assessment
+### Custom Animations
+- `dna-rotate` - 15s continuous DNA helix rotation
+- `orbit-slow/medium/fast` - Orbital particle animations
+- `glow-pulse` - Pulsing glow effects
+- `float` - Floating element animations
 
-### Marketing & Growth (14 agents)
-- **growth-hacker-gr**: Viral growth and rapid scaling
-- **content-creator**: Content strategy and creation
-- **brand-guardian**: Brand strategy and consistency
-- **customer-acquisition-gr**: Lead generation and conversion
-- **tiktok-strategist**: Platform-specific social media
-- **partnership-strategist-gr**: Strategic partnerships
-- **retention-specialist-gr**: Customer retention and loyalty
+## Component Patterns
 
-## Agent Selection Guidelines
+### Page Structure
+Each page component follows this pattern:
+```tsx
+// Import statements
+import { ComponentName } from '@/components/ComponentName';
 
-### Automatic Agent Matching
-Agents are selected based on context keywords and domain expertise:
-
-**Technical Keywords → Technical Agents**
-- "performance", "optimize" → performance-optimizer
-- "security", "vulnerability" → security-threat-analyst  
-- "component", "UI", "responsive" → frontend-ux-specialist
-- "API", "server", "database" → backend-reliability-engineer
-
-**Business Keywords → Business Agents**
-- "market", "competitor" → competitive-intelligence-mx
-- "pricing", "revenue" → pricing-strategist-fs
-- "growth", "scaling" → growth-hacker-gr
-- "financial", "ROI" → financial-analyst-fs
-
-**Marketing Keywords → Marketing Agents**
-- "content", "blog" → content-creator
-- "brand", "identity" → brand-guardian
-- "social media", "viral" → platform specialists
-- "acquisition", "leads" → customer-acquisition-gr
-
-## Usage Patterns
-
-### Single Agent Tasks
-**Technical Development:**
-```
-"Create a responsive checkout component with accessibility features"
-→ Activates: frontend-ux-specialist
+export default function PageName() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black">
+      {/* Page content with DNA theme styling */}
+    </div>
+  );
+}
 ```
 
-**Business Strategy:**
-```
-"Analyze the SaaS market opportunity for our AI tool"
-→ Activates: tam-market-sizing-mx
-```
-
-**Financial Planning:**
-```
-"Create a 3-year financial model with scenario planning"
-→ Activates: financial-analyst-fs
+### Form Components
+Forms use React Hook Form with Zod validation:
+```tsx
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 ```
 
-### Multi-Agent Workflows
-**Complete Product Launch:**
+### Styling Conventions
+- Use Tailwind classes with custom DNA theme colors
+- Implement responsive design mobile-first
+- Add glow effects and neon styling for interactive elements
+- Use CSS custom properties for dynamic theming
+
+## Backend API Structure
+
+### Database Schema
+Three main tables with standard fields:
+- `meetings` - Meeting scheduler data
+- `contacts` - General contact form submissions  
+- `demos` - Demo request submissions
+
+### API Endpoints
+- `POST /api/meetings` - Schedule meeting
+- `POST /api/contacts` - Submit contact form
+- `POST /api/demos` - Request demo
+
+## Agent System Integration
+
+The project includes 76+ specialized AI agent personas across 13 categories:
+- **Core Technical** (14 agents) - Software development lifecycle
+- **Business Strategy** (7 agents) - Financial planning, strategy
+- **Marketing** (7 agents) - Content creation, social media
+- **Operations** (5 agents) - Process optimization, analytics
+- And 9 more specialized categories
+
+### Using Agents with Claude Code
+Agents are automatically selected based on context keywords or can be explicitly invoked:
 ```
-"Launch a new SaaS product from concept to market"
-→ Orchestrates: tam-market-sizing-mx → business-strategist-fs → 
-                prd-writer → systems-architect → content-creator
-```
+# Automatic selection
+"Debug this slow API endpoint" → code-analyzer-debugger
+"Analyze competitor pricing" → pricing-strategist-fs
 
-## Agent Best Practices
-
-### Getting the Right Agent
-1. **Be specific about domain** (technical vs business vs marketing)
-2. **Use relevant keywords** (see Agent Selection Guidelines)
-3. **Mention specific deliverables** (financial model, marketing strategy, etc.)
-4. **Provide business context** (industry, stage, goals)
-
-### Multi-Agent Coordination
-1. **Request product-manager-orchestrator** for complex initiatives
-2. **Break down into functional areas** (strategy, finance, marketing, ops)
-3. **Use phrases like** "coordinate across teams" or "end-to-end workflow"
-4. **Specify both technical and business requirements**
-
-### Explicit Agent Selection
-```
+# Explicit selection  
 "Use the financial-analyst-fs to create ROI projections"
-"Have the brand-guardian review our marketing materials"
-"Use the competitive-intelligence-mx to analyze market position"
 ```
 
-## Agent Quality Standards
+## Build and Deployment
 
-### All agents follow:
-- **Domain-specific expertise** with proven methodologies
-- **Evidence-based recommendations** backed by data
-- **Industry best practices** and frameworks
-- **Cross-functional awareness** of how domains interconnect
-- **Scalable solutions** from startup to enterprise
-- **ROI consciousness** with business impact focus
+### Build Process
+- Vite builds to `dist/` directory
+- Automatic code splitting for vendor, router, and UI libraries
+- Optimized for Vercel deployment with SPA routing
 
-### Quality indicators:
-- Agent uses industry-specific terminology
-- Provides evidence-based insights
-- Demonstrates domain expertise depth
-- Offers actionable, specific recommendations
+### Deployment Configuration
+- `vercel.json` configures SPA routing and asset caching
+- Environment variables must be set in Vercel dashboard
+- Backend can be deployed as Vercel Serverless Functions
 
-## Agent Decision Matrix
+## Development Workflow
 
-### Technical Domains
-| Keywords | Agent | Expertise |
-|----------|-------|----------|
-| "performance", "optimize" | performance-optimizer | Technical bottleneck analysis |
-| "security", "vulnerability" | security-threat-analyst | Cybersecurity and compliance |
-| "component", "UI" | frontend-ux-specialist | User experience and design |
-| "API", "server" | backend-reliability-engineer | Server systems and infrastructure |
-| "debug", "error" | code-analyzer-debugger | Systematic troubleshooting |
+### Starting Development
+1. Copy `.env.example` to `.env` and configure variables
+2. Run `npm install` to install dependencies  
+3. Use `npm run dev:full` for full-stack development
+4. Frontend available at `http://localhost:8080`
+5. Backend API at `http://localhost:3001`
 
-### Business Strategy Domains  
-| Keywords | Agent | Expertise |
-|----------|-------|----------|
-| "market", "competitor" | competitive-intelligence-mx | Market research and analysis |
-| "pricing", "revenue" | pricing-strategist-fs | Revenue optimization |
-| "growth", "scaling" | growth-hacker-gr | Rapid growth strategies |
-| "financial", "ROI" | financial-analyst-fs | Financial modeling |
-| "risk", "compliance" | risk-assessor-fs | Risk management |
+### Code Style
+- TypeScript strict mode disabled for rapid development
+- ESLint configured with React hooks rules
+- Unused variables warnings disabled for development speed
+- Path aliases configured (`@/` maps to `./src/`)
+
+### Testing
+- No formal testing framework currently configured
+- Manual testing through development servers
+- Component testing through Storybook-style development
 
 ## Troubleshooting
 
-### Agent Not Activating
-- Use domain-specific keywords (see decision matrix)
-- Be specific about business context and deliverables
-- Try explicit activation: "Use the [agent-name] to..."
-- Mention specific frameworks or methodologies
+### Common Issues
+- **API calls failing**: Check backend server is running on port 3001
+- **Database errors**: Verify environment variables and database connection
+- **Build errors**: Check for TypeScript errors and missing dependencies
+- **Styling issues**: Ensure Tailwind classes match the custom theme configuration
 
-### Getting Generic Advice
-- Specify industry and market context
-- Mention specific business metrics or goals
-- Reference particular frameworks or methodologies
-- Ask for specialized approach or domain expertise
-
-### Multi-Agent Coordination Issues
-- Request product-manager-orchestrator for complex projects
-- Break initiatives into clear functional areas
-- Be explicit about both technical and business requirements
-- Use phrases like "coordinate across business functions"
-
-## Quick Start
-
-### First Agent Interaction (5 minutes)
-1. **Verify Claude Code access**: "Hello, can you see my project files?"
-2. **Try different domains**:
-   - Technical: "Debug this slow API endpoint"
-   - Business: "Analyze competitor pricing strategy"
-   - Marketing: "Create viral TikTok content strategy"
-3. **Validate specialization**: Did agent use domain-specific expertise?
-
-### Demo Application (Optional)
-- The React app showcases agent capabilities with DNA-themed design
-- Use `npm run dev:full` to start both frontend (8080) and backend (3001)
-- Demo forms integrate with Supabase/SQLite for testing
-
-### Agent Repository Structure
-- Each agent is defined in markdown files under `agents/[category]/`
-- Duplicate structure in `claude-code-subagents/` for compatibility
-- 76+ agents across 13+ specialized categories
-- Use `./setup-agents.sh` for automated setup
+### Database Switching
+To switch between SQLite and Supabase:
+1. Update `DB_TYPE` environment variable
+2. Use appropriate server command (`npm run server` vs `npm run server:sqlite`)
+3. Ensure corresponding environment variables are set

@@ -4,15 +4,15 @@ const TechnologySection = () => {
   const technologies = [
     {
       icon: Brain,
-      title: "IA Generativa Avançada",
-      description: "Modelos proprietários treinados em milhões de criativos vencedores para identificar padrões de sucesso.",
-      features: ["Deep Learning", "Computer Vision", "NLP Avançado"]
+      title: "Voice Clone + Lip Sync para Marketing",
+      description: "PRIMEIRO do mercado a combinar clonagem de voz + sincronização labial para criativos. Grave 1 vídeo → gere 50 variações com sua voz.",
+      features: ["Voice Cloning Avançado", "Lip Sync Realista", "Pipeline Automatizado"]
     },
     {
       icon: Database,
-      title: "Aprendizado de Máquina",
-      description: "Algoritmos avançados que aprendem continuamente com cada criativo analisado.",
-      features: ["Machine Learning", "Neural Networks", "Continuous Learning"]
+      title: "Pipeline Completo: Estático → Vídeo → Variações",
+      description: "Único com transformação completa. Maximizamos valor de cada criativo original através de todas as mídias.",
+      features: ["Transformação Completa", "Multi-formato", "ROI Maximizado"]
     },
     {
       icon: Cpu,
@@ -48,11 +48,11 @@ const TechnologySection = () => {
             <Cpu className="w-8 h-8 text-secondary" />
           </div>
           <h2 className="section-heading max-w-4xl mx-auto">
-            Tecnologia proprietária que revoluciona a criação
+            8 Vantagens Competitivas que Ninguém Mais Tem
           </h2>
           <p className="body-large max-w-3xl mx-auto">
-            A nossa plataforma combina IA avançada, análise genética e big data para decodificar 
-            o DNA dos criativos vencedores com precisão científica.
+            <span className="text-primary font-semibold">Primeiro do mercado</span> a combinar Voice Clone + Lip Sync para marketing. 
+            <span className="text-secondary font-semibold">Única plataforma</span> com pipeline completo: Estático → Vídeo → Variações.
           </p>
         </div>
 
