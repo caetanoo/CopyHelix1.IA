@@ -7,10 +7,10 @@ const TestimonialsSection = () => {
       role: "Infoprodutor",
       company: "Negócio Digital",
       image: "/placeholder.svg",
-      quote: "Meu VSL que convertia 15% virou 47 variações com a mesma performance. O laboratório genético identificou os genes emocionais que eu nunca percebi sozinho.",
+      quote: "Meu VSL que convertia 15% virou múltiplas variações com a mesma performance. O laboratório genético identificou os genes emocionais que eu nunca percebi sozinho.",
       metrics: {
         icon: TrendingUp,
-        value: "47x",
+        value: "Multi",
         label: "variações"
       }
     },
@@ -19,10 +19,10 @@ const TestimonialsSection = () => {
       role: "Infoprodutora",
       company: "Digital Academy",
       image: "/placeholder.svg",
-      quote: "Gravei 1 vídeo falando sobre meu curso e a IA gerou 50 variações com scripts diferentes, mantendo minha voz e personalidade. Primeiro do mercado com essa tecnologia!",
+      quote: "Gravei um vídeo falando sobre meu curso e a IA gerou múltiplas variações com scripts diferentes, mantendo minha voz e personalidade. Primeiro do mercado com essa tecnologia!",
       metrics: {
         icon: Zap,
-        value: "1→50x",
+        value: "Multi",
         label: "variações"
       }
     },
@@ -31,11 +31,11 @@ const TestimonialsSection = () => {
       role: "Agency Owner", 
       company: "Digital Growth",
       image: "/placeholder.svg",
-      quote: "A herança genética dos criativos dos meus clientes é preservada 100%. Consigo entregar 10x mais variações, mantendo o DNA de sucesso.",
+      quote: "A herança genética dos criativos dos meus clientes é preservada 100%. Consigo entregar muito mais variações, mantendo o DNA de sucesso.",
       metrics: {
         icon: Users,
-        value: "10x",
-        label: "capacidade"
+        value: "Multi",
+        label: "variações"
       }
     }
   ];

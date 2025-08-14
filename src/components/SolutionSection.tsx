@@ -28,7 +28,7 @@ const SolutionSection = () => {
       step: "04",
       icon: Mic,
       title: "Voice Clone + Infinite Scripts",
-      description: "Sua voz, infinitas mensagens. Grave 1 vídeo e gere 50 variações com scripts diferentes, mantendo sua personalidade e DNA de conversão.",
+      description: "Sua voz, infinitas mensagens. Grave um vídeo e gere múltiplas variações com scripts diferentes, mantendo sua personalidade e DNA de conversão.",
       features: ["Voice cloning avançado", "Lip sync realista", "Scripts personalizados", "Personalidade preservada"]
     }
   ];

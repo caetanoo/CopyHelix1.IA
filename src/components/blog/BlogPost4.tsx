@@ -118,7 +118,7 @@ const BlogPost4 = () => {
 
             <h3>Fase 1: Análise Genética</h3>
             <p>
-              Decompusemos os 50 criativos com melhor performance da EduTech, identificando elementos-chave:
+              Decompusemos os criativos com melhor performance da EduTech, identificando elementos-chave:
             </p>
 
             <blockquote>
@@ -129,7 +129,7 @@ const BlogPost4 = () => {
 
             <h3>Fase 2: Replicação Inteligente</h3>
             <p>
-              Desenvolvemos 15 variações criativas mantendo o "DNA vencedor":
+              Desenvolvemos múltiplas variações criativas mantendo o "DNA vencedor":
             </p>
 
             <ul>

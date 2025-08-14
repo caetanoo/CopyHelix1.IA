@@ -186,7 +186,7 @@ const BlogPost2 = () => {
                   <div>
                     <h4 className="font-semibold text-foreground mb-2">Escassez de Quantidade</h4>
                     <p className="text-muted-foreground">
-                      "Apenas 50 vagas restantes (347 já preenchidas)"
+                      "Vagas limitadas disponíveis"
                     </p>
                   </div>
                 </div>

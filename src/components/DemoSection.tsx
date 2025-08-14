@@ -203,7 +203,7 @@ const DemoSection = () => {
                 </span>
               </div>
               <p className={`text-foreground font-medium ${category?.includes('mobile') ? 'text-xs' : 'text-sm'}`}>
-                Apenas 50 vagas! Acesso exclusivo + <span className="text-primary font-bold">desconto vitalício</span>.
+                Vagas limitadas! Acesso exclusivo + <span className="text-primary font-bold">desconto vitalício</span>.
               </p>
             </div>
           </div>

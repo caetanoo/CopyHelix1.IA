@@ -5,12 +5,12 @@ const TechnologySection = () => {
     {
       icon: Brain,
       title: "Voice Clone + Lip Sync para Marketing",
-      description: "PRIMEIRO do mercado a combinar clonagem de voz + sincronização labial para criativos. Grave 1 vídeo → gere 50 variações com sua voz.",
-      features: ["Voice Cloning Avançado", "Lip Sync Realista", "Pipeline Automatizado"]
+      description: "PRIMEIRO do mercado a combinar clonagem de voz + sincronização labial para criativos. Grave um vídeo → gere múltiplas variações com sua voz.",
+      features: ["Voice Cloning Avançado", "Lip Sync Realista", "Fluxo Automatizado"]
     },
     {
       icon: Database,
-      title: "Pipeline Completo: Estático → Vídeo → Variações",
+      title: "Fluxo Completo: Estático → Vídeo → Variações",
       description: "Único com transformação completa. Maximizamos valor de cada criativo original através de todas as mídias.",
       features: ["Transformação Completa", "Multi-formato", "ROI Maximizado"]
     },
@@ -52,7 +52,7 @@ const TechnologySection = () => {
           </h2>
           <p className="body-large max-w-3xl mx-auto">
             <span className="text-primary font-semibold">Primeiro do mercado</span> a combinar Voice Clone + Lip Sync para marketing. 
-            <span className="text-secondary font-semibold">Única plataforma</span> com pipeline completo: Estático → Vídeo → Variações.
+            <span className="text-secondary font-semibold">Única plataforma</span> com fluxo completo: Estático → Vídeo → Variações.
           </p>
         </div>
 
