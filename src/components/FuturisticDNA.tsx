@@ -9,7 +9,11 @@ const FuturisticDNA = () => {
     const container = containerRef.current;
     if (!container) return;
 
-    // Create floating particles
+    // Disable heavy particle animations on mobile for performance
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) return;
+
+    // Create floating particles (desktop only)
     const createParticle = () => {
       const particle = document.createElement("div");
       const particleType = Math.random();
@@ -40,10 +44,10 @@ const FuturisticDNA = () => {
         if (container.contains(particle)) {
           container.removeChild(particle);
         }
-      }, 8000);
+      }, 6000); // Reduced from 8000 to 6000
     };
 
-    const interval = setInterval(createParticle, 400);
+    const interval = setInterval(createParticle, 800); // Reduced frequency from 400 to 800
     return () => clearInterval(interval);
   }, []);
 

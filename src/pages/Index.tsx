@@ -41,51 +41,11 @@ const Index = () => {
       <Header />
       <main>
         <HeroSection />
-        <motion.div
-          data-aos="fade-up"
-          data-aos-duration="1200"
-          data-aos-offset="150"
-          data-aos-easing="ease-out-cubic"
-          className="scroll-animate"
-        >
-          <ProblemSection />
-        </motion.div>
-        <motion.div
-          data-aos="slide-left"
-          data-aos-duration="1200"
-          data-aos-offset="150"
-          data-aos-delay="100"
-          className="scroll-animate"
-        >
-          <SolutionSection />
-        </motion.div>
-        <motion.div
-          data-aos="zoom-in"
-          data-aos-duration="1200"
-          data-aos-offset="150"
-          data-aos-delay="200"
-          className="scroll-animate"
-        >
-          <TestimonialsSection />
-        </motion.div>
-        <motion.div
-          data-aos="slide-right"
-          data-aos-duration="1200"
-          data-aos-offset="150"
-          data-aos-delay="100"
-          className="scroll-animate"
-        >
-          <TechnologySection />
-        </motion.div>
-        <motion.div
-          data-aos="fade-up"
-          data-aos-duration="1200"
-          data-aos-offset="150"
-          data-aos-delay="200"
-          className="scroll-animate"
-        >
-          <DemoSection />
-        </motion.div>
+        <ProblemSection />
+        <SolutionSection />
+        <TestimonialsSection />
+        <TechnologySection />
+        <DemoSection />
       </main>
       <motion.div
         data-aos="fade-up"

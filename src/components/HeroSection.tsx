@@ -48,24 +48,28 @@ const HeroSection = () => {
       {/* Enhanced Dark Background Effects - matching reference */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background/95 to-background" />
       
-      {/* Animated Glowing orbs for depth */}
-      <motion.div 
-        className="absolute top-1/3 left-1/5 w-80 h-80 bg-primary/20 rounded-full blur-[100px]"
-        variants={glowVariants}
-        animate="animate"
-      />
-      <motion.div 
-        className="absolute bottom-1/3 right-1/5 w-96 h-96 bg-secondary/15 rounded-full blur-[120px]"
-        variants={glowVariants}
-        animate="animate"
-        style={{ animationDelay: "2s" }}
-      />
-      <motion.div 
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-gradient-radial from-primary/10 via-transparent to-secondary/10 blur-3xl"
-        variants={glowVariants}
-        animate="animate"
-        style={{ animationDelay: "4s" }}
-      />
+      {/* Animated Glowing orbs for depth - Disabled on mobile for performance */}
+      {!category?.includes('mobile') && (
+        <>
+          <motion.div 
+            className="absolute top-1/3 left-1/5 w-80 h-80 bg-primary/20 rounded-full blur-[100px]"
+            variants={glowVariants}
+            animate="animate"
+          />
+          <motion.div 
+            className="absolute bottom-1/3 right-1/5 w-96 h-96 bg-secondary/15 rounded-full blur-[120px]"
+            variants={glowVariants}
+            animate="animate"
+            style={{ animationDelay: "2s" }}
+          />
+          <motion.div 
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-gradient-radial from-primary/10 via-transparent to-secondary/10 blur-3xl"
+            variants={glowVariants}
+            animate="animate"
+            style={{ animationDelay: "4s" }}
+          />
+        </>
+      )}
       
       <div className="container-wide relative z-10">
         <motion.div 
