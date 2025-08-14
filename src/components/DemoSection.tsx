@@ -141,7 +141,7 @@ const DemoSection = () => {
       <div className="container-wide">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left Content */}
-          <div className={`space-y-8 ${category?.includes('mobile') ? 'text-center' : ''}`}>
+          <div className={`${category?.includes('mobile') ? 'space-y-6 text-center' : 'space-y-8'}`}>
             <div className="space-y-6">
               <div className={`inline-flex items-center justify-center p-3 rounded-full bg-accent/10 border border-accent/20 ${
                 category?.includes('mobile') ? 'mx-auto' : ''
@@ -149,56 +149,61 @@ const DemoSection = () => {
                 <Calendar className="w-8 h-8 text-accent" />
               </div>
               
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight">
+              <h2 className={`font-bold text-foreground leading-tight ${
+                category?.includes('mobile') ? 'text-2xl' : 'text-3xl sm:text-4xl md:text-5xl'
+              }`}>
                 Decodifique o DNA dos seus Criativos
               </h2>
               
-              <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed">
+              <p className={`text-muted-foreground leading-relaxed ${
+                category?.includes('mobile') ? 'text-base' : 'text-lg sm:text-xl'
+              }`}>
                 Transforme seus melhores criativos em fórmulas replicáveis de sucesso
               </p>
             </div>
 
-            {/* Benefits */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-foreground">
-                O que acontece no seu laboratório genético exclusivo:
-              </h3>
-              <div className="space-y-3">
-                {benefits.map((benefit, index) => (
-                  <div key={index} className={`flex items-start space-x-3 ${
-                    category?.includes('mobile') ? 'justify-center text-center max-w-md mx-auto' : ''
-                  }`}>
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                    <span className="text-muted-foreground">{benefit}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Pre-sale Focus */}
-            <div className={`p-6 rounded-xl bg-gradient-to-r from-primary/10 to-secondary/10 border-2 border-primary/30 ${
-              category?.includes('mobile') ? 'text-center' : ''
-            }`}>
-              <div className={`flex items-center mb-3 ${
-                category?.includes('mobile') ? 'justify-center space-x-2' : 'space-x-4'
-              }`}>
-                <div className="flex -space-x-2">
-                  {[...Array(4)].map((_, i) => (
-                    <div key={i} className="w-8 h-8 rounded-full bg-gradient-to-br from-primary/40 to-secondary/40 border-2 border-background flex items-center justify-center">
-                      <span className="text-xs font-semibold text-foreground">
-                        {String.fromCharCode(65 + i)}
-                      </span>
+            {/* Benefits - Reduced on mobile */}
+            {!category?.includes('mobile') && (
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-foreground">
+                  O que acontece no seu laboratório genético exclusivo:
+                </h3>
+                <div className="space-y-3">
+                  {benefits.map((benefit, index) => (
+                    <div key={index} className="flex items-start space-x-3">
+                      <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">{benefit}</span>
                     </div>
                   ))}
                 </div>
-                <span className="text-sm text-primary font-bold">ACESSO ESPECIAL</span>
               </div>
-              <p className="text-sm text-foreground font-medium">
-                <span className="text-primary font-bold">🎆 ACESSO LIMITADO:</span> Apenas 50 vagas para os primeiros usuários! 
-                Acesso exclusivo ao laboratório genético + <span className="text-primary font-bold">desconto especial vitalício</span>.
-              </p>
-              <p className="text-xs text-muted-foreground mt-2">
-                Condições exclusivas reveladas na análise personalizada.
+            )}
+            
+            {/* Mobile: Simplified benefits */}
+            {category?.includes('mobile') && (
+              <div className="space-y-3">
+                <div className="flex items-center justify-center space-x-2 text-sm text-primary font-semibold">
+                  <CheckCircle className="w-4 h-4" />
+                  <span>Análise genética em até 2 horas</span>
+                </div>
+                <div className="flex items-center justify-center space-x-2 text-sm text-primary font-semibold">
+                  <CheckCircle className="w-4 h-4" />
+                  <span>Desconto especial para primeiros usuários</span>
+                </div>
+              </div>
+            )}
+
+            {/* Pre-sale Focus - Simplified on mobile */}
+            <div className={`rounded-xl bg-gradient-to-r from-primary/10 to-secondary/10 border-2 border-primary/30 text-center ${
+              category?.includes('mobile') ? 'p-4' : 'p-6'
+            }`}>
+              <div className="flex items-center justify-center space-x-2 mb-2">
+                <span className={`text-primary font-bold ${category?.includes('mobile') ? 'text-xs' : 'text-sm'}`}>
+                  🎆 ACESSO LIMITADO
+                </span>
+              </div>
+              <p className={`text-foreground font-medium ${category?.includes('mobile') ? 'text-xs' : 'text-sm'}`}>
+                Apenas 50 vagas! Acesso exclusivo + <span className="text-primary font-bold">desconto vitalício</span>.
               </p>
             </div>
           </div>
