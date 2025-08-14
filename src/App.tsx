@@ -21,8 +21,9 @@ import BlogPost3 from "@/components/blog/BlogPost3";
 import BlogPost4 from "@/components/blog/BlogPost4";
 import BlogPost5 from "@/components/blog/BlogPost5";
 import BlogPost6 from "@/components/blog/BlogPost6";
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+// AOS disabled for mobile performance
+// import AOS from 'aos';
+// import 'aos/dist/aos.css';
 
 const queryClient = new QueryClient();
 
@@ -30,17 +31,18 @@ const App = () => {
   const isMobile = useIsMobile();
 
   useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,
-      offset: 100,
-      easing: 'ease-out-cubic',
-    });
+    // AOS disabled for mobile performance
+    // AOS.init({
+    //   duration: 1000,
+    //   once: true,
+    //   offset: 100,
+    //   easing: 'ease-out-cubic',
+    // });
 
-    // Hide default cursor only on desktop
-    if (!isMobile) {
-      document.body.style.cursor = 'none';
-    }
+    // Hide default cursor disabled for performance
+    // if (!isMobile) {
+    //   document.body.style.cursor = 'none';
+    // }
     
     return () => {
       document.body.style.cursor = 'auto';
@@ -50,7 +52,8 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        {!isMobile && <CustomCursor />}
+{/* Custom Cursor disabled for mobile performance */}
+        {/* {!isMobile && <CustomCursor />} */}
         <ExitIntentPopup />
         <BrowserRouter>
           <Routes>

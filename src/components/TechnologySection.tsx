@@ -131,11 +131,11 @@ const TechnologySection = () => {
                 </div>
               </div>
               
-              {/* Floating Elements */}
-              <div className="absolute top-4 left-4 w-8 h-8 rounded-lg bg-primary/20 border border-primary/30 animate-pulse" />
-              <div className="absolute top-8 right-6 w-6 h-6 rounded-lg bg-secondary/20 border border-secondary/30 animate-pulse" style={{ animationDelay: "1s" }} />
-              <div className="absolute bottom-6 left-8 w-10 h-6 rounded-lg bg-accent/20 border border-accent/30 animate-pulse" style={{ animationDelay: "2s" }} />
-              <div className="absolute bottom-4 right-4 w-8 h-8 rounded-lg bg-primary/20 border border-primary/30 animate-pulse" style={{ animationDelay: "3s" }} />
+              {/* Floating Elements - Desktop only for performance */}
+              <div className="absolute top-4 left-4 w-8 h-8 rounded-lg bg-primary/20 border border-primary/30 md:animate-pulse" />
+              <div className="absolute top-8 right-6 w-6 h-6 rounded-lg bg-secondary/20 border border-secondary/30 md:animate-pulse" style={{ animationDelay: "1s" }} />
+              <div className="absolute bottom-6 left-8 w-10 h-6 rounded-lg bg-accent/20 border border-accent/30 md:animate-pulse" style={{ animationDelay: "2s" }} />
+              <div className="absolute bottom-4 right-4 w-8 h-8 rounded-lg bg-primary/20 border border-primary/30 md:animate-pulse" style={{ animationDelay: "3s" }} />
             </div>
           </div>
         </div>

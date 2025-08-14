@@ -85,8 +85,6 @@ const HeroSection = () => {
             <motion.div 
               className="inline-flex"
               variants={itemVariants}
-              data-aos="fade-right"
-              data-aos-delay="100"
             >
               <motion.div 
                 className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-sm"
@@ -110,8 +108,6 @@ const HeroSection = () => {
             <motion.div 
               className="space-y-4"
               variants={itemVariants}
-              data-aos="fade-up"
-              data-aos-delay="200"
             >
               <h1 className={`font-bold tracking-tight
                 ${category === 'mobile-small' ? 'text-3xl leading-[1.2]' : 
@@ -167,8 +163,6 @@ const HeroSection = () => {
             <motion.div 
               className={category === 'mobile-small' ? 'max-w-full' : 'max-w-lg'}
               variants={itemVariants}
-              data-aos="fade-up"
-              data-aos-delay="350"
             >
               <h2 className={`font-bold text-primary leading-tight mb-4
                 ${category === 'mobile-small' ? 'text-lg' : 
@@ -187,8 +181,6 @@ const HeroSection = () => {
             <motion.div 
               className={category === 'mobile-small' ? 'pt-4' : 'pt-6'}
               variants={itemVariants}
-              data-aos="fade-up"
-              data-aos-delay="500"
             >
               <motion.div 
                 whileHover={isTouch ? {} : { scale: 1.05 }} 
@@ -212,43 +204,55 @@ const HeroSection = () => {
           <motion.div 
             className="relative flex items-center justify-center lg:justify-end"
             variants={itemVariants}
-            data-aos="fade-left"
-            data-aos-delay="300"
           >
-            <motion.div 
+            <div 
               className={`relative w-full overflow-hidden
-                ${category === 'mobile-small' ? 'h-[500px] max-w-sm mx-auto' :
-                  category === 'mobile-medium' ? 'h-[550px] max-w-md mx-auto' :
-                  category === 'mobile-large' ? 'h-[600px] max-w-lg mx-auto' :
+                ${category === 'mobile-small' ? 'h-[400px] max-w-sm mx-auto' :
+                  category === 'mobile-medium' ? 'h-[450px] max-w-md mx-auto' :
+                  category === 'mobile-large' ? 'h-[500px] max-w-lg mx-auto' :
                   'max-w-2xl h-[600px] lg:h-[700px]'}`}
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.3 }}
             >
-              {/* Futuristic DNA Component */}
-              <FuturisticDNA />
+              {/* Futuristic DNA Component - Desktop only for performance */}
+              {!category?.includes('mobile') && <FuturisticDNA />}
               
-              {/* Additional tech overlay effects */}
-              <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-background/10 pointer-events-none" />
+              {/* Mobile: Simple static visual */}
+              {category?.includes('mobile') && (
+                <div className="flex items-center justify-center h-full">
+                  <div className="w-48 h-48 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 border border-primary/30 flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="text-4xl mb-2">🧬</div>
+                      <div className="text-primary font-semibold text-sm">DNA Engine</div>
+                    </div>
+                  </div>
+                </div>
+              )}
               
-              {/* Scanning line effect */}
-              <motion.div 
-                className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/10 to-transparent h-2"
-                animate={{
-                  y: [0, 600, 0],
-                }}
-                transition={{
-                  duration: 6,
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
-              />
-              
-              {/* Corner tech elements */}
-              <div className="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-primary/40" />
-              <div className="absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-secondary/40" />
-              <div className="absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-accent/40" />
-              <div className="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-primary/40" />
-            </motion.div>
+              {/* Desktop: Additional tech overlay effects */}
+              {!category?.includes('mobile') && (
+                <>
+                  <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-background/10 pointer-events-none" />
+                  
+                  {/* Scanning line effect - Desktop only */}
+                  <motion.div 
+                    className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/10 to-transparent h-2"
+                    animate={{
+                      y: [0, 600, 0],
+                    }}
+                    transition={{
+                      duration: 6,
+                      repeat: Infinity,
+                      ease: "linear"
+                    }}
+                  />
+                  
+                  {/* Corner tech elements */}
+                  <div className="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-primary/40" />
+                  <div className="absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-secondary/40" />
+                  <div className="absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-accent/40" />
+                  <div className="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-primary/40" />
+                </>
+              )}
+            </div>
           </motion.div>
         </motion.div>
       </div>
