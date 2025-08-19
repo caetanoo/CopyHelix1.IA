@@ -519,6 +519,25 @@
   .dna-helix {
     @apply w-56 h-56;
   }
+  
+  /* Technology section specific improvements for very small screens */
+  .mobile-tech-list {
+    @apply space-y-3;
+  }
+  
+  .mobile-tech-item {
+    @apply flex items-start space-x-2;
+  }
+  
+  .mobile-tech-bullet {
+    @apply w-1.5 h-1.5 flex-shrink-0;
+    margin-top: 0.125rem;
+  }
+  
+  .mobile-tech-text {
+    @apply text-xs;
+    line-height: 1.5;
+  }
 }
 
 /* Medium mobile devices (375px - 413px) - iPhone SE, most Android */
@@ -551,6 +570,16 @@
   
   .dna-helix {
     @apply w-64 h-64;
+  }
+  
+  /* Technology section spacing improvements for medium mobile */
+  .mobile-tech-list {
+    @apply space-y-3.5;
+  }
+  
+  .mobile-tech-text {
+    @apply text-sm;
+    line-height: 1.6;
   }
 }
 
@@ -702,6 +731,39 @@
     @apply border-2 border-primary text-primary bg-transparent;
     @apply active:bg-primary/10 transition-colors duration-200;
     min-height: 48px;
+  }
+  
+  /* Mobile technology section text improvements */
+  .mobile-tech-list {
+    @apply space-y-4;
+  }
+  
+  .mobile-tech-item {
+    @apply flex items-start space-x-3;
+  }
+  
+  .mobile-tech-bullet {
+    @apply w-2 h-2 rounded-full flex-shrink-0;
+    margin-top: 0.1rem;
+  }
+  
+  .mobile-tech-text {
+    @apply text-sm leading-relaxed;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.5;
+    margin-top: 0;
+  }
+  
+  /* Enhanced spacing for longer text lines on mobile */
+  .mobile-tech-item:has(.long-text) {
+    @apply space-x-4;
+  }
+  
+  .mobile-tech-item .long-text {
+    line-height: 1.7;
+    letter-spacing: 0.01em;
   }
 }
 

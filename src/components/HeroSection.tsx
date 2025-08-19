@@ -129,7 +129,7 @@ const HeroSection = () => {
                     Primeira Plataforma que Aprende com Criativos Validados
                   </h2>
                   <p className="text-base text-muted-foreground/90 leading-relaxed">
-                    A única plataforma que transforma seus criativos vencedores em máquina infinita de variações.
+                    A única plataforma que clona seus criativos vencedores criando variações infinitas que mantêm o DNA de sucesso.
                   </p>
                 </div>
               </motion.div>
@@ -192,7 +192,7 @@ const HeroSection = () => {
                     Primeira Plataforma que Aprende com Criativos Validados
                   </h2>
                   <p className="text-base text-muted-foreground/80 leading-relaxed">
-                    A única plataforma que transforma seus criativos vencedores em máquina infinita de variações.
+                    A única plataforma que clona seus criativos vencedores criando variações infinitas que mantêm o DNA de sucesso.
                   </p>
                 </motion.div>
               </motion.div>

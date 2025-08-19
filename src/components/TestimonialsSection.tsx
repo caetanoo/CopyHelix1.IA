@@ -15,8 +15,8 @@ const TestimonialsSection = () => {
       quote: "Meu VSL que convertia 15% virou múltiplas variações com a mesma performance. O laboratório genético identificou os genes emocionais que eu nunca percebi sozinho.",
       metrics: {
         icon: TrendingUp,
-        value: "Multi",
-        label: "variações"
+        value: "+50",
+        label: "variações VSL"
       }
     },
     {
@@ -27,8 +27,8 @@ const TestimonialsSection = () => {
       quote: "Gravei um vídeo falando sobre meu curso e a IA gerou múltiplas variações com scripts diferentes, mantendo minha voz e personalidade. Primeiro do mercado com essa tecnologia!",
       metrics: {
         icon: Zap,
-        value: "Multi",
-        label: "variações"
+        value: "+30",
+        label: "vídeos clone"
       }
     },
     {
@@ -39,8 +39,8 @@ const TestimonialsSection = () => {
       quote: "A herança genética dos criativos dos meus clientes é preservada 100%. Consigo entregar muito mais variações, mantendo o DNA de sucesso.",
       metrics: {
         icon: Users,
-        value: "Multi",
-        label: "variações"
+        value: "+100",
+        label: "criativos"
       }
     }
   ];
@@ -53,33 +53,33 @@ const TestimonialsSection = () => {
   ];
 
   return (
-    <section className="py-20 relative">
+    <section className="py-12 relative">
       <div className="container-wide">
         {/* Mobile: Simplified Stats */}
         {category?.includes('mobile') ? (
           <div className="text-center">
-            <h2 className="text-xl font-bold text-foreground leading-tight mb-3">
+            <h2 className="text-xl font-bold text-foreground leading-tight mb-2">
               Resultados Comprovados
             </h2>
-            <p className="text-sm text-muted-foreground max-w-xs mx-auto mb-8">
+            <p className="text-sm text-muted-foreground max-w-xs mx-auto mb-6">
               Empresas que já clonaram seus criativos vencedores
             </p>
             
-            <div className="glass-card max-w-sm mx-auto p-6">
-              <div className="grid grid-cols-2 gap-6">
+            <div className="glass-card max-w-sm mx-auto p-4">
+              <div className="grid grid-cols-2 gap-4">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-primary mb-1">+27</div>
+                  <div className="text-2xl font-bold text-primary mb-0.5">+27</div>
                   <p className="text-xs text-muted-foreground">Empresas</p>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-primary mb-1">89%</div>
+                  <div className="text-2xl font-bold text-primary mb-0.5">89%</div>
                   <p className="text-xs text-muted-foreground">Sucesso</p>
                 </div>
               </div>
               
-              <div className="mt-6 pt-4 border-t border-border/30">
+              <div className="mt-4 pt-3 border-t border-border/30">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-primary mb-1">R$ 5M+</div>
+                  <div className="text-xl font-bold text-primary mb-0.5">R$ 5M+</div>
                   <p className="text-xs text-muted-foreground">Gerados pelos DNAs clonados</p>
                 </div>
               </div>

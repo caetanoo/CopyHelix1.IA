@@ -16,16 +16,38 @@ const TechnologySection = () => {
             <h2 className="text-xl font-bold text-foreground leading-tight max-w-sm mx-auto mb-3">
               Tecnologia Diferencial
             </h2>
-            <p className="text-sm text-muted-foreground max-w-xs mx-auto mb-6">
-              Primeira plataforma com Voice Clone + Lip Sync para marketing
+            <p className="text-sm text-muted-foreground max-w-sm mx-auto mb-6">
+              Nossa IA proprietária decodifica elementos genéticos de criativos vencedores, preserva seu DNA de sucesso e gera variações com 90% de precisão
             </p>
             
             <div className="glass-card max-w-md mx-auto p-6">
-              <div className="flex items-center justify-center space-x-4 mb-4">
+              <div className="flex items-center justify-center space-x-4 mb-6">
                 <Brain className="w-8 h-8 text-primary" />
                 <div className="text-left">
                   <div className="text-sm font-semibold text-primary">DNA Engine™</div>
                   <div className="text-xs text-muted-foreground">IA Proprietária</div>
+                </div>
+              </div>
+              
+              <div className="mobile-tech-list mb-6 text-muted-foreground">
+                <div className="mobile-tech-item">
+                  <div className="mobile-tech-bullet bg-primary" />
+                  <span className="mobile-tech-text">Primeiro do mercado com Voice Clone + Lip Sync</span>
+                </div>
+                <div className="mobile-tech-item">
+                  <div className="mobile-tech-bullet bg-secondary" />
+                  <span className="mobile-tech-text long-text">
+                    <span className="hidden sm:inline">Clona criativos de vídeo e imagem de alta performance</span>
+                    <span className="sm:hidden">Clona vídeos e imagens de alta performance</span>
+                  </span>
+                </div>
+                <div className="mobile-tech-item">
+                  <div className="mobile-tech-bullet bg-accent" />
+                  <span className="mobile-tech-text">Mantém 100% do DNA vencedor original</span>
+                </div>
+                <div className="mobile-tech-item">
+                  <div className="mobile-tech-bullet bg-primary" />
+                  <span className="mobile-tech-text">Predição de performance antes de veicular</span>
                 </div>
               </div>
               
@@ -55,9 +77,9 @@ const TechnologySection = () => {
     },
     {
       icon: Database,
-      title: "Fluxo Completo: Estático → Vídeo → Variações",
-      description: "Único com transformação completa. Maximizamos valor de cada criativo original através de todas as mídias.",
-      features: ["Transformação Completa", "Multi-formato", "ROI Maximizado"]
+      title: "Clonagem Completa: Vídeo + Imagem → Variações Infinitas",
+      description: "Único com clonagem de criativos completa. Replicamos seus vídeos e imagens de sucesso em múltiplas variações mantendo o DNA vencedor.",
+      features: ["Clonagem de Vídeos", "Clonagem de Imagens", "ROI Maximizado"]
     },
     {
       icon: Cpu,
@@ -96,8 +118,8 @@ const TechnologySection = () => {
             8 Vantagens Competitivas que Ninguém Mais Tem
           </h2>
           <p className="body-large max-w-3xl mx-auto">
-            <span className="text-primary font-semibold">Primeiro do mercado</span> a combinar Voice Clone + Lip Sync para marketing. 
-            <span className="text-secondary font-semibold">Única plataforma</span> com fluxo completo: Estático → Vídeo → Variações.
+            <span className="text-primary font-semibold">Primeiro do mercado</span> a combinar Voice Clone + Lip Sync para clonagem de criativos. 
+            <span className="text-secondary font-semibold">Única plataforma</span> que clona tanto vídeos quanto imagens de alta performance.
           </p>
         </div>
 
