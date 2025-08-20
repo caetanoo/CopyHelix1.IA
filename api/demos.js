@@ -30,15 +30,18 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Nome e email são obrigatórios' });
       }
 
+      // Note: Demos table doesn't exist in production, so we save to contacts with source='demo_form'
       const { data, error } = await supabase
-        .from('demos')
+        .from('contacts')
         .insert([{
           name,
           email,
-          phone: phone || '',
-          company: company || '',
-          message: message || '',
-          status: 'pending'
+          subject: company ? `Demo para ${company}` : 'Solicitação de Demo',
+          message: message || (phone ? `Telefone: ${phone}` : ''),
+          status: 'new',
+          priority: 'high', // Demos get high priority
+          source: 'demo_form' // Identify as demo request
+          // Note: phone and company fields don't exist in contacts table
         }])
         .select()
         .single();
@@ -62,9 +65,11 @@ export default async function handler(req, res) {
 
   if (req.method === 'GET') {
     try {
+      // Since demos table doesn't exist, fetch from contacts with source='demo_form'
       const { data, error } = await supabase
-        .from('demos')
+        .from('contacts')
         .select('*')
+        .eq('source', 'demo_form')
         .order('created_at', { ascending: false });
 
       if (error) {

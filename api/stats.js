@@ -18,17 +18,18 @@ export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
       // Buscar estatísticas de contatos, reuniões e demos
+      // Note: demos table doesn't exist, so we count contacts with source='demo_form'
       const [contactsResult, meetingsResult, demosResult] = await Promise.all([
         supabase.from('contacts').select('id', { count: 'exact' }),
         supabase.from('meetings').select('id', { count: 'exact' }),
-        supabase.from('demos').select('id', { count: 'exact' })
+        supabase.from('contacts').select('id', { count: 'exact' }).eq('source', 'demo_form')
       ]);
 
       const stats = {
-        contacts: contactsResult.count || 0,
+        contacts: (contactsResult.count || 0) - (demosResult.count || 0), // Subtract demos from contacts
         meetings: meetingsResult.count || 0,
         demos: demosResult.count || 0,
-        totalLeads: (contactsResult.count || 0) + (meetingsResult.count || 0) + (demosResult.count || 0)
+        totalLeads: (contactsResult.count || 0) + (meetingsResult.count || 0)
       };
 
       return res.status(200).json({ 

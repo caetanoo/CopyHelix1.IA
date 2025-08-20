@@ -24,6 +24,9 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Nome e email são obrigatórios' });
       }
 
+      // Note: phone field is accepted but not saved to database 
+      // as it doesn't exist in the contacts table schema
+
       const { data, error } = await supabase
         .from('contacts')
         .insert([{
@@ -31,7 +34,10 @@ export default async function handler(req, res) {
           email,
           subject: subject || 'Contato via site',
           message: message || '',
-          phone: phone || ''
+          status: 'new',
+          priority: 'normal',
+          source: 'contact_form'
+          // Removed phone field - it doesn't exist in the contacts table
         }])
         .select()
         .single();
