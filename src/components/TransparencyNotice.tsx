@@ -33,7 +33,7 @@ const TransparencyNotice = ({ type = 'demo', userName }: TransparencyNoticeProps
           benefits: [
             "Primeira turma de beta testers",
             "Desconto vitalício de 50%",
-            "Análise gratuita do primeiro criativo",
+            "Análise gratuita de 1 criativo completa",
             "Acesso direto ao time de desenvolvimento"
           ]
         };

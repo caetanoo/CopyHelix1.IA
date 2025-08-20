@@ -28,7 +28,24 @@ const ExitIntentPopup = () => {
       return;
     }
 
+    // Check if user is in contact section - don't show popup
+    const isInContactSection = () => {
+      const contactSection = document.getElementById('contact');
+      if (!contactSection) return false;
+      
+      const rect = contactSection.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      // Check if contact section is visible (more than 50% in viewport)
+      return rect.top < windowHeight * 0.5 && rect.bottom > windowHeight * 0.5;
+    };
+
     const handleMouseLeave = (e: MouseEvent) => {
+      // Don't trigger if user is in contact section
+      if (isInContactSection()) {
+        return;
+      }
+      
       // Only trigger if mouse is leaving from the top (desktop only)
       if (e.clientY <= 0 && !hasTriggered && !category?.includes('mobile')) {
         hasTriggered = true;
@@ -39,6 +56,11 @@ const ExitIntentPopup = () => {
 
     // End of site trigger - when user reaches the bottom area
     const handleScroll = () => {
+      // Don't trigger if user is in contact section
+      if (isInContactSection()) {
+        return;
+      }
+      
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
@@ -56,7 +78,8 @@ const ExitIntentPopup = () => {
     // Time-based trigger - appears after user spends time on site
     const timeDelay = category?.includes('mobile') ? 30000 : 45000; // 30s mobile, 45s desktop
     const timeoutTrigger = setTimeout(() => {
-      if (!hasTriggered) {
+      // Don't trigger if user is in contact section
+      if (!hasTriggered && !isInContactSection()) {
         hasTriggered = true;
         setIsVisible(true);
         sessionStorage.setItem('exitIntentShown', 'true');

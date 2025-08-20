@@ -95,9 +95,9 @@ const BetaWaitlist = () => {
     },
     {
       icon: Gift,
-      title: "Análises Gratuitas",
-      description: "5 análises de DNA criativo gratuitas quando lançarmos",
-      value: "R$ 500 em créditos"
+      title: "Análise Gratuita",
+      description: "1 análise completa do DNA criativo do seu melhor ad",
+      value: "Consultoria premium"
     },
     {
       icon: TrendingUp,
