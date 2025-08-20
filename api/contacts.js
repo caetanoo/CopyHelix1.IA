@@ -17,7 +17,7 @@ export default async function handler(req, res) {
 
   if (req.method === 'POST') {
     try {
-      const { name, email, subject, message, phone, company } = req.body;
+      const { name, email, subject, message, phone } = req.body;
 
       // Validação básica
       if (!name || !email) {
@@ -31,9 +31,7 @@ export default async function handler(req, res) {
           email,
           subject: subject || 'Contato via site',
           message: message || '',
-          phone: phone || '',
-          company: company || '',
-          created_at: new Date().toISOString()
+          phone: phone || ''
         }])
         .select()
         .single();

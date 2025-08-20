@@ -22,9 +22,6 @@ export default async function handler(req, res) {
         email, 
         phone, 
         company,
-        businessType,
-        monthlyRevenue,
-        creativeVolume,
         message
       } = req.body;
 
@@ -40,12 +37,8 @@ export default async function handler(req, res) {
           email,
           phone: phone || '',
           company: company || '',
-          business_type: businessType || '',
-          monthly_revenue: monthlyRevenue || '',
-          creative_volume: creativeVolume || '',
           message: message || '',
-          status: 'pendente',
-          created_at: new Date().toISOString()
+          status: 'pending'
         }])
         .select()
         .single();

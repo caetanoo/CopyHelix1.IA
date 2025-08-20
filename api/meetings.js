@@ -24,8 +24,7 @@ export default async function handler(req, res) {
         company, 
         meetingDate, 
         meetingTime, 
-        timezone,
-        description 
+        message 
       } = req.body;
 
       // Validação básica
@@ -40,12 +39,10 @@ export default async function handler(req, res) {
           email,
           phone: phone || '',
           company: company || '',
-          meeting_date: meetingDate,
-          meeting_time: meetingTime,
-          timezone: timezone || 'America/Sao_Paulo',
-          description: description || '',
-          status: 'agendada',
-          created_at: new Date().toISOString()
+          preferred_date: meetingDate,
+          preferred_time: meetingTime,
+          message: message || '',
+          status: 'pending'
         }])
         .select()
         .single();
