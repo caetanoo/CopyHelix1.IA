@@ -182,9 +182,9 @@ const DemoSection = () => {
       
       setIsSuccess(true);
       
-      // Redirect to beta waitlist page after brief delay
+      // Redirect to WhatsApp after brief delay
       setTimeout(() => {
-        window.location.href = `/beta-waitlist?name=${encodeURIComponent(formData.name)}&email=${encodeURIComponent(formData.email)}&company=${encodeURIComponent(formData.company)}`;
+        window.location.href = `https://wa.me/5519999856061?text=Gostaria%20de%20Saber%20mais%20sobre%20o%20Copyhelix.IA!`;
       }, 1500);
 
     } catch (error) {

@@ -69,8 +69,8 @@ const BetaWaitlist = () => {
 
   const joinWhatsAppGroup = () => {
     setWhatsappJoined(true);
-    // In real implementation, this would be a dynamic WhatsApp group link
-    window.open('https://chat.whatsapp.com/GV3mRGNOae74qMITlNQZzr', '_blank');
+    // Direct contact with founder
+    window.open('https://wa.me/5519999856061?text=Gostaria%20de%20Saber%20mais%20sobre%20o%20Copyhelix.IA!', '_blank');
   };
 
   const developmentMilestones = [
@@ -363,7 +363,7 @@ const BetaWaitlist = () => {
                     ) : (
                       <>
                         <MessageCircle className="w-4 h-4 mr-2" />
-                        Entrar no Grupo VIP
+                        Falar com Founder
                       </>
                     )}
                   </Button>
