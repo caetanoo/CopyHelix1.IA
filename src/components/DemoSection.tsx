@@ -1,10 +1,17 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ArrowRight, Calendar, CheckCircle, Mail, Phone, User, Loader2, Briefcase, Target, DollarSign } from "lucide-react";
 import { useViewportSize, useIsTouchDevice } from "@/hooks/use-mobile";
 import TransparencyNotice from "@/components/TransparencyNotice";
+import { 
+  trackWaitlistSignup, 
+  trackFormStart, 
+  trackFormProgress,
+  trackFormAbandonment,
+  setUserProperties 
+} from "@/lib/analytics-tracking";
 
 const DemoSection = () => {
   const { category } = useViewportSize();
@@ -34,6 +41,42 @@ const DemoSection = () => {
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [formProgress, setFormProgress] = useState(0);
   const [nextFieldToFocus, setNextFieldToFocus] = useState<string | null>(null);
+  const [formStartTime, setFormStartTime] = useState<number | null>(null);
+  const [hasTrackedFormStart, setHasTrackedFormStart] = useState(false);
+
+  // Track form abandonment when component unmounts
+  useEffect(() => {
+    return () => {
+      if (hasTrackedFormStart && !isSuccess && formStartTime) {
+        const lastCompletedField = getLastCompletedField();
+        const currentProgress = calculateProgress();
+        
+        if (currentProgress > 0 && currentProgress < 100) {
+          trackFormAbandonment({
+            form_type: 'waitlist',
+            last_completed_field: lastCompletedField,
+            progress_percentage: currentProgress,
+            time_spent_seconds: Math.floor((Date.now() - formStartTime) / 1000)
+          });
+        }
+      }
+    };
+  }, [hasTrackedFormStart, isSuccess, formStartTime]);
+
+  const getLastCompletedField = (): string => {
+    const fields = ['name', 'email', 'company', 'role', 'company_size', 'main_challenge', 'monthly_investment', 'pricing_expectation'];
+    let lastField = 'name';
+    
+    for (const field of fields) {
+      if (formData[field as keyof typeof formData]?.trim()) {
+        lastField = field;
+      } else {
+        break;
+      }
+    }
+    
+    return lastField;
+  };
 
   const validateField = (name: string, value: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -58,15 +101,47 @@ const DemoSection = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+    
+    // Track form start on first interaction
+    if (!hasTrackedFormStart) {
+      trackFormStart('waitlist');
+      setFormStartTime(Date.now());
+      setHasTrackedFormStart(true);
+    }
+    
     setFormData(prev => ({
       ...prev,
       [name]: value
     }));
     
-    // Update progress
+    // Update progress and track progress milestones
     setTimeout(() => {
       const newProgress = calculateProgress();
       setFormProgress(newProgress);
+      
+      // Track progress at 25%, 50%, 75% milestones
+      if (newProgress >= 25 && formProgress < 25) {
+        trackFormProgress({
+          form_type: 'waitlist',
+          progress_percentage: 25,
+          completed_sections: ['basic_info'],
+          time_spent_seconds: formStartTime ? Math.floor((Date.now() - formStartTime) / 1000) : 0
+        });
+      } else if (newProgress >= 50 && formProgress < 50) {
+        trackFormProgress({
+          form_type: 'waitlist',
+          progress_percentage: 50,
+          completed_sections: ['basic_info', 'professional_profile'],
+          time_spent_seconds: formStartTime ? Math.floor((Date.now() - formStartTime) / 1000) : 0
+        });
+      } else if (newProgress >= 75 && formProgress < 75) {
+        trackFormProgress({
+          form_type: 'waitlist',
+          progress_percentage: 75,
+          completed_sections: ['basic_info', 'professional_profile', 'challenges'],
+          time_spent_seconds: formStartTime ? Math.floor((Date.now() - formStartTime) / 1000) : 0
+        });
+      }
     }, 100);
     
     // Clear errors immediately when user starts typing
@@ -157,23 +232,28 @@ const DemoSection = () => {
         throw new Error('Erro ao enviar solicitação');
       }
 
-      // Track conversion
-      if (typeof window !== 'undefined' && (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag) {
-        (window as unknown as { gtag: (...args: unknown[]) => void }).gtag('event', 'conversion', {
-          'send_to': 'AW-CONVERSION_ID/CONVERSION_LABEL',
-          'event_category': 'engagement',
-          'event_label': 'dna_request',
-          'value': 1
-        });
-      }
-
-      // Facebook Pixel
-      if (typeof window !== 'undefined' && (window as unknown as { fbq?: (...args: unknown[]) => void }).fbq) {
-        (window as unknown as { fbq: (...args: unknown[]) => void }).fbq('track', 'Lead', {
-          content_name: 'DNA Decoding Request',
-          content_category: 'form_submission'
-        });
-      }
+      // Track comprehensive waitlist signup
+      trackWaitlistSignup({
+        name: formData.name,
+        email: formData.email,
+        company: formData.company,
+        role: formData.role,
+        company_size: formData.company_size,
+        main_challenge: formData.main_challenge,
+        monthly_investment: formData.monthly_investment,
+        pricing_expectation: formData.pricing_expectation,
+        current_solution: formData.current_solution,
+        phone: formData.phone,
+        feedback: formData.feedback
+      });
+      
+      // Set user properties for enhanced segmentation
+      setUserProperties({
+        user_segment: formData.role,
+        company_size: formData.company_size,
+        monthly_investment: formData.monthly_investment,
+        main_challenge: formData.main_challenge
+      });
 
       // Store user data for waitlist page
       localStorage.setItem('copyhelix_user_name', formData.name);

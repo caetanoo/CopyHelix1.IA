@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Calendar, Clock, User, Mail, Building, Phone, MessageCircle, CheckCircle, Briefcase, Target, DollarSign } from "lucide-react";
+import { Calendar, Clock, User, Mail, Building, Phone, MessageCircle, CheckCircle, Briefcase, Target, DollarSign, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import TransparencyNotice from "@/components/TransparencyNotice";
+import { 
+  trackMeetingScheduled, 
+  trackFormStart, 
+  trackWhatsAppContact,
+  setUserProperties 
+} from "@/lib/analytics-tracking";
 
 interface MeetingForm {
   name: string;
@@ -43,6 +49,7 @@ const MeetingScheduler = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState("");
+  const [hasTrackedFormStart, setHasTrackedFormStart] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,6 +68,29 @@ const MeetingScheduler = () => {
       const data = await response.json();
 
       if (data.success) {
+        // Track meeting scheduled conversion
+        trackMeetingScheduled({
+          name: form.name,
+          email: form.email,
+          company: form.company,
+          role: form.role,
+          company_size: form.company_size,
+          main_challenge: form.main_challenge,
+          monthly_investment: form.monthly_investment,
+          pricing_expectation: form.pricing_expectation,
+          preferred_date: form.preferred_date,
+          preferred_time: form.preferred_time,
+          phone: form.phone
+        });
+        
+        // Set user properties
+        setUserProperties({
+          user_segment: form.role,
+          company_size: form.company_size,
+          monthly_investment: form.monthly_investment,
+          main_challenge: form.main_challenge
+        });
+        
         setIsSuccess(true);
         // Reset form
         setForm({
@@ -79,6 +109,13 @@ const MeetingScheduler = () => {
           current_solution: ""
         });
 
+        // Track WhatsApp contact for meeting notification
+        trackWhatsAppContact({
+          source: 'meeting_scheduled',
+          device_type: 'auto_notification',
+          user_segment: form.role
+        });
+        
         // También enviar por WhatsApp como backup
         const whatsappMessage = `
 🗓️ *Nova Reunião Agendada - CopyHelix.ai*
@@ -116,6 +153,12 @@ ${form.message || 'Nenhuma mensagem adicional'}
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    // Track form start on first interaction
+    if (!hasTrackedFormStart) {
+      trackFormStart('meeting');
+      setHasTrackedFormStart(true);
+    }
+    
     setForm({
       ...form,
       [e.target.name]: e.target.value

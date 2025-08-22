@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import EmailSequenceManager from "@/components/EmailSequenceManager";
+import { trackWhatsAppContact, trackCTAClick } from "@/lib/analytics-tracking";
 
 const BetaWaitlist = () => {
   const { category } = useViewportSize();
@@ -61,6 +62,13 @@ const BetaWaitlist = () => {
   }, []);
 
   const copyReferralLink = () => {
+    // Track referral link copy action
+    trackCTAClick({
+      button_text: 'Copy Referral Link',
+      position: 'waitlist_referral',
+      destination: 'clipboard'
+    });
+    
     const referralLink = `${window.location.origin}/?ref=${referralCode}`;
     navigator.clipboard.writeText(referralLink);
     setEmailCopied(true);
@@ -68,6 +76,13 @@ const BetaWaitlist = () => {
   };
 
   const joinWhatsAppGroup = () => {
+    // Track WhatsApp contact from waitlist page
+    trackWhatsAppContact({
+      source: 'waitlist_founder_contact',
+      device_type: 'waitlist_page',
+      user_segment: 'beta_user'
+    });
+    
     setWhatsappJoined(true);
     // Direct contact with founder
     window.open('https://wa.me/5519999856061?text=Gostaria%20de%20Saber%20mais%20sobre%20o%20Copyhelix.IA!', '_blank');

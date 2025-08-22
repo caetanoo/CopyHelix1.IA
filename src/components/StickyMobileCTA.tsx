@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Zap, Dna, Target } from "lucide-react";
 import { useViewportSize } from "@/hooks/use-mobile";
 import { motion, AnimatePresence } from "framer-motion";
+import { trackCTAClick } from "@/lib/analytics-tracking";
 
 const StickyMobileCTA = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -69,6 +70,14 @@ const StickyMobileCTA = () => {
   }, []);
 
   const handleCTAClick = () => {
+    // Track CTA click event
+    trackCTAClick({
+      button_text: ctaText,
+      position: 'sticky_mobile',
+      destination: 'contact_form',
+      device_type: 'mobile'
+    });
+    
     const demoSection = document.getElementById('contact');
     if (demoSection) {
       demoSection.scrollIntoView({ behavior: 'smooth' });
