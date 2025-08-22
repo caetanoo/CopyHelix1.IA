@@ -262,10 +262,10 @@ const DemoSection = () => {
       
       setIsSuccess(true);
       
-      // Redirect to WhatsApp after brief delay
+      // Redirect to waitlist page after brief delay
       setTimeout(() => {
-        window.location.href = `https://wa.me/5519999856061?text=Gostaria%20de%20Saber%20mais%20sobre%20o%20Copyhelix.IA!`;
-      }, 1500);
+        window.location.href = `/beta-waitlist?name=${encodeURIComponent(formData.name)}&email=${encodeURIComponent(formData.email)}&company=${encodeURIComponent(formData.company)}`;
+      }, 2000);
 
     } catch (error) {
       setErrorMessage("Erro ao enviar solicitação. Tente novamente ou entre em contato diretamente.");
