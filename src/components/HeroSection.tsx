@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Sparkles } from "lucide-react";
 import FuturisticDNA from "./FuturisticDNA";
-import MobileDNAInterface from "./MobileDNAInterface";
 import { motion } from "framer-motion";
 import { useViewportSize, useIsTouchDevice } from "@/hooks/use-mobile";
 
@@ -80,7 +79,11 @@ const HeroSection = () => {
           animate="visible"
         >
           {/* Left Content - matching reference layout */}
-          <div className="space-y-8 lg:pr-8">
+          <div className={`lg:pr-8 ${
+            category?.includes('mobile') 
+              ? 'space-y-6 px-2' 
+              : 'space-y-8'
+          }`}>
             
             {/* Beta Badge - now shows on mobile too */}
             <motion.div 
@@ -105,10 +108,14 @@ const HeroSection = () => {
             {/* Mobile: Beautiful Desktop-like Message */}
             {category?.includes('mobile') ? (
               <motion.div 
-                className="space-y-4 text-center"
+                className="space-y-5 text-center"
                 variants={itemVariants}
               >
-                <h1 className="text-3xl sm:text-4xl font-bold leading-normal px-4">
+                <h1 className={`font-bold leading-tight ${
+                  category === 'mobile-small' 
+                    ? 'text-2xl px-3 leading-[1.25]' 
+                    : 'text-3xl sm:text-4xl px-4 leading-[1.2]'
+                }`}>
                   <span className="text-white">
                     Pare de Criar do{" "}
                     <span className="bg-gradient-to-r from-primary via-primary-glow to-secondary bg-clip-text text-transparent font-black">
@@ -124,11 +131,23 @@ const HeroSection = () => {
                   </span>
                 </h1>
                 
-                <div className="space-y-5 max-w-md mx-auto">
-                  <h2 className="text-lg font-bold text-primary leading-relaxed">
+                <div className={`mx-auto ${
+                  category === 'mobile-small' 
+                    ? 'space-y-4 max-w-xs px-2' 
+                    : 'space-y-5 max-w-md'
+                }`}>
+                  <h2 className={`font-bold text-primary ${
+                    category === 'mobile-small' 
+                      ? 'text-base leading-snug px-1' 
+                      : 'text-lg leading-relaxed'
+                  }`}>
                     Primeira Plataforma que Aprende com Criativos Validados
                   </h2>
-                  <p className="text-base text-muted-foreground/90 leading-relaxed">
+                  <p className={`text-muted-foreground/90 ${
+                    category === 'mobile-small' 
+                      ? 'text-sm leading-relaxed px-1' 
+                      : 'text-base leading-relaxed'
+                  }`}>
                     A única plataforma que clona seus criativos vencedores criando variações infinitas que mantêm o DNA de sucesso.
                   </p>
                 </div>
@@ -200,18 +219,23 @@ const HeroSection = () => {
 
             {/* CTA Button - Enhanced mobile styling and interactions */}
             <motion.div 
-              className={`pt-6 ${category?.includes('mobile') ? 'flex justify-center' : ''}`}
+              className={`${category?.includes('mobile') ? 'flex justify-center pt-6' : 'pt-6'}`}
               variants={itemVariants}
             >
               <motion.div 
                 whileHover={isTouch ? {} : { scale: 1.05 }} 
                 whileTap={{ scale: 0.95 }}
-                className={category?.includes('mobile') ? 'w-full max-w-sm' : ''}
+                className={category?.includes('mobile') ? 'w-full max-w-sm px-2' : ''}
               >
                 <Button 
                   className={`bg-primary hover:bg-primary/90 text-black font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2
                     ${isTouch ? 'active:scale-95 active:bg-primary/95' : 'cursor-hover'}
-                    ${category?.includes('mobile') ? 'mobile-cta-primary text-sm leading-tight px-6 py-4' : 'px-8 py-4 text-lg'}`}
+                    ${category === 'mobile-small' 
+                      ? 'mobile-cta-primary text-sm leading-tight px-4 py-3.5 min-h-[52px]' 
+                      : category?.includes('mobile') 
+                        ? 'mobile-cta-primary text-sm leading-tight px-6 py-4 min-h-[52px]' 
+                        : 'px-8 py-4 text-lg'
+                    }`}
                   onClick={() => {
                     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
                   }}
@@ -258,68 +282,143 @@ const HeroSection = () => {
               </div>
             )}
             
-            {/* SIMPLIFIED Mobile DNA Preview */}
+            {/* Mobile DNA Interface - Two Cards Layout */}
             {category?.includes('mobile') && (
-              <div className="relative w-full max-w-sm mx-auto">
-                {/* Simplified Single Card */}
-                <div className="bg-gradient-to-b from-gray-900/60 to-black/80 backdrop-blur-sm border border-primary/30 rounded-3xl p-6">
+              <div className="w-full space-y-4 px-4">
+                {/* Left Card - Sistema Pronto */}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="bg-gradient-to-br from-gray-900/90 to-black/70 backdrop-blur-md border border-primary/30 rounded-2xl p-4 space-y-3"
+                >
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-primary rounded-full animate-ping"></div>
+                    <span className="text-sm font-medium text-primary">Sistema Pronto</span>
+                  </div>
                   
-                  {/* Central Hero Element - DNA Visualization Only */}
-                  <div className="relative flex flex-col items-center space-y-4">
-                    
-                    {/* Simplified DNA Helix - Main Focus */}
+                  <div className="flex items-center space-x-3">
+                    {/* DNA Animation Left */}
                     <div className="relative">
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full blur-2xl animate-glow-pulse scale-125"></div>
-                      <svg width="64" height="64" viewBox="0 0 64 64" className="relative z-10 text-primary animate-dna-rotate">
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full blur-xl animate-glow-pulse scale-110"></div>
+                      <svg width="40" height="40" viewBox="0 0 40 40" className="relative z-10 text-primary animate-dna-rotate">
                         <defs>
-                          <linearGradient id="mobileGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <linearGradient id="leftCardGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" stopColor="hsl(142 100% 50%)" />
                             <stop offset="50%" stopColor="hsl(217 100% 65%)" />
                             <stop offset="100%" stopColor="hsl(38 92% 50%)" />
                           </linearGradient>
                         </defs>
                         <path
-                          d="M24 12 Q32 20 24 28 Q16 36 24 44 Q32 52 24 60 M40 12 Q32 20 40 28 Q48 36 40 44 Q32 52 40 60 M24 20 L40 20 M24 28 L40 28 M24 36 L40 36 M24 44 L40 44 M24 52 L40 52"
-                          stroke="url(#mobileGradient)"
-                          strokeWidth="2.5"
+                          d="M12 6 Q20 14 12 22 Q4 30 12 38 M28 6 Q20 14 28 22 Q36 30 28 38 M12 14 L28 14 M12 22 L28 22 M12 30 L28 30"
+                          stroke="url(#leftCardGradient)"
+                          strokeWidth="1.5"
                           fill="none"
                           strokeLinecap="round"
                         />
-                        <circle cx="24" cy="20" r="2.5" fill="hsl(142 100% 50%)" />
-                        <circle cx="40" cy="20" r="2.5" fill="hsl(217 100% 65%)" />
-                        <circle cx="24" cy="36" r="2.5" fill="hsl(38 92% 50%)" />
-                        <circle cx="40" cy="36" r="2.5" fill="hsl(142 100% 50%)" />
-                        <circle cx="24" cy="52" r="2.5" fill="hsl(217 100% 65%)" />
-                        <circle cx="40" cy="52" r="2.5" fill="hsl(38 92% 50%)" />
+                        <circle cx="12" cy="14" r="1.5" fill="hsl(142 100% 50%)" />
+                        <circle cx="28" cy="14" r="1.5" fill="hsl(217 100% 65%)" />
+                        <circle cx="12" cy="22" r="1.5" fill="hsl(38 92% 50%)" />
+                        <circle cx="28" cy="22" r="1.5" fill="hsl(142 100% 50%)" />
+                        <circle cx="12" cy="30" r="1.5" fill="hsl(217 100% 65%)" />
+                        <circle cx="28" cy="30" r="1.5" fill="hsl(38 92% 50%)" />
                       </svg>
                     </div>
                     
-                    {/* Single Key Message */}
-                    <div className="text-center space-y-2">
-                      <div className="flex items-center justify-center space-x-2">
-                        <div className="w-2 h-2 bg-primary rounded-full animate-ping"></div>
-                        <span className="text-sm font-medium text-primary">Sistema Pronto</span>
-                      </div>
-                      <h3 className="text-lg font-bold text-white">DNA Criativo Detectado</h3>
-                      <p className="text-sm text-muted-foreground">Toque para iniciar replicação</p>
+                    <div className="flex-1">
+                      <div className="text-sm font-medium text-white mb-1">DNA Criativo Detectado</div>
+                      <button className="text-xs text-primary hover:text-primary-glow transition-colors">
+                        Toque para iniciar replicação
+                      </button>
                     </div>
                   </div>
-                </div>
+                </motion.div>
                 
-                {/* Subtle Ambient Effect */}
-                <div className="absolute -inset-6 bg-gradient-to-r from-primary/3 via-transparent to-secondary/3 rounded-3xl blur-3xl"></div>
-              </div>
-            )}
-            
-            {/* Simplified Additional Interface */}
-            {category?.includes('mobile') && (
-              <div className="mt-8">
-                <MobileDNAInterface 
-                  isActive={true}
-                  onAnalyze={() => {
-                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                />
+                {/* Right Card - DNA Analysis Result */}
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="bg-gradient-to-br from-gray-900/90 to-black/70 backdrop-blur-md border border-secondary/30 rounded-2xl p-4 space-y-4"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-secondary rounded-full animate-ping"></div>
+                      <span className="text-sm font-medium text-secondary">DNA Criativo Detectado</span>
+                    </div>
+                    
+                    {/* DNA Animation Right */}
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 to-accent/20 rounded-full blur-lg animate-glow-pulse scale-110"></div>
+                      <svg width="30" height="30" viewBox="0 0 30 30" className="relative z-10 text-secondary animate-dna-rotate">
+                        <defs>
+                          <linearGradient id="rightCardGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="hsl(217 100% 65%)" />
+                            <stop offset="50%" stopColor="hsl(38 92% 50%)" />
+                            <stop offset="100%" stopColor="hsl(142 100% 50%)" />
+                          </linearGradient>
+                        </defs>
+                        <path
+                          d="M9 4 Q15 10 9 16 Q3 22 9 28 M21 4 Q15 10 21 16 Q27 22 21 28 M9 10 L21 10 M9 16 L21 16 M9 22 L21 22"
+                          stroke="url(#rightCardGradient)"
+                          strokeWidth="1.2"
+                          fill="none"
+                          strokeLinecap="round"
+                        />
+                        <circle cx="9" cy="10" r="1" fill="hsl(217 100% 65%)" />
+                        <circle cx="21" cy="10" r="1" fill="hsl(38 92% 50%)" />
+                        <circle cx="9" cy="16" r="1" fill="hsl(142 100% 50%)" />
+                        <circle cx="21" cy="16" r="1" fill="hsl(217 100% 65%)" />
+                        <circle cx="9" cy="22" r="1" fill="hsl(38 92% 50%)" />
+                        <circle cx="21" cy="22" r="1" fill="hsl(142 100% 50%)" />
+                      </svg>
+                    </div>
+                  </div>
+                  
+                  {/* Main Score */}
+                  <div className="text-center space-y-2">
+                    <div className="text-3xl font-bold text-white">94%</div>
+                    <div className="text-sm text-muted-foreground">Pronto para replicar</div>
+                    
+                    {/* Progress Bar */}
+                    <div className="w-full bg-gray-700 rounded-full h-2 mt-3">
+                      <motion.div 
+                        className="bg-gradient-to-r from-secondary to-primary h-2 rounded-full"
+                        initial={{ width: 0 }}
+                        animate={{ width: '94%' }}
+                        transition={{ duration: 2, ease: "easeOut", delay: 0.7 }}
+                      />
+                    </div>
+                    
+                    <div className="flex items-center justify-center space-x-1 mt-2">
+                      <Sparkles className="w-3 h-3 text-secondary" />
+                      <span className="text-xs text-secondary font-medium">Alta precisão</span>
+                    </div>
+                  </div>
+                  
+                  {/* Details Button */}
+                  <button className="w-full text-xs text-muted-foreground hover:text-secondary transition-colors py-2 border-t border-gray-700/50">
+                    Ver detalhes da análise
+                  </button>
+                </motion.div>
+                
+                {/* Central CTA Button */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.7 }}
+                  className="flex justify-center pt-4"
+                >
+                  <motion.button
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => {
+                      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="bg-gradient-to-r from-primary to-primary-glow text-black font-semibold py-4 px-8 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 flex items-center justify-center space-x-2 text-sm"
+                  >
+                    <span>Replicar Este DNA</span>
+                  </motion.button>
+                </motion.div>
               </div>
             )}
           </motion.div>
