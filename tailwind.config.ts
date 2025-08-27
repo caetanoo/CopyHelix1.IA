@@ -201,6 +201,46 @@ export default {
 						transform: 'translate(-8px, 10px) scale(0.8)',
 						opacity: '0.8'
 					}
+				},
+				'mobile-hero-glow': {
+					'0%, 100%': {
+						boxShadow: '0 0 20px hsl(142 100% 50% / 0.3), 0 0 40px hsl(217 100% 65% / 0.2)'
+					},
+					'50%': {
+						boxShadow: '0 0 30px hsl(142 100% 50% / 0.5), 0 0 60px hsl(217 100% 65% / 0.4)'
+					}
+				},
+				'mobile-card-shine': {
+					'0%': {
+						backgroundPosition: '-200px 0'
+					},
+					'100%': {
+						backgroundPosition: '200px 0'
+					}
+				},
+				'metric-pulse': {
+					'0%, 100%': {
+						transform: 'scale(1)',
+						filter: 'brightness(1) drop-shadow(0 0 10px currentColor)'
+					},
+					'50%': {
+						transform: 'scale(1.05)',
+						filter: 'brightness(1.2) drop-shadow(0 0 20px currentColor)'
+					}
+				},
+				'dna-energy-flow': {
+					'0%': {
+						opacity: '0',
+						transform: 'scale(0.8) rotate(0deg)'
+					},
+					'50%': {
+						opacity: '1',
+						transform: 'scale(1.1) rotate(180deg)'
+					},
+					'100%': {
+						opacity: '0',
+						transform: 'scale(0.8) rotate(360deg)'
+					}
 				}
 			},
 			animation: {
@@ -214,7 +254,11 @@ export default {
 				'glow-pulse': 'glow-pulse 3s ease-in-out infinite',
 				'data-stream': 'data-stream 2s ease-in-out infinite',
 				'scan-line': 'scan-line 3s ease-in-out infinite',
-				'particle-drift': 'particle-drift 6s ease-in-out infinite'
+				'particle-drift': 'particle-drift 6s ease-in-out infinite',
+				'mobile-hero-glow': 'mobile-hero-glow 4s ease-in-out infinite',
+				'mobile-card-shine': 'mobile-card-shine 3s linear infinite',
+				'metric-pulse': 'metric-pulse 4s ease-in-out infinite',
+				'dna-energy-flow': 'dna-energy-flow 5s linear infinite'
 			}
 		}
 	},

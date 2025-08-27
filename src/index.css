@@ -408,6 +408,50 @@
     }
   }
 
+  @keyframes mobile-hero-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px hsl(var(--primary) / 0.3), 0 0 40px hsl(var(--secondary) / 0.2);
+    }
+    50% {
+      box-shadow: 0 0 30px hsl(var(--primary) / 0.5), 0 0 60px hsl(var(--secondary) / 0.4);
+    }
+  }
+
+  @keyframes mobile-card-shine {
+    0% {
+      background-position: -200px 0;
+    }
+    100% {
+      background-position: 200px 0;
+    }
+  }
+
+  @keyframes metric-pulse {
+    0%, 100% {
+      transform: scale(1);
+      filter: brightness(1) drop-shadow(0 0 10px currentColor);
+    }
+    50% {
+      transform: scale(1.05);
+      filter: brightness(1.2) drop-shadow(0 0 20px currentColor);
+    }
+  }
+
+  @keyframes dna-energy-flow {
+    0% {
+      opacity: 0;
+      transform: scale(0.8) rotate(0deg);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.1) rotate(180deg);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.8) rotate(360deg);
+    }
+  }
+
   /* Responsive Utilities */
   .container-wide {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
@@ -522,21 +566,27 @@
   
   /* Technology section specific improvements for very small screens */
   .mobile-tech-list {
-    @apply space-y-3;
+    @apply space-y-4;
   }
   
   .mobile-tech-item {
-    @apply flex items-start space-x-2;
+    @apply flex items-start space-x-3;
+    align-items: flex-start;
   }
   
   .mobile-tech-bullet {
-    @apply w-1.5 h-1.5 flex-shrink-0;
-    margin-top: 0.125rem;
+    @apply w-2 h-2 rounded-full flex-shrink-0;
+    margin-top: 0.25rem; /* Align with first line of text */
   }
   
   .mobile-tech-text {
-    @apply text-xs;
+    @apply text-xs leading-relaxed;
     line-height: 1.5;
+    flex: 1;
+    margin: 0;
+    padding: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 }
 
@@ -574,12 +624,25 @@
   
   /* Technology section spacing improvements for medium mobile */
   .mobile-tech-list {
-    @apply space-y-3.5;
+    @apply space-y-4;
+  }
+  
+  .mobile-tech-item {
+    @apply flex items-start space-x-3;
+    align-items: flex-start;
+  }
+  
+  .mobile-tech-bullet {
+    @apply w-2 h-2 rounded-full flex-shrink-0;
+    margin-top: 0.375rem; /* Align with first line of text */
   }
   
   .mobile-tech-text {
-    @apply text-sm;
+    @apply text-sm leading-relaxed;
     line-height: 1.6;
+    flex: 1;
+    margin: 0;
+    padding: 0;
   }
 }
 
@@ -613,6 +676,30 @@
   
   .dna-helix {
     @apply w-72 h-72;
+  }
+  
+  /* Technology section improvements for large mobile */
+  .mobile-tech-list {
+    @apply space-y-4;
+  }
+  
+  .mobile-tech-item {
+    @apply flex items-start space-x-3;
+    align-items: flex-start;
+  }
+  
+  .mobile-tech-bullet {
+    @apply w-2 h-2 rounded-full flex-shrink-0;
+    margin-top: 0.375rem; /* Align with text baseline */
+  }
+  
+  .mobile-tech-text {
+    @apply text-sm leading-relaxed;
+    line-height: 1.6;
+    flex: 1;
+    margin: 0;
+    padding: 0;
+    text-align: left;
   }
 }
 
@@ -740,11 +827,12 @@
   
   .mobile-tech-item {
     @apply flex items-start space-x-3;
+    align-items: flex-start;
   }
   
   .mobile-tech-bullet {
     @apply w-2 h-2 rounded-full flex-shrink-0;
-    margin-top: 0.1rem;
+    margin-top: 0.375rem; /* Properly align with text baseline */
   }
   
   .mobile-tech-text {
@@ -752,18 +840,139 @@
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
-    line-height: 1.5;
-    margin-top: 0;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+    text-align: left;
+  }
+
+  /* Enhanced mobile hero animations */
+  .mobile-dna-card {
+    @apply relative overflow-hidden;
+    animation: mobile-hero-glow 4s ease-in-out infinite;
+  }
+
+  .mobile-dna-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, 
+      hsl(var(--primary) / 0.3), 
+      hsl(var(--secondary) / 0.3), 
+      hsl(var(--accent) / 0.3),
+      hsl(var(--primary) / 0.3)
+    );
+    background-size: 200% 200%;
+    animation: mobile-card-shine 3s linear infinite;
+    border-radius: inherit;
+    z-index: -1;
+  }
+
+  .mobile-metric-card {
+    @apply relative overflow-hidden backdrop-blur-lg;
+    animation: metric-pulse 4s ease-in-out infinite;
+  }
+
+  .mobile-dna-visualization {
+    @apply relative;
+    animation: mobile-hero-glow 6s ease-in-out infinite;
+  }
+
+  /* Enhanced gradient effects for mobile */
+  .mobile-gradient-bg {
+    background: linear-gradient(135deg, 
+      hsl(var(--background)) 0%,
+      hsl(var(--background) / 0.95) 25%,
+      hsl(var(--primary) / 0.05) 50%,
+      hsl(var(--secondary) / 0.05) 75%,
+      hsl(var(--background)) 100%
+    );
+    background-size: 400% 400%;
+    animation: circuit-glow 8s ease-in-out infinite;
+  }
+
+  /* Mobile DNA card glass effect */
+  .mobile-glass-card {
+    @apply relative;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  }
+
+  .mobile-glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+      transparent, 
+      hsl(var(--primary) / 0.5), 
+      transparent
+    );
+  }
+
+  /* Enhanced mobile metric styling */
+  .mobile-metric-highlight {
+    background: linear-gradient(135deg,
+      hsl(var(--primary) / 0.1),
+      hsl(var(--secondary) / 0.1),
+      hsl(var(--accent) / 0.1)
+    );
+    background-size: 200% 200%;
+    animation: circuit-glow 6s ease-in-out infinite;
+  }
+}
+
+/* Mobile hero section enhancements for better visual appeal */
+@media (max-width: 767px) {
+  .mobile-hero-card {
+    position: relative;
+    overflow: hidden;
   }
   
-  /* Enhanced spacing for longer text lines on mobile */
-  .mobile-tech-item:has(.long-text) {
-    @apply space-x-4;
+  .mobile-hero-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+      from 0deg,
+      hsl(var(--primary) / 0.1),
+      hsl(var(--secondary) / 0.1),
+      hsl(var(--accent) / 0.1),
+      hsl(var(--primary) / 0.1)
+    );
+    animation: mobile-card-shine 4s linear infinite;
+    border-radius: inherit;
+    z-index: -1;
   }
   
-  .mobile-tech-item .long-text {
-    line-height: 1.7;
-    letter-spacing: 0.01em;
+  /* Mobile DNA visualization improvements */
+  .mobile-dna-container {
+    background: radial-gradient(
+      ellipse at center,
+      hsl(var(--primary) / 0.05) 0%,
+      transparent 70%
+    );
+  }
+  
+  /* Better mobile metric cards */
+  .mobile-metric {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .mobile-metric:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -779,6 +988,14 @@
 /* Focus improvements for keyboard users */
 *:focus-visible {
   @apply outline-2 outline-primary outline-offset-2;
+}
+
+/* Mobile-specific focus improvements */
+@media (max-width: 767px) {
+  *:focus-visible {
+    @apply outline-2 outline-primary outline-offset-2;
+    box-shadow: 0 0 0 3px hsl(var(--primary) / 0.3);
+  }
 }
 
 /* High contrast mode support */

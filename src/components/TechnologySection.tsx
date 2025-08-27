@@ -32,22 +32,25 @@ const TechnologySection = () => {
               <div className="mobile-tech-list mb-6 text-muted-foreground">
                 <div className="mobile-tech-item">
                   <div className="mobile-tech-bullet bg-primary" />
-                  <span className="mobile-tech-text">Primeiro do mercado com Voice Clone + Lip Sync</span>
+                  <span className="mobile-tech-text">Voice Clone + Lip Sync</span>
                 </div>
                 <div className="mobile-tech-item">
                   <div className="mobile-tech-bullet bg-secondary" />
-                  <span className="mobile-tech-text long-text">
-                    <span className="hidden sm:inline">Clona criativos de vídeo e imagem de alta performance</span>
-                    <span className="sm:hidden">Clona vídeos e imagens de alta performance</span>
+                  <span className="mobile-tech-text">
+                    Clona vídeos e imagens de alta performance
                   </span>
                 </div>
                 <div className="mobile-tech-item">
                   <div className="mobile-tech-bullet bg-accent" />
-                  <span className="mobile-tech-text">Mantém 100% do DNA vencedor original</span>
+                  <span className="mobile-tech-text">
+                    Mantém 100% do DNA vencedor original
+                  </span>
                 </div>
                 <div className="mobile-tech-item">
                   <div className="mobile-tech-bullet bg-primary" />
-                  <span className="mobile-tech-text">Predição de performance antes de veicular</span>
+                  <span className="mobile-tech-text">
+                    Predição de performance antes de veicular
+                  </span>
                 </div>
               </div>
               
@@ -72,13 +75,13 @@ const TechnologySection = () => {
     {
       icon: Brain,
       title: "Voice Clone + Lip Sync para Marketing",
-      description: "PRIMEIRO do mercado a combinar clonagem de voz + sincronização labial para criativos. Grave um vídeo → gere múltiplas variações com sua voz.",
+      description: "combinar clonagem de voz + sincronização labial para criativos. Grave um vídeo → gere múltiplas variações com sua voz.",
       features: ["Voice Cloning Avançado", "Lip Sync Realista", "Fluxo Automatizado"]
     },
     {
       icon: Database,
       title: "Clonagem Completa: Vídeo + Imagem → Variações Infinitas",
-      description: "Único com clonagem de criativos completa. Replicamos seus vídeos e imagens de sucesso em múltiplas variações mantendo o DNA vencedor.",
+      description: "clonagem de criativos completa. Replicamos seus vídeos e imagens de sucesso em múltiplas variações mantendo o DNA vencedor.",
       features: ["Clonagem de Vídeos", "Clonagem de Imagens", "ROI Maximizado"]
     },
     {
@@ -110,50 +113,6 @@ const TechnologySection = () => {
   return (
     <section id="technology" className="py-20 relative">
       <div className="container-wide">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center justify-center p-3 rounded-full bg-secondary/10 border border-secondary/20 mb-6">
-            <Cpu className="w-8 h-8 text-secondary" />
-          </div>
-          <h2 className="section-heading max-w-4xl mx-auto">
-            8 Vantagens Competitivas que Ninguém Mais Tem
-          </h2>
-          <p className="body-large max-w-3xl mx-auto">
-            <span className="text-primary font-semibold">Primeiro do mercado</span> a combinar Voice Clone + Lip Sync para clonagem de criativos. 
-            <span className="text-secondary font-semibold">Única plataforma</span> que clona tanto vídeos quanto imagens de alta performance.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {technologies.map((tech, index) => {
-            const IconComponent = tech.icon;
-            
-            return (
-              <div key={index} className="glass-card group hover:scale-105 transition-all duration-300">
-                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/20 mb-6 group-hover:from-primary/20 group-hover:to-secondary/20 transition-colors duration-300">
-                  <IconComponent className="w-6 h-6 text-primary" />
-                </div>
-                
-                <h3 className="text-xl font-bold text-foreground mb-3">
-                  {tech.title}
-                </h3>
-                
-                <p className="text-muted-foreground mb-4 leading-relaxed">
-                  {tech.description}
-                </p>
-                
-                <div className="space-y-2">
-                  {tech.features.map((feature, featureIndex) => (
-                    <div key={featureIndex} className="flex items-center space-x-2">
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                      <span className="text-sm text-muted-foreground">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
         {/* Technology Showcase */}
         <div className="glass-card">
           <div className="grid lg:grid-cols-2 gap-12 items-center">

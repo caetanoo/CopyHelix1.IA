@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Sparkles } from "lucide-react";
 import FuturisticDNA from "./FuturisticDNA";
+import DNATransition from "./DNATransition";
+import MobileDNAVisualization from "./MobileDNAVisualization";
 import { motion } from "framer-motion";
 import { useViewportSize, useIsTouchDevice } from "@/hooks/use-mobile";
 
@@ -13,19 +15,19 @@ const HeroSection = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: category === 'mobile-small' ? 0.15 : 0.2,
-        duration: 0.8
+        staggerChildren: category === 'mobile-small' ? 0.08 : 0.12,
+        duration: 0.5
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.8,
+        duration: 0.6,
         ease: "easeOut"
       }
     }
@@ -97,7 +99,7 @@ const HeroSection = () => {
               >
                 <motion.div
                   animate={{ rotate: 360 }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                 >
                   <Sparkles className="w-3 h-3 mr-1.5 text-primary" />
                 </motion.div>
@@ -109,7 +111,9 @@ const HeroSection = () => {
             {category?.includes('mobile') ? (
               <motion.div 
                 className="space-y-5 text-center"
-                variants={itemVariants}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
               >
                 <h1 className={`font-bold leading-tight ${
                   category === 'mobile-small' 
@@ -220,7 +224,9 @@ const HeroSection = () => {
             {/* CTA Button - Enhanced mobile styling and interactions */}
             <motion.div 
               className={`${category?.includes('mobile') ? 'flex justify-center pt-6' : 'pt-6'}`}
-              variants={itemVariants}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
             >
               <motion.div 
                 whileHover={isTouch ? {} : { scale: 1.05 }} 
@@ -282,143 +288,347 @@ const HeroSection = () => {
               </div>
             )}
             
-            {/* Mobile DNA Interface - Two Cards Layout */}
+            {/* Mobile: Integrated DNA Analysis Experience */}
             {category?.includes('mobile') && (
-              <div className="w-full space-y-4 px-4">
-                {/* Left Card - Sistema Pronto */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="bg-gradient-to-br from-gray-900/90 to-black/70 backdrop-blur-md border border-primary/30 rounded-2xl p-4 space-y-3"
-                >
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-primary rounded-full animate-ping"></div>
-                    <span className="text-sm font-medium text-primary">Sistema Pronto</span>
-                  </div>
-                  
-                  <div className="flex items-center space-x-3">
-                    {/* DNA Animation Left */}
-                    <div className="relative">
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full blur-xl animate-glow-pulse scale-110"></div>
-                      <svg width="40" height="40" viewBox="0 0 40 40" className="relative z-10 text-primary animate-dna-rotate">
-                        <defs>
-                          <linearGradient id="leftCardGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="hsl(142 100% 50%)" />
-                            <stop offset="50%" stopColor="hsl(217 100% 65%)" />
-                            <stop offset="100%" stopColor="hsl(38 92% 50%)" />
-                          </linearGradient>
-                        </defs>
-                        <path
-                          d="M12 6 Q20 14 12 22 Q4 30 12 38 M28 6 Q20 14 28 22 Q36 30 28 38 M12 14 L28 14 M12 22 L28 22 M12 30 L28 30"
-                          stroke="url(#leftCardGradient)"
-                          strokeWidth="1.5"
-                          fill="none"
-                          strokeLinecap="round"
-                        />
-                        <circle cx="12" cy="14" r="1.5" fill="hsl(142 100% 50%)" />
-                        <circle cx="28" cy="14" r="1.5" fill="hsl(217 100% 65%)" />
-                        <circle cx="12" cy="22" r="1.5" fill="hsl(38 92% 50%)" />
-                        <circle cx="28" cy="22" r="1.5" fill="hsl(142 100% 50%)" />
-                        <circle cx="12" cy="30" r="1.5" fill="hsl(217 100% 65%)" />
-                        <circle cx="28" cy="30" r="1.5" fill="hsl(38 92% 50%)" />
-                      </svg>
-                    </div>
-                    
-                    <div className="flex-1">
-                      <div className="text-sm font-medium text-white mb-1">DNA Criativo Detectado</div>
-                      <button className="text-xs text-primary hover:text-primary-glow transition-colors">
-                        Toque para iniciar replicação
-                      </button>
-                    </div>
-                  </div>
-                </motion.div>
-                
-                {/* Right Card - DNA Analysis Result */}
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.5 }}
-                  className="bg-gradient-to-br from-gray-900/90 to-black/70 backdrop-blur-md border border-secondary/30 rounded-2xl p-4 space-y-4"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
-                      <div className="w-2 h-2 bg-secondary rounded-full animate-ping"></div>
-                      <span className="text-sm font-medium text-secondary">DNA Criativo Detectado</span>
-                    </div>
-                    
-                    {/* DNA Animation Right */}
-                    <div className="relative">
-                      <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 to-accent/20 rounded-full blur-lg animate-glow-pulse scale-110"></div>
-                      <svg width="30" height="30" viewBox="0 0 30 30" className="relative z-10 text-secondary animate-dna-rotate">
-                        <defs>
-                          <linearGradient id="rightCardGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="hsl(217 100% 65%)" />
-                            <stop offset="50%" stopColor="hsl(38 92% 50%)" />
-                            <stop offset="100%" stopColor="hsl(142 100% 50%)" />
-                          </linearGradient>
-                        </defs>
-                        <path
-                          d="M9 4 Q15 10 9 16 Q3 22 9 28 M21 4 Q15 10 21 16 Q27 22 21 28 M9 10 L21 10 M9 16 L21 16 M9 22 L21 22"
-                          stroke="url(#rightCardGradient)"
-                          strokeWidth="1.2"
-                          fill="none"
-                          strokeLinecap="round"
-                        />
-                        <circle cx="9" cy="10" r="1" fill="hsl(217 100% 65%)" />
-                        <circle cx="21" cy="10" r="1" fill="hsl(38 92% 50%)" />
-                        <circle cx="9" cy="16" r="1" fill="hsl(142 100% 50%)" />
-                        <circle cx="21" cy="16" r="1" fill="hsl(217 100% 65%)" />
-                        <circle cx="9" cy="22" r="1" fill="hsl(38 92% 50%)" />
-                        <circle cx="21" cy="22" r="1" fill="hsl(142 100% 50%)" />
-                      </svg>
-                    </div>
-                  </div>
-                  
-                  {/* Main Score */}
-                  <div className="text-center space-y-2">
-                    <div className="text-3xl font-bold text-white">94%</div>
-                    <div className="text-sm text-muted-foreground">Pronto para replicar</div>
-                    
-                    {/* Progress Bar */}
-                    <div className="w-full bg-gray-700 rounded-full h-2 mt-3">
-                      <motion.div 
-                        className="bg-gradient-to-r from-secondary to-primary h-2 rounded-full"
-                        initial={{ width: 0 }}
-                        animate={{ width: '94%' }}
-                        transition={{ duration: 2, ease: "easeOut", delay: 0.7 }}
-                      />
-                    </div>
-                    
-                    <div className="flex items-center justify-center space-x-1 mt-2">
-                      <Sparkles className="w-3 h-3 text-secondary" />
-                      <span className="text-xs text-secondary font-medium">Alta precisão</span>
-                    </div>
-                  </div>
-                  
-                  {/* Details Button */}
-                  <button className="w-full text-xs text-muted-foreground hover:text-secondary transition-colors py-2 border-t border-gray-700/50">
-                    Ver detalhes da análise
-                  </button>
-                </motion.div>
-                
-                {/* Central CTA Button */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.7 }}
-                  className="flex justify-center pt-4"
-                >
-                  <motion.button
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => {
-                      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                    className="bg-gradient-to-r from-primary to-primary-glow text-black font-semibold py-4 px-8 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 flex items-center justify-center space-x-2 text-sm"
+              <div className="w-full relative mt-6">
+                {/* Mobile Hero DNA Footer - Replaces empty space */}
+                <div className="relative overflow-hidden">
+                  {/* Enhanced DNA Analysis Preview Cards */}
+                  <motion.div 
+                    className="flex justify-center space-x-3 px-4 mb-8"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1, duration: 0.4 }}
                   >
-                    <span>Replicar Este DNA</span>
-                  </motion.button>
-                </motion.div>
+                    {/* Enhanced DNA Card */}
+                    <motion.div 
+                      className="relative overflow-hidden bg-gradient-to-br from-primary/20 via-primary/10 to-primary/5 backdrop-blur-lg border border-primary/30 rounded-2xl p-4 w-32 h-24 flex flex-col items-center justify-center shadow-lg"
+                      initial={{ opacity: 0, scale: 0.9, rotateY: -10 }}
+                      animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+                      transition={{ delay: 0.1, duration: 0.6, type: "spring" }}
+                      whileHover={{ scale: 1.05, rotateY: 5 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      {/* Animated background glow */}
+                      <motion.div 
+                        className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent rounded-2xl"
+                        animate={{ 
+                          opacity: [0.3, 0.7, 0.3],
+                          backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
+                        }}
+                        transition={{ duration: 3, repeat: Infinity }}
+                      />
+                      {/* DNA Icon with better animation */}
+                      <motion.div 
+                        className="relative z-10 w-8 h-8 bg-gradient-to-br from-primary to-primary-glow rounded-full mb-2 flex items-center justify-center"
+                        animate={{ 
+                          rotate: [0, 180, 360],
+                          scale: [1, 1.1, 1]
+                        }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                      >
+                        <div className="w-3 h-3 bg-white/90 rounded-full" />
+                      </motion.div>
+                      <span className="relative z-10 text-xs font-bold text-primary tracking-wider drop-shadow-sm">DNA</span>
+                    </motion.div>
+                    
+                    {/* Enhanced Analysis Card */}
+                    <motion.div 
+                      className="relative overflow-hidden bg-gradient-to-br from-secondary/20 via-secondary/10 to-secondary/5 backdrop-blur-lg border border-secondary/30 rounded-2xl p-4 w-32 h-24 flex flex-col items-center justify-center shadow-lg"
+                      initial={{ opacity: 0, scale: 0.9, rotateY: -10 }}
+                      animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+                      transition={{ delay: 0.2, duration: 0.6, type: "spring" }}
+                      whileHover={{ scale: 1.05, rotateY: 5 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      {/* Scanning line effect */}
+                      <motion.div 
+                        className="absolute inset-0 bg-gradient-to-b from-transparent via-secondary/20 to-transparent h-1"
+                        animate={{ y: [-20, 80, -20] }}
+                        transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
+                      />
+                      {/* Analysis Icon */}
+                      <motion.div 
+                        className="relative z-10 w-8 h-8 bg-gradient-to-br from-secondary to-secondary-glow rounded-lg mb-2 flex items-center justify-center"
+                        animate={{ 
+                          scale: [1, 1.05, 1],
+                          boxShadow: [
+                            '0 0 10px hsl(217 100% 65% / 0.4)',
+                            '0 0 20px hsl(217 100% 65% / 0.8)', 
+                            '0 0 10px hsl(217 100% 65% / 0.4)'
+                          ]
+                        }}
+                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                      >
+                        <div className="w-2 h-2 bg-white/90 rounded-full" />
+                        <div className="w-2 h-2 bg-white/70 rounded-full ml-0.5" />
+                      </motion.div>
+                      <span className="relative z-10 text-xs font-bold text-secondary tracking-wider drop-shadow-sm">ANÁLISE</span>
+                    </motion.div>
+                    
+                    {/* Enhanced Clone Card */}
+                    <motion.div 
+                      className="relative overflow-hidden bg-gradient-to-br from-accent/20 via-accent/10 to-accent/5 backdrop-blur-lg border border-accent/30 rounded-2xl p-4 w-32 h-24 flex flex-col items-center justify-center shadow-lg"
+                      initial={{ opacity: 0, scale: 0.9, rotateY: -10 }}
+                      animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+                      transition={{ delay: 0.3, duration: 0.6, type: "spring" }}
+                      whileHover={{ scale: 1.05, rotateY: 5 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      {/* Particle effect */}
+                      <motion.div 
+                        className="absolute top-2 left-3 w-1 h-1 bg-accent/60 rounded-full"
+                        animate={{ 
+                          opacity: [0, 1, 0],
+                          scale: [0.5, 1.2, 0.5],
+                          x: [0, 15, 30],
+                          y: [0, -8, -16]
+                        }}
+                        transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
+                      />
+                      <motion.div 
+                        className="absolute bottom-3 right-4 w-1 h-1 bg-accent/60 rounded-full"
+                        animate={{ 
+                          opacity: [0, 1, 0],
+                          scale: [0.5, 1.2, 0.5],
+                          x: [0, -10, -20],
+                          y: [0, 5, 10]
+                        }}
+                        transition={{ duration: 2, repeat: Infinity, repeatDelay: 0.5 }}
+                      />
+                      {/* Clone Icon */}
+                      <motion.div 
+                        className="relative z-10 w-8 h-8 bg-gradient-to-br from-accent to-orange-400 rounded-xl mb-2 flex items-center justify-center"
+                        animate={{ 
+                          rotate: [0, 10, -10, 0],
+                        }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                      >
+                        <div className="flex space-x-0.5">
+                          <div className="w-1.5 h-1.5 bg-white/90 rounded-full" />
+                          <div className="w-1.5 h-1.5 bg-white/70 rounded-full" />
+                        </div>
+                      </motion.div>
+                      <span className="relative z-10 text-xs font-bold text-accent tracking-wider drop-shadow-sm">CLONE</span>
+                    </motion.div>
+                  </motion.div>
+
+                  {/* Enhanced Interactive DNA Visualization */}
+                  <MobileDNAVisualization className="mx-4" />
+
+                  {/* Unified Success Metrics Card */}
+                  <motion.div 
+                    className="mx-4 mt-10"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6, duration: 0.5 }}
+                  >
+                    {/* Main Metrics Container */}
+                    <motion.div 
+                      className="relative overflow-hidden bg-gradient-to-br from-background/80 via-background/60 to-background/40 backdrop-blur-xl border border-primary/20 rounded-3xl p-5 shadow-2xl"
+                      initial={{ scale: 0.95, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ delay: 0.7, duration: 0.6, type: "spring" }}
+                      whileHover={{ scale: 1.02, boxShadow: "0 25px 50px hsl(var(--primary) / 0.15)" }}
+                    >
+                      {/* Animated background effects */}
+                      <motion.div 
+                        className="absolute inset-0 bg-gradient-to-r from-primary/5 via-secondary/5 to-accent/5 rounded-3xl"
+                        animate={{ 
+                          backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+                          opacity: [0.3, 0.6, 0.3]
+                        }}
+                        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                      />
+                      
+                      {/* Floating particles effect */}
+                      <motion.div 
+                        className="absolute top-4 right-6 w-2 h-2 bg-primary/40 rounded-full"
+                        animate={{ 
+                          y: [0, -10, 0],
+                          opacity: [0.4, 0.8, 0.4],
+                          scale: [0.8, 1.2, 0.8]
+                        }}
+                        transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
+                      />
+                      <motion.div 
+                        className="absolute bottom-6 left-8 w-1.5 h-1.5 bg-secondary/40 rounded-full"
+                        animate={{ 
+                          x: [0, 8, 0],
+                          opacity: [0.3, 0.7, 0.3],
+                          scale: [0.9, 1.1, 0.9]
+                        }}
+                        transition={{ duration: 4, repeat: Infinity, delay: 1.2 }}
+                      />
+                      
+                      {/* Header */}
+                      <div className="relative z-10 text-center mb-4">
+                        <motion.h3 
+                          className="text-sm font-bold text-white/90 mb-1 tracking-wider"
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.8, duration: 0.4 }}
+                        >
+                          RESULTADOS COMPROVADOS
+                        </motion.h3>
+                        <motion.div 
+                          className="w-12 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent mx-auto"
+                          initial={{ width: 0 }}
+                          animate={{ width: 48 }}
+                          transition={{ delay: 1, duration: 0.8, ease: "easeOut" }}
+                        />
+                      </div>
+                      
+                      {/* Metrics Grid - Optimized Proportional Layout */}
+                      <div className="relative z-10 grid grid-cols-3 gap-3 px-1">
+                        {/* ROI Metric */}
+                        <motion.div 
+                          className="text-center"
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.9, duration: 0.5 }}
+                        >
+                          <motion.div 
+                            className="text-lg sm:text-xl font-black bg-gradient-to-br from-primary via-primary-glow to-primary/80 bg-clip-text text-transparent mb-0.5 leading-none"
+                            animate={{ 
+                              scale: [1, 1.03, 1],
+                              filter: [
+                                'drop-shadow(0 0 6px hsl(142 100% 50% / 0.3))',
+                                'drop-shadow(0 0 12px hsl(142 100% 50% / 0.5))',
+                                'drop-shadow(0 0 6px hsl(142 100% 50% / 0.3))'
+                              ]
+                            }}
+                            transition={{ duration: 4, repeat: Infinity, delay: 0 }}
+                          >
+                            +247%
+                          </motion.div>
+                          <div className="text-[10px] text-primary/70 font-semibold uppercase tracking-wide leading-tight">
+                            ROI Médio
+                          </div>
+                        </motion.div>
+                        
+                        {/* Precision Metric */}
+                        <motion.div 
+                          className="text-center border-x border-white/10"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 1.0, duration: 0.5 }}
+                        >
+                          <motion.div 
+                            className="text-lg sm:text-xl font-black bg-gradient-to-br from-secondary via-secondary-glow to-secondary/80 bg-clip-text text-transparent mb-0.5 leading-none"
+                            animate={{ 
+                              scale: [1, 1.03, 1],
+                              filter: [
+                                'drop-shadow(0 0 6px hsl(217 100% 65% / 0.3))',
+                                'drop-shadow(0 0 12px hsl(217 100% 65% / 0.5))',
+                                'drop-shadow(0 0 6px hsl(217 100% 65% / 0.3))'
+                              ]
+                            }}
+                            transition={{ duration: 4, repeat: Infinity, delay: 1.3 }}
+                          >
+                            87%
+                          </motion.div>
+                          <div className="text-[10px] text-secondary/70 font-semibold uppercase tracking-wide leading-tight">
+                            Precisão
+                          </div>
+                        </motion.div>
+                        
+                        {/* Conversion Metric */}
+                        <motion.div 
+                          className="text-center"
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 1.1, duration: 0.5 }}
+                        >
+                          <motion.div 
+                            className="text-lg sm:text-xl font-black bg-gradient-to-br from-accent via-orange-400 to-accent/80 bg-clip-text text-transparent mb-0.5 leading-none"
+                            animate={{ 
+                              scale: [1, 1.03, 1],
+                              filter: [
+                                'drop-shadow(0 0 6px hsl(38 92% 50% / 0.3))',
+                                'drop-shadow(0 0 12px hsl(38 92% 50% / 0.5))',
+                                'drop-shadow(0 0 6px hsl(38 92% 50% / 0.3))'
+                              ]
+                            }}
+                            transition={{ duration: 4, repeat: Infinity, delay: 2.6 }}
+                          >
+                            2.4x
+                          </motion.div>
+                          <div className="text-[10px] text-accent/70 font-semibold uppercase tracking-wide leading-tight">
+                            Conversão
+                          </div>
+                        </motion.div>
+                      </div>
+                      
+                      {/* Bottom accent line */}
+                      <motion.div 
+                        className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: [0.3, 0.8, 0.3] }}
+                        transition={{ duration: 3, repeat: Infinity, delay: 2 }}
+                      />
+                      
+                      {/* Corner accent elements */}
+                      <div className="absolute top-3 left-3 w-3 h-3 border-l border-t border-primary/30 rounded-tl-lg" />
+                      <div className="absolute bottom-3 right-3 w-3 h-3 border-r border-b border-accent/30 rounded-br-lg" />
+                    </motion.div>
+                    
+                    {/* Supporting text */}
+                    <motion.p 
+                      className="text-center text-xs text-muted-foreground/70 mt-4 px-2"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 1.3, duration: 0.6 }}
+                    >
+                      *Baseado em análise de +10.000 criativos validados
+                    </motion.p>
+                  </motion.div>
+
+                  {/* Interactive Scroll Indicator */}
+                  <motion.div 
+                    className="flex flex-col items-center mt-6 pb-2"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.8, duration: 0.5 }}
+                  >
+                    <motion.div 
+                      className="text-xs text-muted-foreground mb-2 text-center px-4"
+                      animate={{ opacity: [0.5, 1, 0.5] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    >
+                      Descubra como funciona
+                    </motion.div>
+                    <motion.div 
+                      className="w-6 h-10 border-2 border-primary/30 rounded-full flex justify-center cursor-pointer"
+                      whileTap={{ scale: 0.9 }}
+                      onClick={() => {
+                        const nextSection = document.querySelector('main > section:nth-child(2)');
+                        nextSection?.scrollIntoView({ behavior: 'smooth' });
+                      }}
+                    >
+                      <motion.div 
+                        className="w-1 h-3 bg-primary/50 rounded-full mt-2"
+                        animate={{ 
+                          y: [0, 8, 0],
+                          opacity: [0.3, 1, 0.3]
+                        }}
+                        transition={{ 
+                          duration: 1.5, 
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                    </motion.div>
+                  </motion.div>
+
+                  {/* Visual Transition to Next Section */}
+                  <motion.div 
+                    className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-b from-transparent to-background/20 pointer-events-none"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1.1, duration: 0.8 }}
+                  />
+                </div>
               </div>
             )}
           </motion.div>
