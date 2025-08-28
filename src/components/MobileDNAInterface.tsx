@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Target, Sparkles, ChevronDown, ChevronUp, Play } from "lucide-react";
 import { useViewportSize } from "@/hooks/use-mobile";
-import MobileDNAScore from "./MobileDNAScore";
+import MobileDNAScore from "@/components/MobileDNAScore";
 
 interface MobileDNAInterfaceProps {
   isActive?: boolean;

@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Sparkles } from "lucide-react";
-import FuturisticDNA from "./FuturisticDNA";
-import DNATransition from "./DNATransition";
-import MobileDNAVisualization from "./MobileDNAVisualization";
+import FuturisticDNA from "@/components/FuturisticDNA";
+import DNATransition from "@/components/DNATransition";
+import MobileDNAVisualization from "@/components/MobileDNAVisualization";
 import { motion } from "framer-motion";
 import { useViewportSize, useIsTouchDevice } from "@/hooks/use-mobile";
 

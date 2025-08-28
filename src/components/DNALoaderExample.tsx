@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import DNAAnalysisLoader from './DNAAnalysisLoader';
-import DNAAnalysisLoaderSimple from './DNAAnalysisLoaderSimple';
-import DNAAnalysisLoaderSVG from './DNAAnalysisLoaderSVG';
+import DNAAnalysisLoader from '@/components/DNAAnalysisLoader';
+import DNAAnalysisLoaderSimple from '@/components/DNAAnalysisLoaderSimple';
+import DNAAnalysisLoaderSVG from '@/components/DNAAnalysisLoaderSVG';
 
 type LoaderVariant = 'framer' | 'css' | 'svg';
 
