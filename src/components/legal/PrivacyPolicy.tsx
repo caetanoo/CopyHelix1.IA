@@ -31,7 +31,7 @@ const PrivacyPolicy = () => {
               <p className="text-muted-foreground mb-4">
                 A CopyHelix.ai ("nós", "nosso" ou "nossa") está comprometida em proteger e respeitar a sua privacidade. 
                 Esta Política de Privacidade explica como coletamos, usamos, divulgamos e protegemos as suas informações 
-                quando você utiliza nosso serviço de Personal Creative Intelligence.
+                quando você utiliza nosso Sistema de Análise de DNA Criativo.
               </p>
               <p className="text-muted-foreground">
                 Esta política se aplica a todos os usuários da plataforma CopyHelix.ai e está em conformidade com a 

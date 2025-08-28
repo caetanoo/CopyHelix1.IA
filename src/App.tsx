@@ -17,6 +17,7 @@ import Help from "./pages/Help";
 import Dashboard from "./pages/Dashboard";
 import BetaWaitlist from "./pages/BetaWaitlist";
 import WaitlistDashboard from "./pages/WaitlistDashboard";
+// import FunnelMetricsDashboard from "./components/FunnelMetricsDashboard";
 import BlogPost1 from "./components/blog/BlogPost1";
 import BlogPost2 from "./components/blog/BlogPost2";
 import BlogPost3 from "./components/blog/BlogPost3";
@@ -27,6 +28,7 @@ import PrivacyPolicy from "./components/legal/PrivacyPolicy";
 import TermsOfUse from "./components/legal/TermsOfUse";
 import LGPDCompliance from "./components/legal/LGPDCompliance";
 import CookiePolicy from "./components/legal/CookiePolicy";
+import ChartDemo from "./pages/ChartDemo";
 // AOS disabled for mobile performance
 // import AOS from 'aos';
 // import 'aos/dist/aos.css';
@@ -108,6 +110,11 @@ const App = () => {
                     <WaitlistDashboard />
                   </Suspense>
                 } />
+                {/* <Route path="/funnel-metrics" element={
+                  <Suspense fallback={<MobileLoadingFallback type="page" />}>
+                    <FunnelMetricsDashboard />
+                  </Suspense>
+                } /> */}
                 
                 {/* Blog posts - lowest priority lazy loading */}
                 <Route path="/blog/dna-criativo-performance-marketing-2025" element={
@@ -160,6 +167,11 @@ const App = () => {
                 <Route path="/cookies" element={
                   <Suspense fallback={<MobileLoadingFallback type="page" />}>
                     <CookiePolicy />
+                  </Suspense>
+                } />
+                <Route path="/chart-demo" element={
+                  <Suspense fallback={<MobileLoadingFallback type="page" />}>
+                    <ChartDemo />
                   </Suspense>
                 } />
               </Routes>

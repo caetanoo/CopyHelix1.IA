@@ -97,7 +97,9 @@ const Header = () => {
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <div className="container-wide">
-        <div className="flex items-center justify-between py-4">
+        <div className={`flex items-center justify-between ${
+          category === 'mobile-small' ? 'py-3 px-2' : 'py-4'
+        }`}>
           {/* Logo */}
           <div className="flex items-center gap-3">
             <Logo 
@@ -175,8 +177,11 @@ const Header = () => {
           <motion.button
             ref={buttonRef}
             onClick={toggleMobileMenu}
-            className={`md:hidden p-3 rounded-lg transition-colors duration-200 flex items-center justify-center touch-target
-              ${category === 'mobile-small' ? 'min-h-[48px] min-w-[48px]' : 'min-h-[44px] min-w-[44px]'}
+            className={`md:hidden rounded-lg transition-colors duration-200 flex items-center justify-center touch-target
+              ${category === 'mobile-small' 
+                ? 'min-h-[48px] min-w-[48px] p-2.5' 
+                : 'min-h-[44px] min-w-[44px] p-3'
+              }
               ${isMobileMenuOpen ? 'bg-primary/10' : 'hover:bg-card'}
               ${isTouch ? '' : 'cursor-hover'}`}
             whileHover={{ scale: isTouch ? 1 : 1.1 }}
@@ -218,7 +223,7 @@ const Header = () => {
               ref={menuRef}
               id="mobile-menu"
               className={`md:hidden border-t border-border/50 bg-background/95 backdrop-blur-xl
-                ${category === 'mobile-small' ? 'py-3' : 'py-4'}`}
+                ${category === 'mobile-small' ? 'py-3 mx-2' : 'py-4'}`}
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
@@ -226,7 +231,7 @@ const Header = () => {
               role="navigation"
               aria-label="Menu de navegação móvel"
             >
-              <nav className={`flex flex-col ${category === 'mobile-small' ? 'space-y-3' : 'space-y-4'}`}>
+              <nav className={`flex flex-col ${category === 'mobile-small' ? 'space-y-2.5' : 'space-y-4'}`}>
                 {[
                   { name: 'Sobre', href: '/sobre' },
                   { name: 'Blog', href: '/blog' },
@@ -240,7 +245,7 @@ const Header = () => {
                       handleNavigation(item.href);
                     }}
                     className={`text-muted-foreground hover:text-foreground transition-colors duration-200 text-left
-                      ${category === 'mobile-small' ? 'py-1.5 text-base' : 'py-2 text-lg'}
+                      ${category === 'mobile-small' ? 'py-2 text-base px-2' : 'py-2 text-lg'}
                       ${isTouch ? 'active:text-primary' : 'cursor-hover'}
                       touch-target flex items-center`}
                     initial={{ opacity: 0, x: -20 }}
@@ -253,18 +258,26 @@ const Header = () => {
                   </motion.button>
                 ))}
                 <motion.div 
-                  className="pt-4 border-t border-border/50"
+                  className={`border-t border-border/50 ${
+                    category === 'mobile-small' ? 'pt-3 mt-2' : 'pt-4 mt-4'
+                  }`}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4, duration: 0.3 }}
                 >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-card border border-border cursor-hover">
+                  <div className={`flex items-center justify-between ${
+                    category === 'mobile-small' ? 'px-2' : ''
+                  }`}>
+                    <div className={`flex items-center space-x-2 rounded-lg bg-card border border-border cursor-hover ${
+                      category === 'mobile-small' ? 'px-2 py-1.5' : 'px-3 py-2'
+                    }`}>
                       <Globe className="w-4 h-4 text-muted-foreground" />
                       <span className="text-sm font-medium text-foreground">PT</span>
                     </div>
                     <Button 
-                      className="btn-primary cursor-hover"
+                      className={`btn-primary cursor-hover ${
+                        category === 'mobile-small' ? 'text-sm px-4 py-2 h-10' : ''
+                      }`}
                       onClick={() => {
                         setIsMobileMenuOpen(false);
                         if (location.pathname !== '/') {

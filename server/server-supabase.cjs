@@ -80,43 +80,85 @@ app.post('/api/meetings', async (req, res) => {
   }
 });
 
-// 2. Salvar contato geral
+// 2. Salvar contato geral (otimizado para formulário simplificado)
 app.post('/api/contacts', async (req, res) => {
   try {
     const { 
-      name, email, subject, message, priority, source,
-      role, company_size, main_challenge, monthly_investment, pricing_expectation, current_solution, feedback
+      name, 
+      email, 
+      phone,
+      role, 
+      main_challenge,
+      subject, 
+      message, 
+      priority, 
+      source,
+      company_size, 
+      monthly_investment, 
+      pricing_expectation, 
+      current_solution, 
+      feedback
     } = req.body;
 
-    if (!name || !email) {
+    // Validação otimizada para formulário simplificado
+    if (!name || !email || !role || !main_challenge) {
       return res.status(400).json({ 
         success: false, 
-        message: 'Nome e email são obrigatórios' 
+        message: 'Nome, email, função e principal desafio são obrigatórios' 
       });
     }
 
-    const contact = await saveContact({
-      name,
-      email,
-      subject,
-      message,
+    // Validação de nome - mínimo 2 caracteres
+    if (name.trim().length < 2) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Nome deve ter pelo menos 2 caracteres' 
+      });
+    }
+
+    // Validação de email básica (após sanitização)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Email deve ter um formato válido' 
+      });
+    }
+
+    // Construir dados otimizados para o formulário simplificado
+    const contactData = {
+      name: name.trim(),
+      email: email.toLowerCase().trim(),
+      phone: phone ? phone.trim() : null,
+      role: role.trim(),
+      main_challenge: main_challenge.trim(),
+      subject: subject || `Novo lead: ${name} - ${role}`,
+      message: message || `Desafio principal: ${main_challenge}${phone ? `\nTelefone: ${phone}` : ''}`,
       priority: priority || 'normal',
-      source: source || 'contact_form',
-      role,
+      source: source || 'beta_form_simplified',
       company_size,
-      main_challenge,
       monthly_investment,
       pricing_expectation,
       current_solution,
       feedback,
       status: 'new'
-    });
+    };
+
+    const contact = await saveContact(contactData);
 
     res.json({
       success: true,
       message: 'Contato salvo com sucesso!',
       id: contact.id,
-      contact
+      contact: {
+        id: contact.id,
+        name: contact.name,
+        email: contact.email,
+        role: contact.role,
+        main_challenge: contact.main_challenge,
+        source: contact.source,
+        created_at: contact.created_at
+      }
     });
 
   } catch (error) {
@@ -124,7 +166,7 @@ app.post('/api/contacts', async (req, res) => {
     res.status(500).json({ 
       success: false, 
       message: 'Erro interno do servidor',
-      error: error.message 
+      error: process.env.NODE_ENV === 'development' ? error.message : 'Erro interno'
     });
   }
 });

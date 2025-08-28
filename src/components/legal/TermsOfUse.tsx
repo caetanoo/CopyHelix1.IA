@@ -30,7 +30,7 @@ const TermsOfUse = () => {
               <h2 className="text-2xl font-semibold text-foreground mb-4">1. Aceitação dos Termos</h2>
               <p className="text-muted-foreground mb-4">
                 Bem-vindo à CopyHelix.ai. Estes Termos de Uso ("Termos") regem o uso da nossa plataforma 
-                de Personal Creative Intelligence e todos os serviços relacionados ("Serviços"). 
+                de Análise de DNA Criativo e todos os serviços relacionados ("Serviços"). 
                 Ao acessar ou usar nossos Serviços, você concorda em ficar vinculado a estes Termos.
               </p>
               <p className="text-muted-foreground">
@@ -45,7 +45,7 @@ const TermsOfUse = () => {
               </p>
               <ul className="list-disc list-inside text-muted-foreground space-y-2">
                 <li>Analisa o "DNA genético" de criativos publicitários de alto desempenho</li>
-                <li>Cria uma Personal Creative Intelligence baseada nos seus criativos vencedores</li>
+                <li>Desenvolve um Sistema de Replicação Criativa baseado nos seus criativos vencedores</li>
                 <li>Gera variações infinitas mantendo o DNA de sucesso original</li>
                 <li>Fornece análises preditivas de performance</li>
                 <li>Oferece ferramentas de otimização criativa</li>

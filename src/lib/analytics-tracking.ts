@@ -1,6 +1,31 @@
 /**
  * Google Analytics 4 Tracking Functions for CopyHelix.ai
  * Centralized analytics tracking with Brazilian market focus
+ * 
+ * SIMPLIFIED FORM TRACKING - 5 Essential Fields Only:
+ * 1. name (string) - obrigatório
+ * 2. email (string) - obrigatório  
+ * 3. phone (string) - opcional
+ * 4. role (string) - obrigatório
+ * 5. main_challenge (string) - obrigatório
+ * 
+ * Form Progress Sections:
+ * - basic_info (20%): name, email collected
+ * - contact_role (40%): phone, role added  
+ * - challenge_complete (60%): main_challenge completed
+ * - validation (80%): form validation passed
+ * - submission (100%): successful form submission
+ * 
+ * Main Functions for Form Integration:
+ * - trackWaitlistSignup(data): Track completed form submission
+ * - trackFormStart(formType): Track when user starts filling form
+ * - trackFormProgress(data): Track form completion progress
+ * - trackFormAbandonment(data): Track when user abandons form
+ * - getFormProgressData(completedFields): Helper to calculate progress
+ * - setUserProperties({role, main_challenge}): Set user segmentation
+ * 
+ * Removed Fields: company, company_size, monthly_investment, pricing_expectation,
+ * current_solution, acquisition_channel, urgency, feedback
  */
 
 // Declare gtag function for TypeScript
@@ -43,26 +68,15 @@ const safeGtagEvent = (eventName: string, parameters: any) => {
 export const trackWaitlistSignup = (data: {
   name: string;
   email: string;
-  company: string;
-  role: string;
-  company_size: string;
-  main_challenge: string;
-  monthly_investment: string;
-  pricing_expectation: string;
-  current_solution?: string;
   phone?: string;
-  feedback?: string;
+  role: string;
+  main_challenge: string;
 }) => {
   // Main signup event
   safeGtagEvent('sign_up', {
     method: 'waitlist_form',
     user_segment: data.role || 'unknown',
-    company_size: data.company_size || 'unknown',
-    monthly_investment: data.monthly_investment || 'unknown',
-    pricing_expectation: data.pricing_expectation || 'unknown',
     main_challenge: data.main_challenge || 'unknown',
-    current_solution: data.current_solution || 'unknown',
-    company_name: data.company,
     form_completion_source: 'dna_analysis_form',
     currency: 'BRL',
     value: 1,
@@ -90,8 +104,7 @@ export const trackWaitlistSignup = (data: {
     currency: 'BRL',
     lead_source: 'organic_website',
     lead_quality_score: calculateLeadScore(data),
-    user_segment: data.role,
-    investment_tier: data.monthly_investment
+    user_segment: data.role
   });
 };
 
@@ -135,22 +148,15 @@ export const trackWhatsAppContact = (data: {
 export const trackMeetingScheduled = (data: {
   name: string;
   email: string;
-  company: string;
+  phone?: string;
   role: string;
-  company_size: string;
   main_challenge: string;
-  monthly_investment: string;
-  pricing_expectation: string;
   preferred_date: string;
   preferred_time: string;
-  phone?: string;
 }) => {
   safeGtagEvent('schedule_meeting', {
     method: 'meeting_form',
     user_segment: data.role || 'unknown',
-    company_size: data.company_size || 'unknown',
-    monthly_investment: data.monthly_investment || 'unknown',
-    pricing_expectation: data.pricing_expectation || 'unknown',
     main_challenge: data.main_challenge || 'unknown',
     meeting_date: data.preferred_date,
     meeting_time: data.preferred_time,
@@ -168,7 +174,6 @@ export const trackMeetingScheduled = (data: {
     lead_source: 'direct_meeting_request',
     lead_quality_score: calculateLeadScore(data),
     user_segment: data.role,
-    investment_tier: data.monthly_investment,
     intent_level: 'very_high'
   });
 };
@@ -192,11 +197,12 @@ export const trackFormStart = (formType: 'waitlist' | 'meeting' | 'demo') => {
 
 /**
  * Track form progress (User completes form sections)
+ * Progress sections: basic_info (20%), contact_role (40%), challenge_complete (60%), validation (80%), submission (100%)
  */
 export const trackFormProgress = (data: {
   form_type: 'waitlist' | 'meeting' | 'demo';
-  progress_percentage: number;
-  completed_sections: string[];
+  progress_percentage: 20 | 40 | 60 | 80 | 100;
+  completed_sections: ('basic_info' | 'contact_role' | 'challenge_complete')[];
   time_spent_seconds?: number;
 }) => {
   safeGtagEvent('form_progress', {
@@ -286,55 +292,81 @@ export const trackTimeOnPage = (timeSeconds: number) => {
 // ========================================
 
 /**
- * Calculate lead quality score based on user data
+ * Get form progress data for simplified 5-field form
  */
-const calculateLeadScore = (data: any): number => {
+export const getFormProgressData = (completedFields: string[]): {
+  progress_percentage: 20 | 40 | 60 | 80 | 100;
+  completed_sections: ('basic_info' | 'contact_role' | 'challenge_complete')[];
+} => {
+  const sections: ('basic_info' | 'contact_role' | 'challenge_complete')[] = [];
+  let progress: 20 | 40 | 60 | 80 | 100 = 20;
+
+  // Basic info section (name, email)
+  if (completedFields.includes('name') && completedFields.includes('email')) {
+    sections.push('basic_info');
+    progress = 20;
+  }
+
+  // Contact role section (phone, role)
+  if (completedFields.includes('role')) {
+    sections.push('contact_role');
+    progress = 40;
+  }
+
+  // Challenge complete section (main_challenge)
+  if (completedFields.includes('main_challenge')) {
+    sections.push('challenge_complete');
+    progress = 60;
+  }
+
+  // Validation passed
+  if (sections.length === 3) {
+    progress = 80;
+  }
+
+  // Form submitted (this should be set externally when form is actually submitted)
+  // progress = 100; // Set this when form submission is successful
+
+  return { progress_percentage: progress, completed_sections: sections };
+};
+
+/**
+ * Calculate lead quality score based on simplified user data
+ * Simplified scoring based only on role and main_challenge
+ */
+const calculateLeadScore = (data: { role?: string; main_challenge?: string }): number => {
   let score = 0;
   
-  // Role scoring
+  // Role scoring (more important weight since we have fewer fields)
   const roleScores: { [key: string]: number } = {
-    'ceo-founder': 10,
-    'diretor-marketing': 8,
-    'gestor-trafego': 7,
-    'infoprodutor': 7,
-    'social-media': 5,
-    'freelancer': 5,
-    'analista': 4,
-    'designer': 4
+    'ceo-founder': 25,
+    'diretor-marketing': 20,
+    'gestor-trafego': 18,
+    'infoprodutor': 18,
+    'social-media': 12,
+    'freelancer': 12,
+    'analista': 10,
+    'designer': 10
   };
-  score += roleScores[data.role] || 3;
+  score += roleScores[data.role || ''] || 8;
 
-  // Investment tier scoring
-  const investmentScores: { [key: string]: number } = {
-    'mais-100k': 15,
-    '50k-100k': 12,
-    '15k-50k': 10,
-    '5k-15k': 7,
-    'ate-5k': 4
+  // Challenge urgency scoring (indicates immediate need)
+  const challengeScores: { [key: string]: number } = {
+    'baixa-conversao': 25,     // High urgency - direct revenue impact
+    'falta-tempo': 20,         // High urgency - operational pain
+    'conteudo-generico': 18,   // Medium-high urgency - competitive issue
+    'sem-estrategia': 15,      // Medium urgency - foundational need
+    'custos-altos': 22,        // High urgency - financial pressure
+    'equipe-limitada': 17,     // Medium urgency - resource constraint
+    'resultados-lentos': 20,   // High urgency - performance issue
+    'outros': 10               // Low urgency - unclear need
   };
-  score += investmentScores[data.monthly_investment] || 2;
+  score += challengeScores[data.main_challenge || ''] || 10;
 
-  // Company size scoring
-  const sizeScores: { [key: string]: number } = {
-    'agencia-grande': 10,
-    'agencia-media': 8,
-    'empresa': 8,
-    'agencia-pequena': 6,
-    'startup': 5,
-    'freelancer': 3
-  };
-  score += sizeScores[data.company_size] || 2;
-
-  // Pricing expectation scoring
-  const pricingScores: { [key: string]: number } = {
-    'mais-997': 10,
-    '597-997': 8,
-    '297-597': 7,
-    '97-297': 5,
-    'ate-97': 3,
-    'nao-pagaria': 0
-  };
-  score += pricingScores[data.pricing_expectation] || 2;
+  // Bonus for having both key fields (completeness indicator)
+  if (data.role && data.main_challenge) {
+    score += 15;
+  }
 
   return Math.min(score, 100); // Cap at 100
 };
@@ -369,11 +401,10 @@ export const trackPageView = (pagePath?: string) => {
 
 /**
  * Set user properties for better segmentation
+ * Simplified to track only essential properties: role and main_challenge
  */
 export const setUserProperties = (properties: {
-  user_segment?: string;
-  company_size?: string;
-  monthly_investment?: string;
+  role?: string;
   main_challenge?: string;
   is_returning_visitor?: boolean;
 }) => {
@@ -381,19 +412,16 @@ export const setUserProperties = (properties: {
     window.gtag('config', 'G-17VB01E74G', {
       custom_map: {
         'user_segment': 'custom_parameter_1',
-        'monthly_investment': 'custom_parameter_2',  
-        'company_size': 'custom_parameter_3',
-        'main_challenge': 'custom_parameter_4'
+        'main_challenge': 'custom_parameter_2'
       }
     });
 
     // Set user properties
     window.gtag('set', {
       user_properties: {
-        user_segment: properties.user_segment || 'unknown',
-        company_size: properties.company_size || 'unknown',
-        monthly_investment: properties.monthly_investment || 'unknown',
-        main_challenge: properties.main_challenge || 'unknown'
+        user_segment: properties.role || 'unknown',
+        main_challenge: properties.main_challenge || 'unknown',
+        is_returning_visitor: properties.is_returning_visitor || false
       }
     });
   }
@@ -405,6 +433,7 @@ export const setUserProperties = (properties: {
 
 /**
  * Initialize analytics with Brazilian market configuration
+ * Simplified configuration for essential tracking only
  */
 export const initializeAnalytics = () => {
   if (isGtagAvailable()) {
@@ -416,17 +445,14 @@ export const initializeAnalytics = () => {
       time_zone: 'America/Sao_Paulo',
       send_page_view: true,
       
-      // Custom parameter mapping
+      // Simplified custom parameter mapping for essential fields only
       custom_map: {
         'user_segment': 'custom_parameter_1',
-        'monthly_investment': 'custom_parameter_2',
-        'company_size': 'custom_parameter_3',
-        'main_challenge': 'custom_parameter_4',
-        'pricing_expectation': 'custom_parameter_5'
+        'main_challenge': 'custom_parameter_2'
       }
     });
     
-    console.log('📊 CopyHelix Analytics initialized for Brazilian market');
+    console.log('📊 CopyHelix Analytics initialized for Brazilian market (Simplified Version)');
   }
 };
 

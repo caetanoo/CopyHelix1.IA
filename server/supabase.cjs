@@ -142,22 +142,23 @@ async function saveMeeting(meetingData) {
 }
 
 /**
- * Salvar um novo contato
+ * Salvar um novo contato (otimizado para formulário simplificado)
  */
 async function saveContact(contactData) {
   try {
-    // Primeiro, tentar inserir com todas as colunas
-    const fullData = {
-      name: contactData.name,
-      email: contactData.email,
-      subject: contactData.subject,
-      message: contactData.message,
+    // Sanitizar e validar dados de entrada
+    const sanitizedData = {
+      name: contactData.name?.trim(),
+      email: contactData.email?.toLowerCase().trim(),
+      phone: contactData.phone?.trim() || null,
+      subject: contactData.subject?.trim(),
+      message: contactData.message?.trim(),
       priority: contactData.priority || 'normal',
       source: contactData.source || 'contact_form',
       status: contactData.status || 'new',
-      role: contactData.role,
+      role: contactData.role?.trim(),
       company_size: contactData.company_size,
-      main_challenge: contactData.main_challenge,
+      main_challenge: contactData.main_challenge?.trim(),
       monthly_investment: contactData.monthly_investment,
       pricing_expectation: contactData.pricing_expectation,
       current_solution: contactData.current_solution,
@@ -166,40 +167,54 @@ async function saveContact(contactData) {
       updated_at: new Date().toISOString()
     };
 
+    // Remover campos undefined/null para otimização
+    Object.keys(sanitizedData).forEach(key => {
+      if (sanitizedData[key] === undefined || sanitizedData[key] === '') {
+        delete sanitizedData[key];
+      }
+    });
+
     const { data, error } = await supabase
       .from('contacts')
-      .insert([fullData])
+      .insert([sanitizedData])
       .select();
 
     if (error) {
-      // Se houver erro de coluna não encontrada, tentar com dados básicos
+      // Se houver erro de coluna não encontrada, tentar com dados essenciais
       if (error.message.includes('column') && (error.message.includes('does not exist') || error.message.includes('schema cache'))) {
-        console.log('⚠️ Algumas colunas não existem, tentando com dados básicos...');
+        console.log('⚠️ Algumas colunas não existem, tentando com dados essenciais...');
         
-        const basicData = {
-          name: contactData.name,
-          email: contactData.email,
-          subject: contactData.subject,
-          message: contactData.message,
-          priority: contactData.priority || 'normal',
-          source: contactData.source || 'contact_form',
-          status: contactData.status || 'new',
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
+        const essentialData = {
+          name: sanitizedData.name,
+          email: sanitizedData.email,
+          subject: sanitizedData.subject,
+          message: sanitizedData.message,
+          priority: sanitizedData.priority,
+          source: sanitizedData.source,
+          status: sanitizedData.status,
+          created_at: sanitizedData.created_at,
+          updated_at: sanitizedData.updated_at
         };
+
+        // Remover campos undefined/null
+        Object.keys(essentialData).forEach(key => {
+          if (essentialData[key] === undefined || essentialData[key] === null) {
+            delete essentialData[key];
+          }
+        });
 
         const { data: basicResult, error: basicError } = await supabase
           .from('contacts')
-          .insert([basicData])
+          .insert([essentialData])
           .select();
 
         if (basicError) throw basicError;
         
-        console.log('✅ Contato salvo com dados básicos no Supabase:', {
+        console.log('✅ Contato salvo com dados essenciais no Supabase:', {
           id: basicResult[0].id,
-          name: contactData.name,
-          email: contactData.email,
-          subject: contactData.subject
+          name: sanitizedData.name,
+          email: sanitizedData.email,
+          source: sanitizedData.source
         });
         
         return basicResult[0];
@@ -210,11 +225,11 @@ async function saveContact(contactData) {
     
     console.log('✅ Contato salvo no Supabase:', {
       id: data[0].id,
-      name: contactData.name,
-      email: contactData.email,
-      subject: contactData.subject,
-      role: contactData.role,
-      company_size: contactData.company_size
+      name: sanitizedData.name,
+      email: sanitizedData.email,
+      role: sanitizedData.role,
+      main_challenge: sanitizedData.main_challenge,
+      source: sanitizedData.source
     });
     
     return data[0];

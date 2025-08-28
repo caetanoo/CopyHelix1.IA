@@ -1,8 +1,10 @@
 import { Mail, Phone, MapPin, X } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useViewportSize } from "@/hooks/use-mobile";
 import Logo from "@/components/Logo";
 
 const Footer = () => {
+  const { category } = useViewportSize();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -47,20 +49,40 @@ const Footer = () => {
 
   return (
     <footer className="bg-card/30 border-t border-border/50">
-      <div className="container-wide py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
+      <div className={`container-wide ${
+        category === 'mobile-small' 
+          ? 'py-12 px-3' 
+          : category?.includes('mobile') 
+            ? 'py-14' 
+            : 'py-16'
+      }`}>
+        <div className={`grid gap-8 ${
+          category?.includes('mobile') 
+            ? 'grid-cols-1 space-y-6' 
+            : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-6'
+        }`}>
           {/* Brand */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className={`space-y-6 ${
+            category?.includes('mobile') ? 'text-center' : 'lg:col-span-2'
+          }`}>
             <Logo 
               onClick={() => handleNavigation('/')}
               className="inline-block"
             />
-            <p className="text-muted-foreground max-w-sm">
+            <p className={`text-muted-foreground ${
+              category === 'mobile-small' 
+                ? 'text-sm max-w-xs mx-auto' 
+                : category?.includes('mobile') 
+                  ? 'text-sm max-w-sm mx-auto' 
+                  : 'max-w-sm'
+            }`}>
               A primeira IA que decodifica o DNA dos criativos vencedores e replica esse sucesso infinitamente.
             </p>
             
             {/* Contact Info */}
-            <div className="space-y-3">
+            <div className={`space-y-3 ${
+              category?.includes('mobile') ? 'flex flex-col items-center' : ''
+            }`}>
               <div className="flex items-center space-x-3 text-sm text-muted-foreground">
                 <Mail className="w-4 h-4" />
                 <span>contato@copyhelix.ai</span>
@@ -77,9 +99,15 @@ const Footer = () => {
           </div>
 
           {/* Links */}
-          <div className="space-y-4">
-            <h3 className="font-semibold text-foreground">Produto</h3>
-            <ul className="space-y-2">
+          <div className={`space-y-4 ${
+            category?.includes('mobile') ? 'text-center' : ''
+          }`}>
+            <h3 className={`font-semibold text-foreground ${
+              category === 'mobile-small' ? 'text-base' : ''
+            }`}>Produto</h3>
+            <ul className={`space-y-2 ${
+              category?.includes('mobile') ? 'flex flex-col items-center' : ''
+            }`}>
               {footerLinks.produto.map((link) => (
                 <li key={link.name}>
                   <button 
@@ -93,9 +121,15 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="space-y-4">
-            <h3 className="font-semibold text-foreground">Empresa</h3>
-            <ul className="space-y-2">
+          <div className={`space-y-4 ${
+            category?.includes('mobile') ? 'text-center' : ''
+          }`}>
+            <h3 className={`font-semibold text-foreground ${
+              category === 'mobile-small' ? 'text-base' : ''
+            }`}>Empresa</h3>
+            <ul className={`space-y-2 ${
+              category?.includes('mobile') ? 'flex flex-col items-center' : ''
+            }`}>
               {footerLinks.empresa.map((link) => (
                 <li key={link.name}>
                   <button 
@@ -109,9 +143,15 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="space-y-4">
-            <h3 className="font-semibold text-foreground">Suporte</h3>
-            <ul className="space-y-2">
+          <div className={`space-y-4 ${
+            category?.includes('mobile') ? 'text-center' : ''
+          }`}>
+            <h3 className={`font-semibold text-foreground ${
+              category === 'mobile-small' ? 'text-base' : ''
+            }`}>Suporte</h3>
+            <ul className={`space-y-2 ${
+              category?.includes('mobile') ? 'flex flex-col items-center' : ''
+            }`}>
               {footerLinks.suporte.map((link) => (
                 <li key={link.name}>
                   <button 
@@ -125,9 +165,15 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="space-y-4">
-            <h3 className="font-semibold text-foreground">Legal</h3>
-            <ul className="space-y-2">
+          <div className={`space-y-4 ${
+            category?.includes('mobile') ? 'text-center' : ''
+          }`}>
+            <h3 className={`font-semibold text-foreground ${
+              category === 'mobile-small' ? 'text-base' : ''
+            }`}>Legal</h3>
+            <ul className={`space-y-2 ${
+              category?.includes('mobile') ? 'flex flex-col items-center' : ''
+            }`}>
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
                   <button 
@@ -143,9 +189,21 @@ const Footer = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="mt-12 pt-8 border-t border-border/30">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="text-sm text-muted-foreground">
+        <div className={`border-t border-border/30 ${
+          category === 'mobile-small' 
+            ? 'mt-8 pt-6' 
+            : category?.includes('mobile') 
+              ? 'mt-10 pt-7' 
+              : 'mt-12 pt-8'
+        }`}>
+          <div className={`flex items-center justify-between gap-4 ${
+            category?.includes('mobile') 
+              ? 'flex-col space-y-3' 
+              : 'flex-col md:flex-row'
+          }`}>
+            <div className={`text-muted-foreground ${
+              category === 'mobile-small' ? 'text-xs text-center' : 'text-sm'
+            }`}>
               © {new Date().getFullYear()} CopyHelix.ai. Todos os direitos reservados.
             </div>
 

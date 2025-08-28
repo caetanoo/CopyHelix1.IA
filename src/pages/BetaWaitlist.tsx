@@ -35,8 +35,8 @@ const BetaWaitlist = () => {
   // SEO optimization
   useSEO({
     title: "Lista de Espera Beta - CopyHelix.ai | Acesso Prioritário Garantido",
-    description: "Você está na lista de espera beta do CopyHelix.ai! Acesso prioritário, desconto vitalício e benefícios exclusivos para early adopters.",
-    keywords: "copyhelix beta, lista espera, early access, desconto vitalício, beta tester"
+    description: "Você está na lista de espera beta do CopyHelix.ai! Acesso prioritário, desconto especial e benefícios exclusivos para early adopters.",
+    keywords: "copyhelix beta, lista espera, early access, desconto exclusivo, beta tester"
   });
 
   // Get user data from localStorage (if redirected from form)
@@ -98,8 +98,8 @@ const BetaWaitlist = () => {
   const exclusiveBenefits = [
     {
       icon: Crown,
-      title: "Acesso VIP Vitalício",
-      description: "50% de desconto para sempre + funcionalidades premium gratuitas",
+      title: "Acesso VIP Exclusivo",
+      description: "50% de desconto especial + funcionalidades premium gratuitas",
       value: "R$ 2.400/ano de economia"
     },
     {

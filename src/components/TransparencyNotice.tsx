@@ -18,7 +18,7 @@ const TransparencyNotice = ({ type = 'demo', userName }: TransparencyNoticeProps
           timeline: "Previsão de lançamento: Q4 2025",
           benefits: [
             "Acesso antecipado à plataforma",
-            "50% de desconto vitalício",
+            "50% de desconto exclusivo",
             "Sessão de onboarding personalizada",
             "Suporte prioritário"
           ]
@@ -32,7 +32,7 @@ const TransparencyNotice = ({ type = 'demo', userName }: TransparencyNoticeProps
           timeline: "Beta disponível: Outubro 2025",
           benefits: [
             "Primeira turma de beta testers",
-            "Desconto vitalício de 50%",
+            "Desconto exclusivo de 50%",
             "Análise gratuita de 1 criativo completa",
             "Acesso direto ao time de desenvolvimento"
           ]
